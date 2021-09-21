@@ -23,6 +23,28 @@
         ></v-text-field>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col
+        cols="12"
+        sm="12"
+      >
+        <v-btn
+          color="primary"
+          elevation="2"
+          v-on:click="generationTxt"
+        >Generate Txt</v-btn>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="12"
+      >
+        <v-textarea
+          solo
+          readonly
+          :value="weapon_txt"
+        ></v-textarea>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -30,6 +52,16 @@
   import Vue from 'vue'
 
   export default Vue.extend({
-    name: 'Weapons'
+    name: 'Weapons',
+    data: () => ({
+      weapon_txt: 'none'
+    }),
+    computed: {
+    },
+    methods: {
+      generationTxt: function () {
+        this.weapon_txt = this.$store.state.base_weapon_txt
+      }
+    }
   })
 </script>
