@@ -58,7 +58,7 @@
     data: () => ({
       weapon_txt: 'none',
       pr_printname: '',
-      pr_ammo_clip_size: 20
+      pr_ammo_clip_size: '20'
     }),
     computed: {
     },
