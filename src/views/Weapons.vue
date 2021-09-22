@@ -64,17 +64,20 @@
     },
     methods: {
       generationTxt: function () {
-        this.weapon_txt = this.$store.state.base_weapon_txt
+        let weapon_dict = {
+          printname: this.pr_printname,
+          shortprintname: this.pr_printname,
+          description: this.pr_printname,
+          longdesc: this.pr_printname,
 
-        this.weapon_txt += (
-          '"printname"  "' + this.pr_printname +
-          '"\n"shortprintname"  "' + this.pr_printname +
-          '"\n"description"  "' + this.pr_printname +
-          '"\n"longdesc"  "' + this.pr_printname + '"\n\n'
-        )
-
-        this.weapon_txt += '"ammo_clip_size"  ' + this.pr_ammo_clip_size + '"\n\n'
-        this.weapon_txt += '}'
+          ammo_clip_size: this.pr_ammo_clip_size
+        }
+        this.weapon_txt = JSON.stringify(weapon_dict)
+        this.weapon_txt = 'WeaponData\n' + this.weapon_txt
+        this.weapon_txt = this.weapon_txt.replaceAll('":', '"  ')
+        this.weapon_txt = this.weapon_txt.replaceAll('","', '"\n"')
+        this.weapon_txt = this.weapon_txt.replaceAll('\n{', '\n{\n')
+        this.weapon_txt = this.weapon_txt.replaceAll('}', '\n}')
       }
     }
   })
