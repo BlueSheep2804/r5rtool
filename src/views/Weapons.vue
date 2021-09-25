@@ -93,8 +93,8 @@
           case 'g2a4':
             model_path = 'g2'
             break
-          case 'hemlock':
-            model_path = 'm1a1_hemlock'
+          case 'hemlok':
+            model_path = 'm1a1_hemlok'
             break
           case 'mastiff':
             model_path = 'mastiff_stgn'

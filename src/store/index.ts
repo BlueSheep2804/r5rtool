@@ -30,7 +30,7 @@ export default new Vuex.Store({
       {text: 'Flatline', value: 'flatline'},
       {text: 'G7 Scout', value: 'g7'},
       {text: 'Havoc', value: 'energy_ar'},
-      {text: 'Hemlock', value: 'hemlock'},
+      {text: 'Hemlok', value: 'hemlok'},
       {text: 'Kraber', value: 'sniper'},
       {text: 'Longbow DMR', value: 'longbow'},
       {text: 'LStar', value: 'lstar'},
@@ -54,7 +54,7 @@ export default new Vuex.Store({
       {text: 'Flatline', value: 'vinson'},
       {text: 'G7 Scout', value: 'g2a4'}, //g2
       {text: 'Havoc', value: 'beam_ar'},
-      {text: 'Hemlock', value: 'hemlock'}, //m1a1_hemlock
+      {text: 'Hemlok', value: 'hemlok'}, //m1a1_hemlok
       {text: 'Kraber', value: 'at_rifle'},
       {text: 'Longbow DMR', value: 'rspn101_dmr'},
       {text: 'LStar', value: 'lstar'},
