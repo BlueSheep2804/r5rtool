@@ -6,6 +6,16 @@
       placeholder="例: R-99"
       weaponKey="printname"
     ></property-input>
+    <property-select
+      label="アイコン"
+      :items="calledWeaponIcon"
+      weaponKey="icon"
+    ></property-select>
+    <property-select
+      label="モデル"
+      :items="calledWeaponModel"
+      weaponKey="model"
+    ></property-select>
     <property-input
       label="ダメージ"
       type="number"
@@ -53,24 +63,54 @@
 <script lang="ts">
   import Vue from 'vue'
   import PropertyInput from '../components/PropertyInput.vue'
+  import PropertySelect from '../components/PropertySelect.vue'
 
   export default Vue.extend({
     name: 'Weapons',
     components: {
-      PropertyInput
+      PropertyInput,
+      PropertySelect
     },
     data: () => ({
       weapon_txt: 'none',
     }),
     computed: {
+      calledWeaponIcon: function() {
+        return this.$store.state.calledWeaponIcon
+      },
+      calledWeaponModel: function() {
+        return this.$store.state.calledWeaponModel
+      }
     },
     methods: {
       generationTxt: function () {
+        const icon = this.$store.state.weapon.icon
+        const model = this.$store.state.weapon.model
+
+        let model_path = model
+        switch (model) {
+          case 'g2a4':
+            model_path = 'g2'
+            break
+          case 'hemlock':
+            model_path = 'm1a1_hemlock'
+            break
+          case 'mastiff':
+            model_path = 'mastiff_stgn'
+            break
+        }
+
         let weapon_dict = {
           printname: this.$store.state.weapon.printname,
           shortprintname: this.$store.state.weapon.printname,
           description: this.$store.state.weapon.printname,
           longdesc: this.$store.state.weapon.printname,
+
+          menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
+          hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,
+          
+          viewmodel: 'mdl/weapons/' + model_path + '/ptpov_' + model + '.rmdl',
+          playermodel: 'mdl/weapons/' + model_path + '/w_' + model + '.rmdl',
 
           ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
           ammo_min_to_fire: '1',
