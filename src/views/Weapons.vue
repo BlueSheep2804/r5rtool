@@ -1,54 +1,30 @@
 <template>
   <v-container>
     <h1>Weapons</h1>
-    <v-row>
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <v-text-field
-          label="武器名"
-          placeholder="例: R-99"
-          v-model="pr_printname"
-        ></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <v-text-field
-          label="ダメージ"
-          type="number"
-          v-model="pr_damage_value"
-        ></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <v-text-field
-          label="発射レート"
-          type="number"
-          v-model="pr_fire_rate"
-        ></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <v-text-field
-          label="弾薬数"
-          type="number"
-          v-model="pr_ammo_clip_size"
-        ></v-text-field>
-      </v-col>
-    </v-row>
+    <property-input
+      label="武器名"
+      placeholder="例: R-99"
+      weaponKey="printname"
+    ></property-input>
+    <property-input
+      label="ダメージ"
+      type="number"
+      value="12"
+      weaponKey="damage_value"
+    ></property-input>
+    <property-input
+      label="発射レート"
+      type="number"
+      value="18"
+      weaponKey="fire_rate"
+    ></property-input>
+    <property-input
+      label="弾薬数"
+      type="number"
+      value="18"
+      weaponKey="ammo_clip_size"
+    ></property-input>
+
     <v-row>
       <v-col
         cols="12"
@@ -76,33 +52,33 @@
 
 <script lang="ts">
   import Vue from 'vue'
+  import PropertyInput from '../components/PropertyInput.vue'
 
   export default Vue.extend({
     name: 'Weapons',
+    components: {
+      PropertyInput
+    },
     data: () => ({
       weapon_txt: 'none',
-      pr_printname: '',
-      pr_ammo_clip_size: '20',
-      pr_damage_value: '12',
-      pr_fire_rate: '18',
     }),
     computed: {
     },
     methods: {
       generationTxt: function () {
         let weapon_dict = {
-          printname: this.pr_printname,
-          shortprintname: this.pr_printname,
-          description: this.pr_printname,
-          longdesc: this.pr_printname,
+          printname: this.$store.state.weapon.printname,
+          shortprintname: this.$store.state.weapon.printname,
+          description: this.$store.state.weapon.printname,
+          longdesc: this.$store.state.weapon.printname,
 
-          ammo_clip_size: this.pr_ammo_clip_size,
+          ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
           ammo_min_to_fire: '1',
 
-          damage_near_value: this.pr_damage_value,
-          damage_far_value: this.pr_damage_value,
-          damage_very_far_value: this.pr_damage_value,
-          fire_rate: this.pr_fire_rate,
+          damage_near_value: this.$store.state.weapon.damage_value,
+          damage_far_value: this.$store.state.weapon.damage_value,
+          damage_very_far_value: this.$store.state.weapon.damage_value,
+          fire_rate: this.$store.state.weapon.fire_rate,
         }
         this.weapon_txt = JSON.stringify(weapon_dict)
         this.weapon_txt = 'WeaponData\n' + this.weapon_txt
