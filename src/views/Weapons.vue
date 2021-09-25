@@ -53,6 +53,7 @@
         <v-textarea
           solo
           readonly
+          auto-grow
           :value="weapon_txt"
         ></v-textarea>
       </v-col>
@@ -106,22 +107,52 @@
           description: this.$store.state.weapon.printname,
           longdesc: this.$store.state.weapon.printname,
 
+          weapon_type_flags: 'WPT_PRIMARY',
+          projectile_launch_speed: '21000',
+
           menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
           hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,
-          
+
           viewmodel: 'mdl/weapons/' + model_path + '/ptpov_' + model + '.rmdl',
           playermodel: 'mdl/weapons/' + model_path + '/w_' + model + '.rmdl',
 
+          fire_sound_1_player_1p: 'Weapon_bulletCasings.Bounce',
+          fire_sound_1_player_3p: 'Weapon_bulletCasings.Bounce',
+          fire_sound_2_player_1p: 'Weapon_R97_SecondShot_1P',
+          fire_sound_2_player_3p: '',
+          sound_dryfire: 'assalt_rifle_dryfire',
+          sound_pickup: 'wpn_pickup_SMG_1P',
+          looping_sounds: '1',
+          sound_zoom_in: 'Weapon_R97_ADS_In',
+          sound_zoom_out: 'Weapon_R97_ADS_Out',
+          burst_or_looping_fire_sound_start_1p: 'Weapon_R97_Fire_First_1P',
+          burst_or_looping_fire_sound_middle_1p: 'Weapon_R97_Fire_Loop_1P',
+          burst_or_looping_fire_sound_end_1p: 'Weapon_R97_Fire_End_1P',
+          burst_or_looping_fire_sound_start_3p: 'Weapon_R97_Fire_First_3P',
+          burst_or_looping_fire_sound_middle_3p: 'Weapon_R97_Fire_Loop_3P',
+          burst_or_looping_fire_sound_end_3p: 'Weapon_R97_Fire_End_3P',
+          low_ammo_sound_name_1: 'R97_LowAmmo_Shot1',
+
+          ammo_pool_type: 'bullet',
           ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
           ammo_min_to_fire: '1',
 
+          damage_type: 'bullet',
           damage_near_value: this.$store.state.weapon.damage_value,
           damage_far_value: this.$store.state.weapon.damage_value,
           damage_very_far_value: this.$store.state.weapon.damage_value,
+
+          fire_mode: 'automatic',
           fire_rate: this.$store.state.weapon.fire_rate,
+
+          reload_time: '1.8',
+
+          viewkick_pattern: 'r97_2',
+          viewkick_spring: 'r97_vkp',
+          viewkick_spring_hot: 'r97_vkp_hot',
         }
         this.weapon_txt = JSON.stringify(weapon_dict)
-        this.weapon_txt = 'WeaponData\n' + this.weapon_txt
+        this.weapon_txt = '#base "_base_smg.txt"\nWeaponData\n' + this.weapon_txt
         this.weapon_txt = this.weapon_txt.replaceAll('":', '"  ')
         this.weapon_txt = this.weapon_txt.replaceAll('","', '"\n"')
         this.weapon_txt = this.weapon_txt.replaceAll('\n{', '\n{\n')
