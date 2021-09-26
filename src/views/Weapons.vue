@@ -143,7 +143,12 @@
 
           ammo_pool_type: 'bullet',
           ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
+          ammo_default_total: this.$store.state.weapon.ammo_clip_size,
+          ammo_stockpile_max: this.$store.state.weapon.ammo_clip_size,
+          ammo_clip_reload_max: this.$store.state.weapon.ammo_clip_size,
+          ammo_no_remove_from_stockpile: '0',
           ammo_min_to_fire: '1',
+          uses_ammo_pool: '1',
 
           damage_type: 'bullet',
           damage_near_value: this.$store.state.weapon.damage_value,
@@ -154,6 +159,10 @@
           fire_rate: this.$store.state.weapon.fire_rate,
 
           reload_time: '1.8',
+          reload_time_late1: '0.82',
+          reloadempty_time: '2.45',
+          reloadempty_time_late1: '1.45',
+          reloadempty_time_late2: '0.83',
 
           viewkick_pattern: 'r97_2',
           viewkick_spring: 'r97_vkp',
