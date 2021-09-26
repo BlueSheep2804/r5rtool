@@ -23,6 +23,8 @@ export default new Vuex.Store({
       icon: '',
       model: '',
       damage_value: '12',
+      reload_time: '1.8',
+      reloadempty_time: '2.45',
       fire_rate: '18',
       ammo_clip_size: '18',
     } as weaponProperty,

@@ -39,6 +39,18 @@
       value="18"
       weaponKey="ammo_clip_size"
     ></property-input>
+    <property-input
+      label="タクティカルリロード"
+      type="number"
+      value="1.8"
+      weaponKey="reload_time"
+    ></property-input>
+    <property-input
+      label="リロード"
+      type="number"
+      value="2.45"
+      weaponKey="reloadempty_time"
+    ></property-input>
 
     <v-row>
       <v-col
@@ -158,11 +170,11 @@
           fire_mode: 'automatic',
           fire_rate: this.$store.state.weapon.fire_rate,
 
-          reload_time: '1.8',
-          reload_time_late1: '0.82',
-          reloadempty_time: '2.45',
-          reloadempty_time_late1: '1.45',
-          reloadempty_time_late2: '0.83',
+          reload_time: this.$store.state.weapon.reload_time,
+          reload_time_late1: Math.round((this.$store.state.weapon.reload_time * 0.4) * 10) / 10 + '',
+          reloadempty_time: this.$store.state.weapon.reloadempty_time,
+          reloadempty_time_late1: Math.round((this.$store.state.weapon.reloadempty_time * 0.6) *10) / 10 + '',
+          reloadempty_time_late2: Math.round((this.$store.state.weapon.reloadempty_time * 0.3) *10) / 10 + '',
 
           viewkick_pattern: 'r97_2',
           viewkick_spring: 'r97_vkp',
