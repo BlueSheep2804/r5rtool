@@ -1,6 +1,11 @@
 <template>
   <v-container>
     <h1>Weapons</h1>
+    <property-select
+      label="武器タイプ"
+      :items="weaponType"
+      weaponKey="weapon_type"
+    ></property-select>
     <property-input
       label="武器名"
       placeholder="例: R-99"
@@ -81,6 +86,9 @@
       },
       calledWeaponModel: function() {
         return this.$store.state.calledWeaponModel
+      },
+      weaponType: function() {
+        return this.$store.state.weaponType
       }
     },
     methods: {
@@ -152,7 +160,7 @@
           viewkick_spring_hot: 'r97_vkp_hot',
         }
         this.weapon_txt = JSON.stringify(weapon_dict)
-        this.weapon_txt = '#base "_base_smg.txt"\nWeaponData\n' + this.weapon_txt
+        this.weapon_txt = this.$store.state.weapon.weapon_type + '\nWeaponData\n' + this.weapon_txt
         this.weapon_txt = this.weapon_txt.replaceAll('":', '"  ')
         this.weapon_txt = this.weapon_txt.replaceAll('","', '"\n"')
         this.weapon_txt = this.weapon_txt.replaceAll('\n{', '\n{\n')

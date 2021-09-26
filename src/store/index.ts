@@ -5,7 +5,10 @@ Vue.use(Vuex)
 
 interface weaponProperty {
   [key: string]: string
+  weapon_type: string;
   printname: string;
+  icon: string;
+  model: string;
   damage_value: string;
   fire_rate: string;
   ammo_clip_size: string;
@@ -15,6 +18,7 @@ export default new Vuex.Store({
   state: {
     base_weapon_txt: 'WeaponData\n{\n',
     weapon: {
+      weapon_type: '',
       printname: '',
       icon: '',
       model: '',
@@ -22,6 +26,14 @@ export default new Vuex.Store({
       fire_rate: '18',
       ammo_clip_size: '18',
     } as weaponProperty,
+    weaponType: [
+      {text: 'AR', value: '#base "_base_assault_rifle.txt"'},
+      {text: 'SMG', value: '#base "_base_smg.txt"'},
+      {text: 'SR', value: '#base "_base_sniper.txt"\n#base "_base_sniper_optics"'},
+      {text: 'SG', value: '#base "_base_shotgun.txt"'},
+      {text: 'Pistol', value: '#base "_base_handgun.txt"'},
+      {text: 'LMG', value: '#base "_base_lmg.txt"'},
+    ],
     calledWeaponIcon: [ //rui/menu/dpad_comms/emoji/fist
       {text: 'Alternator', value: 'alternator'},
       {text: 'Charge Rifle', value: 'charge_rifle'},
