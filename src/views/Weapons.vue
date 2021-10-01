@@ -82,6 +82,7 @@
   import Vue from 'vue'
   import PropertyInput from '../components/PropertyInput.vue'
   import PropertySelect from '../components/PropertySelect.vue'
+  import { object2text } from '../utils/r5rtext'
 
   export default Vue.extend({
     name: 'Weapons',
@@ -230,13 +231,19 @@
           viewkick_perm_yaw_random_innerexclude: '0.0',
 
           viewmodel_shake_forward: '0.2',
+          active_crosshair_count: '1',
+          rui_crosshair_index: '0',
         }
-        this.weapon_txt = JSON.stringify(weapon_dict)
-        this.weapon_txt = this.$store.state.weapon.weapon_type + '\nWeaponData\n' + this.weapon_txt
-        this.weapon_txt = this.weapon_txt.replaceAll('":', '"  ')
-        this.weapon_txt = this.weapon_txt.replaceAll('","', '"\n"')
-        this.weapon_txt = this.weapon_txt.replaceAll('\n{', '\n{\n')
-        this.weapon_txt = this.weapon_txt.replaceAll('}', '\n}')
+        const weapon_dict_crosshair = {
+          ui: 'ui/crosshair_tri',
+          base_spread: '0.0'
+        }
+        this.weapon_txt = object2text(
+          weapon_dict,
+          this.$store.state.weapon.weapon_type + '\nWeaponData',
+          object2text(weapon_dict_crosshair, '\nRUI_CrosshairData\n{DefaultArgs\n{adjustedSpread  weapon_spread\nadsFrac  player_zoomFrac\nisSprinting  player_is_sprinting\nisReloading  weapon_is_reloading\nteamColor  crosshair_team_color\nisAmped  weapon_is_amped\ncrosshairMovementX  crosshair_movement_x\ncrosshairMovementY  crosshair_movement_y\n}\nCrosshair_1', '\n}')
+        )
+        console.log(this.weapon_txt)
       }
     }
   })
