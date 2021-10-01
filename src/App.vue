@@ -2,39 +2,41 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
+      color="red darken-2"
       dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+      <v-app-bar-title>R5RTool</v-app-bar-title>
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
+      <v-menu
+        bottom
+        left
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item
+            v-for="i in menuitem"
+            v-bind:key="i.link"
+            v-bind:href="i.link"
+            target="_blank"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ i.icon }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>{{ i.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-main>
@@ -50,7 +52,18 @@ export default Vue.extend({
   name: 'App',
 
   data: () => ({
-    //
+    menuitem: [
+      {
+        icon: 'mdi-github',
+        name: 'ソースコード',
+        link: 'https://github.com/BlueSheep2804/r5rtool'
+      },
+      {
+        icon: 'mdi-twitter',
+        name: '作者のTwitter',
+        link: 'https://twitter.com/BlueSheep2804'
+      }
+    ]
   }),
 });
 </script>

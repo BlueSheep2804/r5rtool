@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <h1>Weapons</h1>
     <property-select
       label="武器タイプ"
       :items="weaponType"
