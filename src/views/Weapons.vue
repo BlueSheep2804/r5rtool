@@ -20,6 +20,10 @@
       :items="calledWeaponModel"
       weaponKey="model"
     ></property-select>
+    <property-checkbox
+      label="セミオート化"
+      weaponKey="is_semi_auto"
+    ></property-checkbox>
     <property-input
       label="ダメージ"
       type="number"
@@ -101,6 +105,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
+  import PropertyCheckbox from '../components/PropertyCheckbox.vue'
   import PropertyInput from '../components/PropertyInput.vue'
   import PropertySelect from '../components/PropertySelect.vue'
   import { object2text } from '../utils/r5rtext'
@@ -109,7 +114,8 @@
     name: 'Weapons',
     components: {
       PropertyInput,
-      PropertySelect
+      PropertySelect,
+      PropertyCheckbox
     },
     data: () => ({
       weapon_txt: 'none',
@@ -191,6 +197,7 @@
           damage_very_far_value: this.$store.state.weapon.damage_value,
 
           fire_mode: 'automatic',
+          is_semi_auto: this.$store.state.weapon.is_semi_auto,
           fire_rate: this.$store.state.weapon.fire_rate,
 
           reload_time: this.$store.state.weapon.reload_time,

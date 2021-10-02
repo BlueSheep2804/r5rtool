@@ -9,7 +9,10 @@ interface weaponProperty {
   printname: string;
   icon: string;
   model: string;
+  is_semi_auto: string;
   damage_value: string;
+  reload_time: string;
+  reloadempty_time: string;
   fire_rate: string;
   ammo_clip_size: string;
 }
@@ -22,6 +25,7 @@ export default new Vuex.Store({
       printname: '',
       icon: '',
       model: '',
+      is_semi_auto: '0',
       damage_value: '12',
       reload_time: '1.8',
       reloadempty_time: '2.45',
