@@ -54,13 +54,27 @@
     <v-row>
       <v-col
         cols="12"
-        sm="12"
       >
         <v-btn
           color="primary"
           elevation="2"
           v-on:click="generationTxt"
         >Generate Txt</v-btn>
+        <v-btn
+          color="primary"
+          elevation="2"
+          v-on:click="copyText"
+          v-bind:disabled="copyTextButton"
+          class="ml-4"
+        >
+          <v-icon
+            dark
+            left
+          >
+            mdi-content-copy
+          </v-icon>
+          コピー
+        </v-btn>
       </v-col>
       <v-col
         cols="12"
@@ -91,6 +105,7 @@
     },
     data: () => ({
       weapon_txt: 'none',
+      copyTextButton: true
     }),
     computed: {
       calledWeaponIcon: function() {
@@ -243,6 +258,12 @@
           object2text(weapon_dict_crosshair, '\nRUI_CrosshairData\n{DefaultArgs\n{adjustedSpread  weapon_spread\nadsFrac  player_zoomFrac\nisSprinting  player_is_sprinting\nisReloading  weapon_is_reloading\nteamColor  crosshair_team_color\nisAmped  weapon_is_amped\ncrosshairMovementX  crosshair_movement_x\ncrosshairMovementY  crosshair_movement_y\n}\nCrosshair_1', '\n}')
         )
         console.log(this.weapon_txt)
+        this.copyTextButton = false
+      },
+      copyText: function () {
+        if (navigator.clipboard){
+          navigator.clipboard.writeText(this.weapon_txt)
+        }
       }
     }
   })
