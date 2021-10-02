@@ -59,7 +59,15 @@
           color="primary"
           elevation="2"
           v-on:click="generationTxt"
-        >Generate Txt</v-btn>
+        >
+          <v-icon
+            dark
+            left
+          >
+            mdi-refresh
+          </v-icon>
+          txtを生成
+        </v-btn>
         <v-btn
           color="primary"
           elevation="2"
