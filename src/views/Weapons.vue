@@ -25,6 +25,13 @@
       weaponKey="is_semi_auto"
     ></property-checkbox>
     <property-input
+      label="弾速"
+      type="number"
+      placeholder="10,000~30,000"
+      value="20000"
+      weaponKey="projectile_launch_speed"
+    ></property-input>
+    <property-input
       label="ダメージ"
       type="number"
       value="12"
@@ -157,7 +164,7 @@
           longdesc: this.$store.state.weapon.printname,
 
           weapon_type_flags: 'WPT_PRIMARY',
-          projectile_launch_speed: '21000',
+          projectile_launch_speed: this.$store.state.weapon.projectile_launch_speed,
 
           menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
           hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,

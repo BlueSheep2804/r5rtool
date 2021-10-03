@@ -10,6 +10,7 @@ interface weaponProperty {
   icon: string;
   model: string;
   is_semi_auto: string;
+  projectile_launch_speed: string;
   damage_value: string;
   reload_time: string;
   reloadempty_time: string;
@@ -26,6 +27,7 @@ export default new Vuex.Store({
       icon: '',
       model: '',
       is_semi_auto: '0',
+      projectile_launch_speed: '21000',
       damage_value: '12',
       reload_time: '1.8',
       reloadempty_time: '2.45',
