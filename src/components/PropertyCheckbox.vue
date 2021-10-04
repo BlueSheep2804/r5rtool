@@ -7,6 +7,7 @@
     <v-checkbox
       :label="label"
       v-model="weaponProperty"
+      :disabled="disabled"
     ></v-checkbox>
   </v-col>
 </v-row>
@@ -19,6 +20,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class PropertyInput extends Vue {
   @Prop() private label!: string;
   @Prop() private weaponKey!: string;
+  @Prop({ default: false }) private disabled!: boolean;
 
   private get weaponProperty(): boolean {
     if (this.$store.state.weapon[this.weaponKey] == '1') {

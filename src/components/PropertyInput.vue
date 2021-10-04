@@ -9,6 +9,7 @@
       :placeholder="placeholder"
       :type="type"
       v-model="weaponProperty"
+      :disabled="disabled"
     ></v-text-field>
   </v-col>
 </v-row>
@@ -23,6 +24,7 @@ export default class PropertyInput extends Vue {
   @Prop({ default: '' }) private placeholder!: string;
   @Prop({ default: 'text' }) private type!: string;
   @Prop() private weaponKey!: string;
+  @Prop({ default: false }) private disabled!: boolean;
 
   private get weaponProperty(): string {
     return this.$store.state.weapon[this.weaponKey]
