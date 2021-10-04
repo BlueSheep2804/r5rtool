@@ -32,7 +32,9 @@ export default new Vuex.Store({
       reload_time: '1.8',
       reloadempty_time: '2.45',
       fire_rate: '18',
+      ammo_pool_type: 'bullet',
       ammo_clip_size: '18',
+      ammo_stockpile_max: '180'
     } as weaponProperty,
     weaponType: [
       {text: 'AR', value: '#base "_base_assault_rifle.txt"'},
@@ -89,6 +91,13 @@ export default new Vuex.Store({
       {text: 'Spitfire', value: 'lmg_hemlock'},
       {text: 'Triple Take', value: 'doubletake'},
       {text: 'Wingman', value: 'b3wing'},
+    ],
+    ammoType: [
+      {text: 'ライトアモ', value: 'bullet'},
+      {text: 'ヘビーアモ', value: 'highcal'},
+      {text: 'エネルギーアモ', value: 'special'},
+      {text: 'ショットガンアモ', value: 'shotgun'},
+      {text: '無し(ケアパケ武器)', value: 'none'}
     ]
   },
   mutations: {

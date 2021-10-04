@@ -43,11 +43,24 @@
       value="18"
       weaponKey="fire_rate"
     ></property-input>
+    <property-select
+      label="アモタイプ"
+      :items="ammoType"
+      weaponKey="ammo_pool_type"
+    ></property-select>
     <property-input
-      label="弾薬数"
+      label="マガジンの弾数"
       type="number"
       value="18"
       weaponKey="ammo_clip_size"
+    ></property-input>
+    <p>{{ isAmmoNone }}</p>
+    <property-input
+      label="総弾数"
+      type="number"
+      value="180"
+      weaponKey="ammo_stockpile_max"
+      v-bind:disabled="!isAmmoNone"
     ></property-input>
     <property-input
       label="タクティカルリロード"
@@ -137,6 +150,16 @@
       },
       weaponType: function() {
         return this.$store.state.weaponType
+      },
+      ammoType: function() {
+        return this.$store.state.ammoType
+      },
+      isAmmoNone: function() {
+        if (this.$store.state.weapon.ammo_pool_type == 'none') {
+          return true
+        } else {
+          return false
+        }
       }
     },
     methods: {
@@ -188,15 +211,6 @@
           burst_or_looping_fire_sound_middle_3p: 'Weapon_R97_Fire_Loop_3P',
           burst_or_looping_fire_sound_end_3p: 'Weapon_R97_Fire_End_3P',
           low_ammo_sound_name_1: 'R97_LowAmmo_Shot1',
-
-          ammo_pool_type: 'bullet',
-          ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
-          ammo_default_total: this.$store.state.weapon.ammo_clip_size,
-          ammo_stockpile_max: this.$store.state.weapon.ammo_clip_size,
-          ammo_clip_reload_max: this.$store.state.weapon.ammo_clip_size,
-          ammo_no_remove_from_stockpile: '0',
-          ammo_min_to_fire: '1',
-          uses_ammo_pool: '1',
 
           damage_type: 'bullet',
           damage_near_value: this.$store.state.weapon.damage_value,
@@ -270,12 +284,29 @@
           active_crosshair_count: '1',
           rui_crosshair_index: '0',
         }
+
+        let uses_ammo_pool = '1'
+        if (this.$store.state.weapon.ammo_pool_type == 'none') {
+          uses_ammo_pool = '0'
+        }
+
+        const weapon_dict_ammo = {
+          ammo_pool_type: this.$store.state.weapon.ammo_pool_type,
+          ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
+          ammo_default_total: this.$store.state.weapon.ammo_clip_size + this.$store.state.weapon.ammo_stockpile_max,
+          ammo_stockpile_max: this.$store.state.weapon.ammo_stockpile_max,
+          ammo_clip_reload_max: this.$store.state.weapon.ammo_clip_size,
+          ammo_no_remove_from_stockpile: '0',
+          ammo_min_to_fire: '1',
+          uses_ammo_pool: uses_ammo_pool,
+        }
+
         const weapon_dict_crosshair = {
           ui: 'ui/crosshair_tri',
           base_spread: '0.0'
         }
         this.weapon_txt = object2text(
-          weapon_dict,
+          { ...weapon_dict, ...weapon_dict_ammo },
           this.$store.state.weapon.weapon_type + '\nWeaponData',
           object2text(weapon_dict_crosshair, '\nRUI_CrosshairData\n{DefaultArgs\n{adjustedSpread  weapon_spread\nadsFrac  player_zoomFrac\nisSprinting  player_is_sprinting\nisReloading  weapon_is_reloading\nteamColor  crosshair_team_color\nisAmped  weapon_is_amped\ncrosshairMovementX  crosshair_movement_x\ncrosshairMovementY  crosshair_movement_y\n}\nCrosshair_1', '\n}')
         )
