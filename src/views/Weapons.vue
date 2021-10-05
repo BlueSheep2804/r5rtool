@@ -34,22 +34,28 @@
       label="ダメージ"
       type="number"
       weaponKey="damage_value"
+      min="1"
     ></property-input>
     <property-input
       label="発射レート"
       type="number"
       weaponKey="fire_rate"
+      min="0"
+      step="0.1"
     ></property-input>
     <property-input
       label="バースト"
       type="number"
       weaponKey="burst_fire_count"
+      min="1"
     ></property-input>
     <property-input
       label="バースト間隔"
       type="number"
       weaponKey="burst_fire_delay"
       :disabled="!isBurst"
+      min="0"
+      step="0.1"
     ></property-input>
     <property-select
       label="アモタイプ"
@@ -60,22 +66,28 @@
       label="マガジンの弾数"
       type="number"
       weaponKey="ammo_clip_size"
+      min="1"
     ></property-input>
     <property-input
       label="総弾数"
       type="number"
       weaponKey="ammo_stockpile_max"
       v-bind:disabled="!isAmmoNone"
+      min="1"
     ></property-input>
     <property-input
       label="タクティカルリロード"
       type="number"
       weaponKey="reload_time"
+      min="0"
+      step="0.1"
     ></property-input>
     <property-input
       label="リロード"
       type="number"
       weaponKey="reloadempty_time"
+      min="0"
+      step="0.1"
     ></property-input>
 
     <v-row>

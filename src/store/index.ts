@@ -40,7 +40,7 @@ export default new Vuex.Store({
       ammo_clip_size: '18',
       ammo_stockpile_max: '180',
       reload_time: '1.8',
-      reloadempty_time: '2.45',
+      reloadempty_time: '2.5',
     } as weaponProperty,
     weaponType: [
       {text: 'AR', value: '#base "_base_assault_rifle.txt"'},
