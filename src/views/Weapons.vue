@@ -43,6 +43,17 @@
       value="18"
       weaponKey="fire_rate"
     ></property-input>
+    <property-input
+      label="バースト"
+      type="number"
+      weaponKey="burst_fire_count"
+    ></property-input>
+    <property-input
+      label="バースト間隔"
+      type="number"
+      weaponKey="burst_fire_delay"
+      :disabled="!isBurst"
+    ></property-input>
     <property-select
       label="アモタイプ"
       :items="ammoType"
@@ -160,6 +171,13 @@
         } else {
           return false
         }
+      },
+      isBurst: function() {
+        if (this.$store.state.weapon.burst_fire_count != '1') {
+          return true
+        } else {
+          return false
+        }
       }
     },
     methods: {
@@ -220,6 +238,8 @@
           fire_mode: 'automatic',
           is_semi_auto: this.$store.state.weapon.is_semi_auto,
           fire_rate: this.$store.state.weapon.fire_rate,
+          burst_fire_count: this.$store.state.weapon.burst_fire_count,
+          burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
 
           reload_time: this.$store.state.weapon.reload_time,
           reload_time_late1: Math.round((this.$store.state.weapon.reload_time * 0.4) * 10) / 10 + '',

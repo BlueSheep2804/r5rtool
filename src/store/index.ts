@@ -32,6 +32,8 @@ export default new Vuex.Store({
       reload_time: '1.8',
       reloadempty_time: '2.45',
       fire_rate: '18',
+      burst_fire_count: '1',
+      burst_fire_delay: '0.2',
       ammo_pool_type: 'bullet',
       ammo_clip_size: '18',
       ammo_stockpile_max: '180'
