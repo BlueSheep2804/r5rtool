@@ -5,10 +5,9 @@
     sm="4"
   >
     <v-select
-      :label="label"
       :items="items"
       v-model="weaponProperty"
-      :disabled="disabled"
+      v-bind="$attrs"
     ></v-select>
   </v-col>
 </v-row>
@@ -19,10 +18,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class PropertySelect extends Vue {
-  @Prop() private label!: string;
   @Prop() private items!: string;
   @Prop() private weaponKey!: string;
-  @Prop({ default: false }) private disabled!: boolean;
 
   private get weaponProperty(): string {
     return this.$store.state.weapon[this.weaponKey]
