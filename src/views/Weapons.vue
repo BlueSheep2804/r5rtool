@@ -28,19 +28,16 @@
       label="弾速"
       type="number"
       placeholder="10,000~30,000"
-      value="20000"
       weaponKey="projectile_launch_speed"
     ></property-input>
     <property-input
       label="ダメージ"
       type="number"
-      value="12"
       weaponKey="damage_value"
     ></property-input>
     <property-input
       label="発射レート"
       type="number"
-      value="18"
       weaponKey="fire_rate"
     ></property-input>
     <property-input
@@ -62,27 +59,22 @@
     <property-input
       label="マガジンの弾数"
       type="number"
-      value="18"
       weaponKey="ammo_clip_size"
     ></property-input>
-    <p>{{ isAmmoNone }}</p>
     <property-input
       label="総弾数"
       type="number"
-      value="180"
       weaponKey="ammo_stockpile_max"
       v-bind:disabled="!isAmmoNone"
     ></property-input>
     <property-input
       label="タクティカルリロード"
       type="number"
-      value="1.8"
       weaponKey="reload_time"
     ></property-input>
     <property-input
       label="リロード"
       type="number"
-      value="2.45"
       weaponKey="reloadempty_time"
     ></property-input>
 
@@ -127,7 +119,7 @@
           solo
           readonly
           auto-grow
-          :value="weapon_txt"
+          :value="weaponText"
         ></v-textarea>
       </v-col>
     </v-row>
@@ -144,23 +136,30 @@
   export default Vue.extend({
     name: 'Weapons',
     components: {
+      PropertyCheckbox,
       PropertyInput,
       PropertySelect,
-      PropertyCheckbox
     },
     data: () => ({
-      weapon_txt: 'none',
+      weaponText: 'none',
       copyTextButton: true
     }),
     computed: {
+      weaponType: function() {
+        return this.$store.state.weaponType
+      },
       calledWeaponIcon: function() {
         return this.$store.state.calledWeaponIcon
       },
       calledWeaponModel: function() {
         return this.$store.state.calledWeaponModel
       },
-      weaponType: function() {
-        return this.$store.state.weaponType
+      isBurst: function() {
+        if (this.$store.state.weapon.burst_fire_count != '1') {
+          return true
+        } else {
+          return false
+        }
       },
       ammoType: function() {
         return this.$store.state.ammoType
@@ -172,13 +171,6 @@
           return false
         }
       },
-      isBurst: function() {
-        if (this.$store.state.weapon.burst_fire_count != '1') {
-          return true
-        } else {
-          return false
-        }
-      }
     },
     methods: {
       generationTxt: function () {
@@ -205,7 +197,6 @@
           longdesc: this.$store.state.weapon.printname,
 
           weapon_type_flags: 'WPT_PRIMARY',
-          projectile_launch_speed: this.$store.state.weapon.projectile_launch_speed,
 
           menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
           hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,
@@ -240,6 +231,7 @@
           fire_rate: this.$store.state.weapon.fire_rate,
           burst_fire_count: this.$store.state.weapon.burst_fire_count,
           burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
+          projectile_launch_speed: this.$store.state.weapon.projectile_launch_speed,
 
           reload_time: this.$store.state.weapon.reload_time,
           reload_time_late1: Math.round((this.$store.state.weapon.reload_time * 0.4) * 10) / 10 + '',
@@ -325,17 +317,16 @@
           ui: 'ui/crosshair_tri',
           base_spread: '0.0'
         }
-        this.weapon_txt = object2text(
+        this.weaponText = object2text(
           { ...weapon_dict, ...weapon_dict_ammo },
           this.$store.state.weapon.weapon_type + '\nWeaponData',
           object2text(weapon_dict_crosshair, '\nRUI_CrosshairData\n{DefaultArgs\n{adjustedSpread  weapon_spread\nadsFrac  player_zoomFrac\nisSprinting  player_is_sprinting\nisReloading  weapon_is_reloading\nteamColor  crosshair_team_color\nisAmped  weapon_is_amped\ncrosshairMovementX  crosshair_movement_x\ncrosshairMovementY  crosshair_movement_y\n}\nCrosshair_1', '\n}')
         )
-        console.log(this.weapon_txt)
         this.copyTextButton = false
       },
       copyText: function () {
         if (navigator.clipboard){
-          navigator.clipboard.writeText(this.weapon_txt)
+          navigator.clipboard.writeText(this.weaponText)
         }
       }
     }

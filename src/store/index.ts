@@ -12,10 +12,14 @@ interface weaponProperty {
   is_semi_auto: string;
   projectile_launch_speed: string;
   damage_value: string;
+  fire_rate: string;
+  burst_fire_count: string;
+  burst_fire_delay: string;
+  ammo_pool_type: string;
+  ammo_clip_size: string;
+  ammo_stockpile_max: string;
   reload_time: string;
   reloadempty_time: string;
-  fire_rate: string;
-  ammo_clip_size: string;
 }
 
 export default new Vuex.Store({
@@ -29,14 +33,14 @@ export default new Vuex.Store({
       is_semi_auto: '0',
       projectile_launch_speed: '21000',
       damage_value: '12',
-      reload_time: '1.8',
-      reloadempty_time: '2.45',
       fire_rate: '18',
       burst_fire_count: '1',
       burst_fire_delay: '0.2',
       ammo_pool_type: 'bullet',
       ammo_clip_size: '18',
-      ammo_stockpile_max: '180'
+      ammo_stockpile_max: '180',
+      reload_time: '1.8',
+      reloadempty_time: '2.45',
     } as weaponProperty,
     weaponType: [
       {text: 'AR', value: '#base "_base_assault_rifle.txt"'},
