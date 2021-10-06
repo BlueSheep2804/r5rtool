@@ -20,35 +20,74 @@
       :items="calledWeaponModel"
       weaponKey="model"
     ></property-select>
+    <property-checkbox
+      label="セミオート化"
+      weaponKey="is_semi_auto"
+    ></property-checkbox>
+    <property-input
+      label="弾速"
+      type="number"
+      placeholder="10,000~30,000"
+      weaponKey="projectile_launch_speed"
+    ></property-input>
     <property-input
       label="ダメージ"
       type="number"
-      value="12"
       weaponKey="damage_value"
+      min="1"
     ></property-input>
     <property-input
       label="発射レート"
       type="number"
-      value="18"
       weaponKey="fire_rate"
+      min="0"
+      step="0.1"
     ></property-input>
     <property-input
-      label="弾薬数"
+      label="バースト"
       type="number"
-      value="18"
+      weaponKey="burst_fire_count"
+      min="1"
+    ></property-input>
+    <property-input
+      label="バースト間隔"
+      type="number"
+      weaponKey="burst_fire_delay"
+      :disabled="!isBurst"
+      min="0"
+      step="0.1"
+    ></property-input>
+    <property-select
+      label="アモタイプ"
+      :items="ammoType"
+      weaponKey="ammo_pool_type"
+    ></property-select>
+    <property-input
+      label="マガジンの弾数"
+      type="number"
       weaponKey="ammo_clip_size"
+      min="1"
+    ></property-input>
+    <property-input
+      label="総弾数"
+      type="number"
+      weaponKey="ammo_stockpile_max"
+      v-bind:disabled="!isAmmoNone"
+      min="1"
     ></property-input>
     <property-input
       label="タクティカルリロード"
       type="number"
-      value="1.8"
       weaponKey="reload_time"
+      min="0"
+      step="0.1"
     ></property-input>
     <property-input
       label="リロード"
       type="number"
-      value="2.45"
       weaponKey="reloadempty_time"
+      min="0"
+      step="0.1"
     ></property-input>
 
     <v-row>
@@ -92,7 +131,7 @@
           solo
           readonly
           auto-grow
-          :value="weapon_txt"
+          :value="weaponText"
         ></v-textarea>
       </v-col>
     </v-row>
@@ -101,6 +140,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
+  import PropertyCheckbox from '../components/PropertyCheckbox.vue'
   import PropertyInput from '../components/PropertyInput.vue'
   import PropertySelect from '../components/PropertySelect.vue'
   import { object2text } from '../utils/r5rtext'
@@ -108,23 +148,41 @@
   export default Vue.extend({
     name: 'Weapons',
     components: {
+      PropertyCheckbox,
       PropertyInput,
-      PropertySelect
+      PropertySelect,
     },
     data: () => ({
-      weapon_txt: 'none',
+      weaponText: 'none',
       copyTextButton: true
     }),
     computed: {
+      weaponType: function() {
+        return this.$store.state.weaponType
+      },
       calledWeaponIcon: function() {
         return this.$store.state.calledWeaponIcon
       },
       calledWeaponModel: function() {
         return this.$store.state.calledWeaponModel
       },
-      weaponType: function() {
-        return this.$store.state.weaponType
-      }
+      isBurst: function() {
+        if (this.$store.state.weapon.burst_fire_count != '1') {
+          return true
+        } else {
+          return false
+        }
+      },
+      ammoType: function() {
+        return this.$store.state.ammoType
+      },
+      isAmmoNone: function() {
+        if (this.$store.state.weapon.ammo_pool_type == 'none') {
+          return true
+        } else {
+          return false
+        }
+      },
     },
     methods: {
       generationTxt: function () {
@@ -151,7 +209,6 @@
           longdesc: this.$store.state.weapon.printname,
 
           weapon_type_flags: 'WPT_PRIMARY',
-          projectile_launch_speed: '21000',
 
           menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
           hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,
@@ -161,29 +218,25 @@
 
           fire_sound_1_player_1p: 'Weapon_bulletCasings.Bounce',
           fire_sound_1_player_3p: 'Weapon_bulletCasings.Bounce',
-          fire_sound_2_player_1p: 'Weapon_R97_SecondShot_1P',
-          fire_sound_2_player_3p: '',
+          fire_sound_2_player_1p: 'Weapon_r101_SingleShot_1P',
+          fire_sound_2_player_3p: 'Weapon_r101_SingleShot_3P',
           sound_dryfire: 'assalt_rifle_dryfire',
           sound_pickup: 'wpn_pickup_SMG_1P',
-          looping_sounds: '1',
+          looping_sounds: '0',
           sound_zoom_in: 'Weapon_R97_ADS_In',
           sound_zoom_out: 'Weapon_R97_ADS_Out',
-          burst_or_looping_fire_sound_start_1p: 'Weapon_R97_Fire_First_1P',
-          burst_or_looping_fire_sound_middle_1p: 'Weapon_R97_Fire_Loop_1P',
-          burst_or_looping_fire_sound_end_1p: 'Weapon_R97_Fire_End_1P',
-          burst_or_looping_fire_sound_start_3p: 'Weapon_R97_Fire_First_3P',
-          burst_or_looping_fire_sound_middle_3p: 'Weapon_R97_Fire_Loop_3P',
-          burst_or_looping_fire_sound_end_3p: 'Weapon_R97_Fire_End_3P',
-          low_ammo_sound_name_1: 'R97_LowAmmo_Shot1',
-
-          ammo_pool_type: 'bullet',
-          ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
-          ammo_default_total: this.$store.state.weapon.ammo_clip_size,
-          ammo_stockpile_max: this.$store.state.weapon.ammo_clip_size,
-          ammo_clip_reload_max: this.$store.state.weapon.ammo_clip_size,
-          ammo_no_remove_from_stockpile: '0',
-          ammo_min_to_fire: '1',
-          uses_ammo_pool: '1',
+          //burst_or_looping_fire_sound_start_1p: 'Weapon_R97_Fire_First_1P',
+          //burst_or_looping_fire_sound_middle_1p: 'Weapon_R97_Fire_Loop_1P',
+          //burst_or_looping_fire_sound_end_1p: 'Weapon_R97_Fire_End_1P',
+          //burst_or_looping_fire_sound_start_3p: 'Weapon_R97_Fire_First_3P',
+          //burst_or_looping_fire_sound_middle_3p: 'Weapon_R97_Fire_Loop_3P',
+          //burst_or_looping_fire_sound_end_3p: 'Weapon_R97_Fire_End_3P',
+          low_ammo_sound_name_1: 'R101_LowAmmo_Shot1',
+          low_ammo_sound_name_2: 'R101_LowAmmo_Shot2',
+          low_ammo_sound_name_3: 'R101_LowAmmo_Shot3',
+          low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
+          low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
+          low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
 
           damage_type: 'bullet',
           damage_near_value: this.$store.state.weapon.damage_value,
@@ -191,7 +244,11 @@
           damage_very_far_value: this.$store.state.weapon.damage_value,
 
           fire_mode: 'automatic',
+          is_semi_auto: this.$store.state.weapon.is_semi_auto,
           fire_rate: this.$store.state.weapon.fire_rate,
+          burst_fire_count: this.$store.state.weapon.burst_fire_count,
+          burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
+          projectile_launch_speed: this.$store.state.weapon.projectile_launch_speed,
 
           reload_time: this.$store.state.weapon.reload_time,
           reload_time_late1: Math.round((this.$store.state.weapon.reload_time * 0.4) * 10) / 10 + '',
@@ -256,21 +313,37 @@
           active_crosshair_count: '1',
           rui_crosshair_index: '0',
         }
+
+        let uses_ammo_pool = '1'
+        if (this.$store.state.weapon.ammo_pool_type == 'none') {
+          uses_ammo_pool = '0'
+        }
+
+        const weapon_dict_ammo = {
+          ammo_pool_type: this.$store.state.weapon.ammo_pool_type,
+          ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
+          ammo_default_total: this.$store.state.weapon.ammo_clip_size + this.$store.state.weapon.ammo_stockpile_max,
+          ammo_stockpile_max: this.$store.state.weapon.ammo_stockpile_max,
+          ammo_clip_reload_max: this.$store.state.weapon.ammo_clip_size,
+          ammo_no_remove_from_stockpile: '0',
+          ammo_min_to_fire: '1',
+          uses_ammo_pool: uses_ammo_pool,
+        }
+
         const weapon_dict_crosshair = {
           ui: 'ui/crosshair_tri',
           base_spread: '0.0'
         }
-        this.weapon_txt = object2text(
-          weapon_dict,
+        this.weaponText = object2text(
+          { ...weapon_dict, ...weapon_dict_ammo },
           this.$store.state.weapon.weapon_type + '\nWeaponData',
           object2text(weapon_dict_crosshair, '\nRUI_CrosshairData\n{DefaultArgs\n{adjustedSpread  weapon_spread\nadsFrac  player_zoomFrac\nisSprinting  player_is_sprinting\nisReloading  weapon_is_reloading\nteamColor  crosshair_team_color\nisAmped  weapon_is_amped\ncrosshairMovementX  crosshair_movement_x\ncrosshairMovementY  crosshair_movement_y\n}\nCrosshair_1', '\n}')
         )
-        console.log(this.weapon_txt)
         this.copyTextButton = false
       },
       copyText: function () {
         if (navigator.clipboard){
-          navigator.clipboard.writeText(this.weapon_txt)
+          navigator.clipboard.writeText(this.weaponText)
         }
       }
     }

@@ -5,10 +5,8 @@
     sm="4"
   >
     <v-text-field
-      :label="label"
-      :placeholder="placeholder"
-      :type="type"
       v-model="weaponProperty"
+      v-bind="$attrs"
     ></v-text-field>
   </v-col>
 </v-row>
@@ -19,9 +17,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class PropertyInput extends Vue {
-  @Prop() private label!: string;
-  @Prop({ default: '' }) private placeholder!: string;
-  @Prop({ default: 'text' }) private type!: string;
   @Prop() private weaponKey!: string;
 
   private get weaponProperty(): string {
