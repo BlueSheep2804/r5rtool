@@ -45,7 +45,7 @@ export default new Vuex.Store({
     weaponType: [
       {text: 'AR', value: '#base "_base_assault_rifle.txt"'},
       {text: 'SMG', value: '#base "_base_smg.txt"'},
-      {text: 'SR', value: '#base "_base_sniper.txt"\n#base "_base_sniper_optics"'},
+      {text: 'SR', value: '#base "_base_sniper.txt"\n#base "_base_sniper_optics.txt"'},
       {text: 'SG', value: '#base "_base_shotgun.txt"'},
       {text: 'Pistol', value: '#base "_base_handgun.txt"'},
       {text: 'LMG', value: '#base "_base_lmg.txt"'},
