@@ -48,7 +48,7 @@ export default new Vuex.Store({
       {text: 'SR', value: '#base "_base_sniper.txt"\n#base "_base_sniper_optics.txt"'},
       {text: 'SG', value: '#base "_base_shotgun.txt"'},
       {text: 'Pistol', value: '#base "_base_handgun.txt"'},
-      {text: 'LMG', value: '#base "_base_lmg.txt"'},
+      {text: 'LMG(非推奨)', value: '#base "_base_lmg.txt"'},
     ],
     calledWeaponIcon: [ //rui/menu/dpad_comms/emoji/fist
       {text: 'Alternator', value: 'alternator'},
