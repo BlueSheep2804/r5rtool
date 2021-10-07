@@ -8,7 +8,8 @@
           <v-col
             cols="12"
             sm="10"
-            md="6"
+            md="5"
+            order-md="last"
           >
             <property-select
               label="武器タイプ"
@@ -100,9 +101,11 @@
               step="0.1"
             ></property-input>
           </v-col>
+          <v-spacer></v-spacer>
           <v-col
             cols="12"
             md="6"
+            order-md="first"
           >
             <v-btn
               color="primary"

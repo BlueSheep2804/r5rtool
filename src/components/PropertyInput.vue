@@ -2,8 +2,7 @@
 <v-row>
   <v-col
     cols="12"
-    md="10"
-    lg="8"
+    xl="10"
   >
     <v-text-field
       v-model="weaponProperty"
