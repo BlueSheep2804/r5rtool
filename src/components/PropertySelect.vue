@@ -2,7 +2,7 @@
 <v-row>
   <v-col
     cols="12"
-    sm="4"
+    xl="10"
   >
     <v-select
       :items="items"

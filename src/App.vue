@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar
       app
-      color="red darken-2"
+      color="primary"
       dark
     >
       <v-app-bar-title>R5RTool</v-app-bar-title>
