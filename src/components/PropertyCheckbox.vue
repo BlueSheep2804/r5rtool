@@ -2,7 +2,8 @@
 <v-row>
   <v-col
     cols="12"
-    sm="4"
+    md="10"
+    lg="8"
   >
     <v-checkbox
       v-model="weaponProperty"
