@@ -143,6 +143,17 @@
         </v-row>
       </v-col>
     </v-row>
+    <v-btn
+      color="primary"
+      dark
+      bottom
+      right
+      fab
+      fixed
+      @click="returnTop"
+    >
+      <v-icon>mdi-chevron-up</v-icon>
+    </v-btn>
   </v-container>
 </template>
 
@@ -353,7 +364,19 @@
         if (navigator.clipboard){
           navigator.clipboard.writeText(this.weaponText)
         }
-      }
+      },
+      returnTop: function () {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        })
+      },
     }
   })
 </script>
+
+<style>
+.fab {
+  position: relative;
+}
+</style>
