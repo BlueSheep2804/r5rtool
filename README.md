@@ -1,24 +1,25 @@
-# r5rtool
+# R5RTool
+R5Reloaded用のツール
 
-## Project setup
+
+## 機能
+- 武器作成ツール
+- その他追加予定
+
+
+## デバッグ / ビルド
+
+### ライブラリのインストール
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### ビルド
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### ビルド
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
