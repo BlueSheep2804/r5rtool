@@ -1,32 +1,74 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <v-app-bar-title>R5RTool</v-app-bar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-menu
+        bottom
+        left
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item
+            v-for="i in menuitem"
+            v-bind:key="i.link"
+            v-bind:href="i.link"
+            target="_blank"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ i.icon }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>{{ i.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-app-bar>
+
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import Vue from 'vue';
 
-#nav {
-  padding: 30px;
+export default Vue.extend({
+  name: 'App',
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+  data: () => ({
+    menuitem: [
+      {
+        icon: 'mdi-update',
+        name: '変更履歴',
+        link: 'https://github.com/BlueSheep2804/r5rtool/blob/master/Changelog.md'
+      },
+      {
+        icon: 'mdi-github',
+        name: 'ソースコード',
+        link: 'https://github.com/BlueSheep2804/r5rtool'
+      },
+      {
+        icon: 'mdi-twitter',
+        name: '作者のTwitter',
+        link: 'https://twitter.com/BlueSheep2804'
+      }
+    ]
+  }),
+});
+</script>
