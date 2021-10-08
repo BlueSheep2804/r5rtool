@@ -54,6 +54,11 @@ export default Vue.extend({
   data: () => ({
     menuitem: [
       {
+        icon: 'mdi-update',
+        name: '変更履歴',
+        link: 'https://github.com/BlueSheep2804/r5rtool/blob/master/Changelog.md'
+      },
+      {
         icon: 'mdi-github',
         name: 'ソースコード',
         link: 'https://github.com/BlueSheep2804/r5rtool'
