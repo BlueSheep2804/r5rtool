@@ -224,7 +224,7 @@
             break
         }
 
-        let weapon_dict = {
+        let weapon_dict_base = {
           printname: this.$store.state.weapon.printname,
           shortprintname: this.$store.state.weapon.printname,
           description: this.$store.state.weapon.printname,
@@ -268,8 +268,6 @@
           fire_mode: 'automatic',
           is_semi_auto: this.$store.state.weapon.is_semi_auto,
           fire_rate: this.$store.state.weapon.fire_rate,
-          burst_fire_count: this.$store.state.weapon.burst_fire_count,
-          burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
           projectile_launch_speed: this.$store.state.weapon.projectile_launch_speed,
 
           reload_time: this.$store.state.weapon.reload_time,
@@ -352,12 +350,25 @@
           uses_ammo_pool: uses_ammo_pool,
         }
 
+        let weapon_dict = { ...weapon_dict_base, ...weapon_dict_ammo }
+
+        if (this.$store.state.weapon.burst_fire_count != '1') {
+          const weapon_dict_burst = {
+            burst_fire_count: this.$store.state.weapon.burst_fire_count,
+            burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
+          }
+          weapon_dict = { 
+            ...weapon_dict,
+            ...weapon_dict_burst
+          }
+        }
+
         const weapon_dict_crosshair = {
           ui: 'ui/crosshair_tri',
           base_spread: '0.0'
         }
         this.weaponText = object2text(
-          { ...weapon_dict, ...weapon_dict_ammo },
+          weapon_dict,
           this.$store.state.weapon.weapon_type + '\nWeaponData',
           object2text(weapon_dict_crosshair, '\nRUI_CrosshairData\n{DefaultArgs\n{adjustedSpread  weapon_spread\nadsFrac  player_zoomFrac\nisSprinting  player_is_sprinting\nisReloading  weapon_is_reloading\nteamColor  crosshair_team_color\nisAmped  weapon_is_amped\ncrosshairMovementX  crosshair_movement_x\ncrosshairMovementY  crosshair_movement_y\n}\nCrosshair_1', '\n}')
         )
