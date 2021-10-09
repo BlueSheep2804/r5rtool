@@ -47,6 +47,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import i18n from './i18n'
 
 export default Vue.extend({
   name: 'App',
@@ -55,17 +56,17 @@ export default Vue.extend({
     menuitem: [
       {
         icon: 'mdi-update',
-        name: '変更履歴',
+        name: i18n.t('appbar.changelog'),
         link: 'https://github.com/BlueSheep2804/r5rtool/blob/master/Changelog.md'
       },
       {
         icon: 'mdi-github',
-        name: 'ソースコード',
+        name: i18n.t('appbar.source_code'),
         link: 'https://github.com/BlueSheep2804/r5rtool'
       },
       {
         icon: 'mdi-twitter',
-        name: '作者のTwitter',
+        name: i18n.t('appbar.twitter_author'),
         link: 'https://twitter.com/BlueSheep2804'
       }
     ]
