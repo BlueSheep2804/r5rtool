@@ -25,9 +25,17 @@
 
         <v-list>
           <v-list-item
-            v-for="i in menuitem"
-            v-bind:key="i.link"
-            v-bind:href="i.link"
+            @click.stop="dialog = true"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ menuitem[0].icon }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>{{ menuitem[0].name }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item
+            v-for="i in menuitem.slice(1)"
+            :key="i.name"
+            :to="i.link"
             target="_blank"
           >
             <v-list-item-icon>
@@ -37,6 +45,25 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-dialog
+        v-model="dialog"
+        max-width="500"
+      >
+        <v-card>
+          <v-card-title>
+            {{ $t('appbar.select_lang') }}
+          </v-card-title>
+
+          <v-card-actions>
+            <v-select
+              :items="langs"
+              v-model="$i18n.locale"
+              @change="dialog = false"
+            >
+            </v-select>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-app-bar>
 
     <v-main>
@@ -53,7 +80,17 @@ export default Vue.extend({
   name: 'App',
 
   data: () => ({
+    dialog: false,
+    langs: [
+      {text: i18n.t('appbar.langs.ja'), value: 'ja'},
+      {text: i18n.t('appbar.langs.en'), value: 'en'}
+    ],
     menuitem: [
+      {
+        icon: 'mdi-translate',
+        name: i18n.t('appbar.lang'),
+        link: '__dialog'
+      },
       {
         icon: 'mdi-update',
         name: i18n.t('appbar.changelog'),

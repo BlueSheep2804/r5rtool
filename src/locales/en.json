@@ -1,5 +1,11 @@
 {
   "appbar": {
+    "lang": "Language",
+    "select_lang": "Select language",
+    "langs": {
+      "en": "English",
+      "ja": "Japanese"
+    },
     "changelog": "Changelog",
     "source_code": "Source code",
     "twitter_author": "@BlueSheep2804"

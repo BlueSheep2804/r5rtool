@@ -1,5 +1,11 @@
 {
   "appbar": {
+    "lang": "言語",
+    "select_lang": "言語を選択",
+    "langs": {
+      "en": "英語",
+      "ja": "日本語"
+    },
     "changelog": "変更履歴",
     "source_code": "ソースコード",
     "twitter_author": "作者のTwitter"
