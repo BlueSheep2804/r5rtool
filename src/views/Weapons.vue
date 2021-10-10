@@ -12,56 +12,55 @@
             order-md="last"
           >
             <property-select
-              label="武器タイプ"
+              :label="$t('weapon_property.weapon_type')"
               :items="weaponType"
               weaponKey="weapon_type"
             ></property-select>
             <property-input
-              label="武器名"
-              placeholder="例: R-99"
+              :label="$t('weapon_property.printname')"
               weaponKey="printname"
             ></property-input>
             <property-select
-              label="アイコン"
+              :label="$t('weapon_property.icon')"
               :items="calledWeaponIcon"
               weaponKey="icon"
             ></property-select>
             <property-select
-              label="モデル"
+              :label="$t('weapon_property.model')"
               :items="calledWeaponModel"
               weaponKey="model"
             ></property-select>
             <property-checkbox
-              label="セミオート化"
+              :label="$t('weapon_property.is_semi_auto')"
               weaponKey="is_semi_auto"
             ></property-checkbox>
             <property-input
-              label="弾速"
+              :label="$t('weapon_property.projectile_launch_speed')"
               type="number"
               placeholder="10,000~30,000"
               weaponKey="projectile_launch_speed"
             ></property-input>
             <property-input
-              label="ダメージ"
+              :label="$t('weapon_property.damage_value')"
               type="number"
               weaponKey="damage_value"
               min="1"
             ></property-input>
             <property-input
-              label="発射レート"
+              :label="$t('weapon_property.fire_rate')"
               type="number"
               weaponKey="fire_rate"
               min="0"
               step="0.1"
             ></property-input>
             <property-input
-              label="バースト"
+              :label="$t('weapon_property.burst_fire_count')"
               type="number"
               weaponKey="burst_fire_count"
               min="1"
             ></property-input>
             <property-input
-              label="バースト間隔"
+              :label="$t('weapon_property.burst_fire_delay')"
               type="number"
               weaponKey="burst_fire_delay"
               :disabled="!isBurst"
@@ -69,32 +68,32 @@
               step="0.1"
             ></property-input>
             <property-select
-              label="アモタイプ"
+              :label="$t('weapon_property.ammo_pool_type')"
               :items="ammoType"
               weaponKey="ammo_pool_type"
             ></property-select>
             <property-input
-              label="マガジンの弾数"
+              :label="$t('weapon_property.ammo_clip_size')"
               type="number"
               weaponKey="ammo_clip_size"
               min="1"
             ></property-input>
             <property-input
-              label="総弾数"
+              :label="$t('weapon_property.ammo_stockpile_max')"
               type="number"
               weaponKey="ammo_stockpile_max"
               v-bind:disabled="!isAmmoNone"
               min="1"
             ></property-input>
             <property-input
-              label="タクティカルリロード"
+              :label="$t('weapon_property.reload_time')"
               type="number"
               weaponKey="reload_time"
               min="0"
               step="0.1"
             ></property-input>
             <property-input
-              label="リロード"
+              :label="$t('weapon_property.reloadempty_time')"
               type="number"
               weaponKey="reloadempty_time"
               min="0"
@@ -118,7 +117,7 @@
               >
                 mdi-refresh
               </v-icon>
-              txtを生成
+              {{ $t('pages.weapons.generation_txt') }}
             </v-btn>
             <v-btn
               color="primary"
@@ -133,7 +132,7 @@
               >
                 mdi-content-copy
               </v-icon>
-              コピー
+              {{ $t('pages.weapons.copy') }}
             </v-btn>
             <v-textarea
               solo

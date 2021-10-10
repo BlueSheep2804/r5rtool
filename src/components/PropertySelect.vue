@@ -8,7 +8,14 @@
       :items="items"
       v-model="weaponProperty"
       v-bind="$attrs"
-    ></v-select>
+    >
+      <template v-slot:selection="data">
+        {{ $t(data.item.text) }}
+      </template>
+      <template v-slot:item="data">
+        {{ $t(data.item.text) }}
+      </template>
+    </v-select>
   </v-col>
 </v-row>
 </template>
