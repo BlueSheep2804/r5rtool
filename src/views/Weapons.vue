@@ -18,7 +18,6 @@
             ></property-select>
             <property-input
               :label="$t('weapon_property.printname')"
-              placeholder="例: R-99"
               weaponKey="printname"
             ></property-input>
             <property-select
