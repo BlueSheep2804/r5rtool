@@ -30,7 +30,7 @@
             <v-list-item-icon>
               <v-icon>{{ menuitem[0].icon }}</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>{{ menuitem[0].name }}</v-list-item-title>
+            <v-list-item-title>{{ $t(menuitem[0].name) }}</v-list-item-title>
           </v-list-item>
           <v-list-item
             v-for="i in menuitem.slice(1)"
@@ -41,7 +41,7 @@
             <v-list-item-icon>
               <v-icon>{{ i.icon }}</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>{{ i.name }}</v-list-item-title>
+            <v-list-item-title>{{ $t(i.name) }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -60,6 +60,12 @@
               v-model="$i18n.locale"
               @change="dialog = false"
             >
+              <template v-slot:selection="data">
+                {{ $t(data.item.text) }}
+              </template>
+              <template v-slot:item="data">
+                {{ $t(data.item.text) }}
+              </template>
             </v-select>
           </v-card-actions>
         </v-card>
@@ -74,7 +80,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import i18n from './i18n'
 
 export default Vue.extend({
   name: 'App',
@@ -82,28 +87,28 @@ export default Vue.extend({
   data: () => ({
     dialog: false,
     langs: [
-      {text: i18n.t('appbar.langs.ja'), value: 'ja'},
-      {text: i18n.t('appbar.langs.en'), value: 'en'}
+      {text: 'appbar.langs.ja', value: 'ja'},
+      {text: 'appbar.langs.en', value: 'en'}
     ],
     menuitem: [
       {
         icon: 'mdi-translate',
-        name: i18n.t('appbar.lang'),
+        name: 'appbar.lang',
         link: '__dialog'
       },
       {
         icon: 'mdi-update',
-        name: i18n.t('appbar.changelog'),
+        name: 'appbar.changelog',
         link: 'https://github.com/BlueSheep2804/r5rtool/blob/master/Changelog.md'
       },
       {
         icon: 'mdi-github',
-        name: i18n.t('appbar.source_code'),
+        name: 'appbar.source_code',
         link: 'https://github.com/BlueSheep2804/r5rtool'
       },
       {
         icon: 'mdi-twitter',
-        name: i18n.t('appbar.twitter_author'),
+        name: 'appbar.twitter_author',
         link: 'https://twitter.com/BlueSheep2804'
       }
     ]
