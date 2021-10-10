@@ -1,10 +1,10 @@
 {
   "appbar": {
-    "lang": "言語",
-    "select_lang": "言語を選択",
+    "lang": "言語 / Language",
+    "select_lang": "言語を選択 / Select language",
     "langs": {
-      "en": "英語",
-      "ja": "日本語"
+      "en": "英語 / English",
+      "ja": "日本語 / Japanese"
     },
     "changelog": "変更履歴",
     "source_code": "ソースコード",
