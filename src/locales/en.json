@@ -66,6 +66,7 @@
     "icon": "Icon",
     "model": "Model",
     "sound": "Sound of gunfire",
+    "sound_hint": "Full-auto weapon sounds are not supported",
     "is_semi_auto": "Semi auto",
     "projectile_launch_speed": "Speed of a bullet",
     "damage_value": "Damage",

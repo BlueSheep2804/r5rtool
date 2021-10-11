@@ -32,6 +32,7 @@
             ></property-select>
             <property-select
               :label="$t('weapon_property.sound')"
+              :hint="$t('weapon_property.sound_hint')"
               :items="weaponSound"
               weaponKey="sound"
             ></property-select>

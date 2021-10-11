@@ -67,6 +67,7 @@
     "icon": "アイコン",
     "model": "モデル",
     "sound": "射撃音",
+    "sound_hint": "フルオート武器の音はサポートされていません",
     "is_semi_auto": "セミオート化",
     "projectile_launch_speed": "弾速",
     "damage_value": "ダメージ",
