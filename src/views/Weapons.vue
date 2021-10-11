@@ -12,56 +12,61 @@
             order-md="last"
           >
             <property-select
-              label="武器タイプ"
+              :label="$t('weapon_property.weapon_type')"
               :items="weaponType"
               weaponKey="weapon_type"
             ></property-select>
             <property-input
-              label="武器名"
-              placeholder="例: R-99"
+              :label="$t('weapon_property.printname')"
               weaponKey="printname"
             ></property-input>
             <property-select
-              label="アイコン"
+              :label="$t('weapon_property.icon')"
               :items="calledWeaponIcon"
               weaponKey="icon"
             ></property-select>
             <property-select
-              label="モデル"
+              :label="$t('weapon_property.model')"
               :items="calledWeaponModel"
               weaponKey="model"
             ></property-select>
+            <property-select
+              :label="$t('weapon_property.sound')"
+              :hint="$t('weapon_property.sound_hint')"
+              :items="weaponSound"
+              weaponKey="sound"
+            ></property-select>
             <property-checkbox
-              label="セミオート化"
+              :label="$t('weapon_property.is_semi_auto')"
               weaponKey="is_semi_auto"
             ></property-checkbox>
             <property-input
-              label="弾速"
+              :label="$t('weapon_property.projectile_launch_speed')"
               type="number"
               placeholder="10,000~30,000"
               weaponKey="projectile_launch_speed"
             ></property-input>
             <property-input
-              label="ダメージ"
+              :label="$t('weapon_property.damage_value')"
               type="number"
               weaponKey="damage_value"
               min="1"
             ></property-input>
             <property-input
-              label="発射レート"
+              :label="$t('weapon_property.fire_rate')"
               type="number"
               weaponKey="fire_rate"
               min="0"
               step="0.1"
             ></property-input>
             <property-input
-              label="バースト"
+              :label="$t('weapon_property.burst_fire_count')"
               type="number"
               weaponKey="burst_fire_count"
               min="1"
             ></property-input>
             <property-input
-              label="バースト間隔"
+              :label="$t('weapon_property.burst_fire_delay')"
               type="number"
               weaponKey="burst_fire_delay"
               :disabled="!isBurst"
@@ -69,32 +74,32 @@
               step="0.1"
             ></property-input>
             <property-select
-              label="アモタイプ"
+              :label="$t('weapon_property.ammo_pool_type')"
               :items="ammoType"
               weaponKey="ammo_pool_type"
             ></property-select>
             <property-input
-              label="マガジンの弾数"
+              :label="$t('weapon_property.ammo_clip_size')"
               type="number"
               weaponKey="ammo_clip_size"
               min="1"
             ></property-input>
             <property-input
-              label="総弾数"
+              :label="$t('weapon_property.ammo_stockpile_max')"
               type="number"
               weaponKey="ammo_stockpile_max"
               v-bind:disabled="!isAmmoNone"
               min="1"
             ></property-input>
             <property-input
-              label="タクティカルリロード"
+              :label="$t('weapon_property.reload_time')"
               type="number"
               weaponKey="reload_time"
               min="0"
               step="0.1"
             ></property-input>
             <property-input
-              label="リロード"
+              :label="$t('weapon_property.reloadempty_time')"
               type="number"
               weaponKey="reloadempty_time"
               min="0"
@@ -118,7 +123,7 @@
               >
                 mdi-refresh
               </v-icon>
-              txtを生成
+              {{ $t('pages.weapons.generation_txt') }}
             </v-btn>
             <v-btn
               color="primary"
@@ -133,7 +138,7 @@
               >
                 mdi-content-copy
               </v-icon>
-              コピー
+              {{ $t('pages.weapons.copy') }}
             </v-btn>
             <v-textarea
               solo
@@ -188,6 +193,9 @@
       calledWeaponModel: function() {
         return this.$store.state.calledWeaponModel
       },
+      weaponSound: function() {
+        return this.$store.state.weaponSound
+      },
       isBurst: function() {
         if (this.$store.state.weapon.burst_fire_count != '1') {
           return true
@@ -237,28 +245,6 @@
 
           viewmodel: 'mdl/weapons/' + model_path + '/ptpov_' + model + '.rmdl',
           playermodel: 'mdl/weapons/' + model_path + '/w_' + model + '.rmdl',
-
-          fire_sound_1_player_1p: 'Weapon_bulletCasings.Bounce',
-          fire_sound_1_player_3p: 'Weapon_bulletCasings.Bounce',
-          fire_sound_2_player_1p: 'Weapon_r101_SingleShot_1P',
-          fire_sound_2_player_3p: 'Weapon_r101_SingleShot_3P',
-          sound_dryfire: 'assalt_rifle_dryfire',
-          sound_pickup: 'wpn_pickup_SMG_1P',
-          looping_sounds: '0',
-          sound_zoom_in: 'Weapon_R97_ADS_In',
-          sound_zoom_out: 'Weapon_R97_ADS_Out',
-          //burst_or_looping_fire_sound_start_1p: 'Weapon_R97_Fire_First_1P',
-          //burst_or_looping_fire_sound_middle_1p: 'Weapon_R97_Fire_Loop_1P',
-          //burst_or_looping_fire_sound_end_1p: 'Weapon_R97_Fire_End_1P',
-          //burst_or_looping_fire_sound_start_3p: 'Weapon_R97_Fire_First_3P',
-          //burst_or_looping_fire_sound_middle_3p: 'Weapon_R97_Fire_Loop_3P',
-          //burst_or_looping_fire_sound_end_3p: 'Weapon_R97_Fire_End_3P',
-          low_ammo_sound_name_1: 'R101_LowAmmo_Shot1',
-          low_ammo_sound_name_2: 'R101_LowAmmo_Shot2',
-          low_ammo_sound_name_3: 'R101_LowAmmo_Shot3',
-          low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
-          low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
-          low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
 
           damage_type: 'bullet',
           damage_near_value: this.$store.state.weapon.damage_value,
@@ -350,7 +336,22 @@
           uses_ammo_pool: uses_ammo_pool,
         }
 
-        let weapon_dict = { ...weapon_dict_base, ...weapon_dict_ammo }
+        const weapon_dict_sound = {
+          ...this.$store.state.weapon.sound,
+          sound_dryfire: 'assalt_rifle_dryfire',
+          sound_pickup: 'wpn_pickup_SMG_1P',
+          looping_sounds: '0',
+          sound_zoom_in: 'Weapon_R97_ADS_In',
+          sound_zoom_out: 'Weapon_R97_ADS_Out',
+          low_ammo_sound_name_1: 'R101_LowAmmo_Shot1',
+          low_ammo_sound_name_2: 'R101_LowAmmo_Shot2',
+          low_ammo_sound_name_3: 'R101_LowAmmo_Shot3',
+          low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
+          low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
+          low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
+        }
+
+        let weapon_dict = { ...weapon_dict_base, ...weapon_dict_ammo, ...weapon_dict_sound }
 
         if (this.$store.state.weapon.burst_fire_count != '1') {
           const weapon_dict_burst = {

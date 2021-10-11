@@ -4,11 +4,12 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 interface weaponProperty {
-  [key: string]: string
+  [key: string]: string | Record<string, unknown>
   weapon_type: string;
   printname: string;
   icon: string;
   model: string;
+  sound: Record<string, unknown>;
   is_semi_auto: string;
   projectile_launch_speed: string;
   damage_value: string;
@@ -30,6 +31,7 @@ export default new Vuex.Store({
       printname: '',
       icon: '',
       model: '',
+      sound: {},
       is_semi_auto: '0',
       projectile_launch_speed: '21000',
       damage_value: '12',
@@ -43,67 +45,380 @@ export default new Vuex.Store({
       reloadempty_time: '2.5',
     } as weaponProperty,
     weaponType: [
-      {text: 'AR', value: '#base "_base_assault_rifle.txt"'},
-      {text: 'SMG', value: '#base "_base_smg.txt"'},
-      {text: 'SR', value: '#base "_base_sniper.txt"\n#base "_base_sniper_optics.txt"'},
-      {text: 'SG', value: '#base "_base_shotgun.txt"'},
-      {text: 'Pistol', value: '#base "_base_handgun.txt"'},
-      {text: 'LMG(非推奨)', value: '#base "_base_lmg.txt"'},
+      {text: 'weapon_type.ar', value: '#base "_base_assault_rifle.txt"'},
+      {text: 'weapon_type.smg', value: '#base "_base_smg.txt"'},
+      {text: 'weapon_type.lmg', value: '#base "_base_lmg.txt"'},
+      {text: 'weapon_type.sr', value: '#base "_base_sniper.txt"\n#base "_base_sniper_optics.txt"'},
+      {text: 'weapon_type.sg', value: '#base "_base_shotgun.txt"'},
+      {text: 'weapon_type.pistol', value: '#base "_base_handgun.txt"'},
     ],
     calledWeaponIcon: [ //rui/menu/dpad_comms/emoji/fist
-      {text: 'オルタネーター', value: 'alternator'},
-      {text: 'チャージライフル', value: 'charge_rifle'},
-      {text: 'ディヴォーション', value: 'devotion'},
-      {text: 'EVA-8オート', value: 'eva8'},
-      {text: 'フラットライン', value: 'flatline'},
-      {text: 'G7スカウト', value: 'g7'},
-      {text: 'ハボック', value: 'energy_ar'},
-      {text: 'ヘムロック', value: 'hemlok'},
-      {text: 'クレーバー', value: 'sniper'},
-      {text: 'ロングボウ', value: 'longbow'},
-      {text: 'Lスター', value: 'lstar'},
-      {text: 'マスティフ', value: 'mastiff'},
-      {text: 'モザンビーク', value: 'mozanpique'},
-      {text: 'P2020', value: 'p2020'},
-      {text: 'ピースキーパー', value: 'peacekeeper'},
-      {text: 'プラウラー', value: 'prowler'},
-      {text: 'R-301', value: 'r301'},
-      {text: 'R-99', value: 'r97'},
-      {text: 'RE-45', value: 'r45'},
-      {text: 'スピットファイア', value: 'spitfire'},
-      {text: 'トリプルテイク', value: 'triple_take'},
-      {text: 'ウイングマン', value: 'wingman'},
+      {text: 'weapons.alternator', value: 'alternator'},
+      {text: 'weapons.charge_rifle', value: 'charge_rifle'},
+      {text: 'weapons.devotion', value: 'devotion'},
+      {text: 'weapons.eva8', value: 'eva8'},
+      {text: 'weapons.flatline', value: 'flatline'},
+      {text: 'weapons.g7', value: 'g7'},
+      {text: 'weapons.energy_ar', value: 'energy_ar'},
+      {text: 'weapons.hemlok', value: 'hemlok'},
+      {text: 'weapons.sniper', value: 'sniper'},
+      {text: 'weapons.longbow', value: 'longbow'},
+      {text: 'weapons.lstar', value: 'lstar'},
+      {text: 'weapons.mastiff', value: 'mastiff'},
+      {text: 'weapons.mozambique', value: 'mozambique'},
+      {text: 'weapons.p2020', value: 'p2020'},
+      {text: 'weapons.peacekeeper', value: 'peacekeeper'},
+      {text: 'weapons.prowler', value: 'prowler'},
+      {text: 'weapons.r301', value: 'r301'},
+      {text: 'weapons.r97', value: 'r97'},
+      {text: 'weapons.r45', value: 'r45'},
+      {text: 'weapons.spitfire', value: 'spitfire'},
+      {text: 'weapons.triple_take', value: 'triple_take'},
+      {text: 'weapons.wingman', value: 'wingman'},
     ],
     calledWeaponModel: [
-      {text: 'オルタネーター', value: 'alternator_smg'},
-      {text: 'チャージライフル', value: 'defender'},
-      {text: 'ディヴォーション', value: 'hemlock_br'},
-      {text: 'EVA-8オート', value: 'w1128'},
-      {text: 'フラットライン', value: 'vinson'},
-      {text: 'G7スカウト', value: 'g2a4'}, //g2
-      {text: 'ハボック', value: 'beam_ar'},
-      {text: 'ヘムロック', value: 'hemlok'}, //m1a1_hemlok
-      {text: 'クレーバー', value: 'at_rifle'},
-      {text: 'ロングボウ', value: 'rspn101_dmr'},
-      {text: 'Lスター', value: 'lstar'},
-      {text: 'マスティフ', value: 'mastiff'}, //mastiff_stgn
-      {text: 'モザンビーク', value: 'pstl_sa3'},
-      {text: 'P2020', value: 'p2011'},
-      {text: 'ピースキーパー', value: 'peacekeeper'},
-      {text: 'プラウラー', value: 'prowler_smg'},
-      {text: 'R-301', value: 'rspn101'},
-      {text: 'R-99', value: 'r97'},
-      {text: 'RE-45', value: 'p2011_auto'},
-      {text: 'スピットファイア', value: 'lmg_hemlock'},
-      {text: 'トリプルテイク', value: 'doubletake'},
-      {text: 'ウイングマン', value: 'b3wing'},
+      {text: 'weapons.alternator', value: 'alternator_smg'},
+      {text: 'weapons.charge_rifle', value: 'defender'},
+      {text: 'weapons.devotion', value: 'hemlock_br'},
+      {text: 'weapons.eva8', value: 'w1128'},
+      {text: 'weapons.flatline', value: 'vinson'},
+      {text: 'weapons.g7', value: 'g2a4'}, //g2
+      {text: 'weapons.energy_ar', value: 'beam_ar'},
+      {text: 'weapons.hemlok', value: 'hemlok'}, //m1a1_hemlok
+      {text: 'weapons.sniper', value: 'at_rifle'},
+      {text: 'weapons.longbow', value: 'rspn101_dmr'},
+      {text: 'weapons.lstar', value: 'lstar'},
+      {text: 'weapons.mastiff', value: 'mastiff'}, //mastiff_stgn
+      {text: 'weapons.mozambique',  value: 'pstl_sa3'},
+      {text: 'weapons.p2020', value: 'p2011'},
+      {text: 'weapons.peacekeeper', value: 'peacekeeper'},
+      {text: 'weapons.prowler', value: 'prowler_smg'},
+      {text: 'weapons.r301', value: 'rspn101'},
+      {text: 'weapons.r97', value: 'r97'},
+      {text: 'weapons.r45', value:  'p2011_auto'},
+      {text: 'weapons.spitfire', value: 'lmg_hemlock'},
+      {text: 'weapons.triple_take', value: 'doubletake'},
+      {text: 'weapons.wingman', value: 'b3wing'},
     ],
     ammoType: [
-      {text: 'ライトアモ', value: 'bullet'},
-      {text: 'ヘビーアモ', value: 'highcal'},
-      {text: 'エネルギーアモ', value: 'special'},
-      {text: 'ショットガンアモ', value: 'shotgun'},
-      {text: '無し(ケアパケ武器)', value: 'none'}
+      {text: 'ammo_type.bullet', value: 'bullet'},
+      {text: 'ammo_type.highcal', value: 'highcal'},
+      {text: 'ammo_type.special', value: 'special'},
+      {text: 'ammo_type.shotgun', value: 'shotgun'},
+      {text: 'ammo_type.none', value: 'none'}
+    ],
+    weaponSound: [
+      {
+        text: 'weapons.alternator',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_Alternator_FirstShot_1P',
+          'fire_sound_1_player_3p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'Weapon_Alternator_SecondShot_1P',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': 'Weapon_Alternator_SecondShot_NPC',
+        }
+      },
+      {
+        text: 'weapons.charge_rifle',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_ChargeRifle_Fire_1P',
+          'fire_sound_1_player_3p': 'Weapon_ChargeRifle_Fire_3P',
+          'fire_sound_1_npc': 'Weapon_ChargeRifle_Fire_NPC',
+          'fire_sound_2_player_1p': '',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.devotion',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_Devotion_SecondShot_1P',
+          'fire_sound_1_player_3p': '',
+          'fire_sound_1_npc': 'Weapon_ColdWar_Fire_3P',
+          'fire_sound_2_player_1p': 'weapon_devotion_firstshot_1p',
+          'fire_sound_2_player_3p': 'Weapon_Devotion_SecondShot_3P',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.eva8',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_EVA8_AutoFire_1P',
+          'fire_sound_1_player_3p': 'Weapon_EVA8_AutoFire_3P',
+          'fire_sound_1_npc': 'Weapon_EVA8_AutoFire_NPC',
+          'fire_sound_2_player_1p': '',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.flatline',
+        value: {
+          'fire_sound_1_player_1p': 'Vinson_shell',
+          'fire_sound_1_player_3p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'Weapon_Vinson_SecondShot_1P',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': 'Weapon_Vinson_SecondShot_NPC',
+          'fire_sound_3_player_1p': 'Weapon_Vinson_FirstShot_1P',
+          'fire_sound_3_player_3p': '',
+          'fire_sound_3_npc': '',
+        }
+      },
+      {
+        text: 'weapons.flatline_single',
+        value: {
+          'fire_sound_1_player_1p': 'Vinson_shell',
+          'fire_sound_1_player_3p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'Weapon_Vinson_SingleShot_1P',
+          'fire_sound_2_player_3p': 'Weapon_Vinson_SingleShot_3P',
+          'fire_sound_2_npc': 'Weapon_Vinson_SingleShot_NPC',
+        }
+      },
+      {
+        text: 'weapons.g7',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_G2A4_Fire_1P',
+          'fire_sound_1_player_3p': 'Weapon_G2A4_Fire_3P',
+          'fire_sound_1_npc': 'Weapon_G2A4_Fire_NPC',
+          'fire_sound_2_player_1p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_2_player_3p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.energy_ar',
+        value: {
+          'fire_sound_1_player_1p': 'weapon_havoc_secondshot_1p',
+          'fire_sound_1_player_3p': 'weapon_havoc_secondshot_3p',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'weapon_havoc_firstshot_1p',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.energy_ar_single',
+        value: {
+          'fire_sound_1_player_1p': 'weapon_havoc_altfire_singleshot_1p',
+          'fire_sound_1_player_3p': 'weapon_havoc_altfire_singleshot_3p',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': '',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.hemlok',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_1_player_3p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'Weapon_Hemlok_SingleShot_1P',
+          'fire_sound_2_player_3p': 'Weapon_Hemlok_SingleShot_3P',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.sniper',
+        value: {
+          'fire_sound_1_player_1p': '',
+          'fire_sound_1_player_3p': '',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'Weapon_Kraber_Fire_1P',
+          'fire_sound_2_player_3p': 'Weapon_Kraber_Fire_3P',
+          'fire_sound_2_npc': 'Weapon_Kraber_Fire_npc',
+        }
+      },
+      {
+        text: 'weapons.longbow',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_DMR_Fire_1P',
+          'fire_sound_1_player_3p': 'Weapon_DMR_Fire_3P',
+          'fire_sound_1_npc': 'Weapon_DMR_Fire_NPC',
+          'fire_sound_2_player_1p': '',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.longbow_skull',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_DMR_Fire_1P',
+          'fire_sound_1_player_3p': 'Weapon_DMR_Fire_3P',
+          'fire_sound_1_npc': 'Weapon_DMR_Fire_NPC',
+          'fire_sound_2_player_1p': 'weapon_dmr_fire_skull_1p',
+          'fire_sound_2_player_3p': 'weapon_dmr_fire_skull_3p',
+          'fire_sound_2_npc': 'weapon_dmr_fire_skull_3p',
+        }
+      },
+      {
+        text: 'weapons.lstar',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_LSTAR_Fire_1P',
+          'fire_sound_1_player_3p': 'Weapon_LSTAR_Fire_3P',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'weapon_lstar_secondshot_1p',
+          'fire_sound_2_player_3p': 'Weapon_LSTAR_SecondShot_3P',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.mastiff',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_Mastiff_Fire_1P',
+          'fire_sound_1_player_3p': 'Weapon_Mastiff_Fire_3P',
+          'fire_sound_1_npc': 'Weapon_Mastiff_Fire_npc',
+          'fire_sound_2_player_1p': '',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.mozambique',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_ShotgunPistol_Fire_1P',
+          'fire_sound_1_player_3p': 'Weapon_ShotgunPistol_Fire_1P',
+          'fire_sound_1_npc': 'Weapon_ShotgunPistol_Fire_NPC',
+          'fire_sound_2_player_1p': '',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.p2020',
+        value: {
+          'fire_sound_1_player_1p': 'weapon_re45auto_shell',
+          'fire_sound_1_player_3p': 'weapon_re45auto_shell',
+          'fire_sound_1_npc': 'weapon_re45auto_shell',
+          'fire_sound_2_player_1p': 'Weapon_P2011_Fire_1P',
+          'fire_sound_2_player_3p': 'Weapon_P2011_Fire_3P',
+          'fire_sound_2_npc': 'Weapon_P2011_Fire_NPC',
+        }
+      },
+      {
+        text: 'weapons.peacekeeper',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_Peacekeeper_Fire_1P',
+          'fire_sound_1_player_3p': 'Weapon_Peacekeeper_Fire_3P',
+          'fire_sound_1_npc': 'Weapon_Peacekeeper_Fire_3P',
+          'fire_sound_2_player_1p': '',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.prowler',
+        value: {
+          'fire_sound_1_player_1p': 'weapon_prowler_singleshot_1p',
+          'fire_sound_1_player_3p': '',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'weapon_prowler_firstshot_1p',
+          'fire_sound_2_player_3p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.r301',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_R101_FirstShot_1P',
+          'fire_sound_1_player_3p': '',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_2_player_3p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.r301_single',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_r101_SingleShot_1P',
+          'fire_sound_1_player_3p': 'Weapon_r101_SingleShot_3P',
+          'fire_sound_1_npc': 'Weapon_r101_SingleShot_npc',
+          'fire_sound_2_player_1p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_2_player_3p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.r97',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_R97_Fire_First_1P',
+          'fire_sound_1_player_3p': '',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_2_player_3p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.r45',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_RE45_Firstshot_1P',
+          'fire_sound_1_player_3p': '',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'Weapon_RE45_secondshot_1P',
+          'fire_sound_2_player_3p': 'Weapon_RE45_secondshot_3P',
+          'fire_sound_2_npc': 'Weapon_RE45_secondshot_npc',
+        }
+      },
+      {
+        text: 'weapons.spitfire',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_LMG_Firstshot_1P',
+          'fire_sound_1_player_3p': 'LMG_shell',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': 'Weapon_LMG_SecondShot_1P',
+          'fire_sound_2_player_3p': 'Weapon_LMG_SecondShot_3P',
+          'fire_sound_2_npc': 'Weapon_LMG_SecondShot_npc',
+        }
+      },
+      {
+        text: 'weapons.smart_pistol',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_SmartPistol_Fire_1P',
+          'fire_sound_1_player_3p': 'Weapon_SmartPistol_Fire_3P',
+          'fire_sound_1_npc': '',
+          'fire_sound_2_player_1p': '',
+          'fire_sound_2_player_3p': '',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.triple_take',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_DoubleTake_Fire_1P',
+          'fire_sound_1_player_3p': 'Weapon_DoubleTake_Fire_3P',
+          'fire_sound_1_npc': 'Weapon_DoubleTake_Fire_NPC',
+          'fire_sound_2_player_1p': 'large_shell_drop',
+          'fire_sound_2_player_3p': 'large_shell_drop',
+          'fire_sound_2_npc': '',
+        }
+      },
+      {
+        text: 'weapons.wingman',
+        value: {
+          'fire_sound_1_player_1p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_1_player_3p': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_1_npc': 'Weapon_bulletCasings.Bounce',
+          'fire_sound_2_player_1p': 'Weapon_Wingman_Fire_1P',
+          'fire_sound_2_player_3p': 'Weapon_Wingman_Fire_3P',
+          'fire_sound_2_npc': 'Weapon_Wingman_Fire_NPC',
+        }
+      },
+      {
+        text: 'weapons.wingman_skull',
+        value: {
+          'fire_sound_1_player_1p': 'weapon_wingman_fire_skull_1p',
+          'fire_sound_1_player_3p': 'weapon_wingman_fire_skull_3p',
+          'fire_sound_1_npc': 'weapon_wingman_fire_skull_3p',
+          'fire_sound_2_player_1p': 'Weapon_Wingman_Fire_1P',
+          'fire_sound_2_player_3p': 'Weapon_Wingman_Fire_3P',
+          'fire_sound_2_npc': 'Weapon_Wingman_Fire_NPC',
+        }
+      },
     ]
   },
   mutations: {

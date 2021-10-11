@@ -25,18 +25,51 @@
 
         <v-list>
           <v-list-item
-            v-for="i in menuitem"
-            v-bind:key="i.link"
-            v-bind:href="i.link"
+            @click.stop="dialog = true"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ menuitem[0].icon }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>{{ $t(menuitem[0].name) }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item
+            v-for="i in menuitem.slice(1)"
+            :key="i.name"
+            :to="i.link"
             target="_blank"
           >
             <v-list-item-icon>
               <v-icon>{{ i.icon }}</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>{{ i.name }}</v-list-item-title>
+            <v-list-item-title>{{ $t(i.name) }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-dialog
+        v-model="dialog"
+        max-width="500"
+      >
+        <v-card>
+          <v-card-title>
+            {{ $t('appbar.select_lang') }}
+          </v-card-title>
+
+          <v-card-actions>
+            <v-select
+              :items="langs"
+              v-model="$i18n.locale"
+              @change="dialog = false"
+            >
+              <template v-slot:selection="data">
+                {{ $t(data.item.text) }}
+              </template>
+              <template v-slot:item="data">
+                {{ $t(data.item.text) }}
+              </template>
+            </v-select>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-app-bar>
 
     <v-main>
@@ -52,20 +85,30 @@ export default Vue.extend({
   name: 'App',
 
   data: () => ({
+    dialog: false,
+    langs: [
+      {text: 'appbar.langs.ja', value: 'ja'},
+      {text: 'appbar.langs.en', value: 'en'}
+    ],
     menuitem: [
       {
+        icon: 'mdi-translate',
+        name: 'appbar.lang',
+        link: '__dialog'
+      },
+      {
         icon: 'mdi-update',
-        name: '変更履歴',
+        name: 'appbar.changelog',
         link: 'https://github.com/BlueSheep2804/r5rtool/blob/master/Changelog.md'
       },
       {
         icon: 'mdi-github',
-        name: 'ソースコード',
+        name: 'appbar.source_code',
         link: 'https://github.com/BlueSheep2804/r5rtool'
       },
       {
         icon: 'mdi-twitter',
-        name: '作者のTwitter',
+        name: 'appbar.twitter_author',
         link: 'https://twitter.com/BlueSheep2804'
       }
     ]

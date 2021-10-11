@@ -1,0 +1,82 @@
+{
+  "appbar": {
+    "lang": "Language",
+    "select_lang": "Select language",
+    "langs": {
+      "en": "English",
+      "ja": "Japanese"
+    },
+    "changelog": "Changelog",
+    "source_code": "Source code",
+    "twitter_author": "@BlueSheep2804"
+  },
+  "pages": {
+    "weapons": {
+      "generation_txt": "Generation txt",
+      "copy": "Copy"
+    }
+  },
+  "weapons": {
+    "alternator": "Alternator",
+    "charge_rifle": "Charge rifle",
+    "devotion": "Devotion",
+    "eva8": "EVA-8 Auto",
+    "flatline": "Flatline",
+    "flatline_single": "Flatline (Single)",
+    "g7": "G7 Scout",
+    "energy_ar": "Havoc",
+    "energy_ar_single": "Havoc (Single)",
+    "hemlok": "Hemlok",
+    "sniper": "Kraber",
+    "longbow": "Longbow",
+    "longbow_skull": "Longbow (Skullpiercer)",
+    "lstar": "L-Star",
+    "mastiff": "Mastiff",
+    "mozambique": "Mozanbique",
+    "p2020": "P2020",
+    "peacekeeper": "Peacekeeper",
+    "prowler": "Prowler",
+    "r301": "R-301",
+    "r301_single": "R-301 (Single)",
+    "r97": "R-99",
+    "r45": "RE-45",
+    "spitfire": "Spitfire",
+    "triple_take": "Triple take",
+    "wingman": "Wingman",
+    "wingman_skull": "Wingman (Skullpiercer)"
+  },
+  "weapon_type": {
+    "ar": "Assult rifle",
+    "smg": "SMG",
+    "lmg": "LMG",
+    "sr": "Sniper rifle",
+    "sg": "Shotgun",
+    "pistol": "Pistol"
+  },
+  "ammo_type": {
+    "bullet": "Light ammo",
+    "highcal": "Heavy ammo",
+    "special": "Energy ammo",
+    "shotgun": "Shotgun ammo",
+    "none": "Nothing(Care package weapon)"
+  },
+  "weapon_property": {
+    "weapon_type": "Weapon type",
+    "printname": "Weapon name",
+    "icon": "Icon",
+    "model": "Model",
+    "sound": "Sound of gunfire",
+    "sound_hint": "Full-auto weapon sounds are not supported",
+    "is_semi_auto": "Semi auto",
+    "projectile_launch_speed": "Speed of a bullet",
+    "damage_value": "Damage",
+    "fire_rate": "Fire rate",
+    "burst_fire_count": "Burst",
+    "burst_fire_delay": "Burst fire delay",
+    "ammo_pool_type": "Ammo type",
+    "ammo_clip_size": "Mag capacity",
+    "ammo_stockpile_max": "Ammo capacity",
+    "reload_time": "Reload time",
+    "reloadempty_time": "Reload time(Empty mag)"
+  }
+}
