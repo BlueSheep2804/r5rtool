@@ -30,6 +30,12 @@
               :items="calledWeaponModel"
               weaponKey="model"
             ></property-select>
+            <property-select
+              :label="$t('weapon_property.sound')"
+              :hint="$t('weapon_property.sound_hint')"
+              :items="weaponSound"
+              weaponKey="sound"
+            ></property-select>
             <property-checkbox
               :label="$t('weapon_property.is_semi_auto')"
               weaponKey="is_semi_auto"
@@ -187,6 +193,9 @@
       calledWeaponModel: function() {
         return this.$store.state.calledWeaponModel
       },
+      weaponSound: function() {
+        return this.$store.state.weaponSound
+      },
       isBurst: function() {
         if (this.$store.state.weapon.burst_fire_count != '1') {
           return true
@@ -236,28 +245,6 @@
 
           viewmodel: 'mdl/weapons/' + model_path + '/ptpov_' + model + '.rmdl',
           playermodel: 'mdl/weapons/' + model_path + '/w_' + model + '.rmdl',
-
-          fire_sound_1_player_1p: 'Weapon_bulletCasings.Bounce',
-          fire_sound_1_player_3p: 'Weapon_bulletCasings.Bounce',
-          fire_sound_2_player_1p: 'Weapon_r101_SingleShot_1P',
-          fire_sound_2_player_3p: 'Weapon_r101_SingleShot_3P',
-          sound_dryfire: 'assalt_rifle_dryfire',
-          sound_pickup: 'wpn_pickup_SMG_1P',
-          looping_sounds: '0',
-          sound_zoom_in: 'Weapon_R97_ADS_In',
-          sound_zoom_out: 'Weapon_R97_ADS_Out',
-          //burst_or_looping_fire_sound_start_1p: 'Weapon_R97_Fire_First_1P',
-          //burst_or_looping_fire_sound_middle_1p: 'Weapon_R97_Fire_Loop_1P',
-          //burst_or_looping_fire_sound_end_1p: 'Weapon_R97_Fire_End_1P',
-          //burst_or_looping_fire_sound_start_3p: 'Weapon_R97_Fire_First_3P',
-          //burst_or_looping_fire_sound_middle_3p: 'Weapon_R97_Fire_Loop_3P',
-          //burst_or_looping_fire_sound_end_3p: 'Weapon_R97_Fire_End_3P',
-          low_ammo_sound_name_1: 'R101_LowAmmo_Shot1',
-          low_ammo_sound_name_2: 'R101_LowAmmo_Shot2',
-          low_ammo_sound_name_3: 'R101_LowAmmo_Shot3',
-          low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
-          low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
-          low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
 
           damage_type: 'bullet',
           damage_near_value: this.$store.state.weapon.damage_value,
@@ -349,7 +336,22 @@
           uses_ammo_pool: uses_ammo_pool,
         }
 
-        let weapon_dict = { ...weapon_dict_base, ...weapon_dict_ammo }
+        const weapon_dict_sound = {
+          ...this.$store.state.weapon.sound,
+          sound_dryfire: 'assalt_rifle_dryfire',
+          sound_pickup: 'wpn_pickup_SMG_1P',
+          looping_sounds: '0',
+          sound_zoom_in: 'Weapon_R97_ADS_In',
+          sound_zoom_out: 'Weapon_R97_ADS_Out',
+          low_ammo_sound_name_1: 'R101_LowAmmo_Shot1',
+          low_ammo_sound_name_2: 'R101_LowAmmo_Shot2',
+          low_ammo_sound_name_3: 'R101_LowAmmo_Shot3',
+          low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
+          low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
+          low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
+        }
+
+        let weapon_dict = { ...weapon_dict_base, ...weapon_dict_ammo, ...weapon_dict_sound }
 
         if (this.$store.state.weapon.burst_fire_count != '1') {
           const weapon_dict_burst = {
