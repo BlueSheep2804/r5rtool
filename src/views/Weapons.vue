@@ -351,11 +351,20 @@
           low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
         }
 
+        let burst_fire_count = this.$store.state.weapon.burst_fire_count
+        if (burst_fire_count == '1') {
+          burst_fire_count = '0'
+        }
+
         let weapon_dict = {
           WeaponData: {
             ...weapon_dict_base,
             ...weapon_dict_ammo,
             ...weapon_dict_sound,
+
+            burst_fire_count: burst_fire_count,
+            burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
+
             RUI_CrosshairData: {
               DefaultArgs: {
                 adjustedSpread: 'weapon_spread',
@@ -372,17 +381,6 @@
                 base_spread: '0.0'
               }
             }
-          }
-        }
-
-        if (this.$store.state.weapon.burst_fire_count != '1') {
-          const weapon_dict_burst = {
-            burst_fire_count: this.$store.state.weapon.burst_fire_count,
-            burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
-          }
-          weapon_dict.WeaponData = { 
-            ...weapon_dict.WeaponData,
-            ...weapon_dict_burst
           }
         }
 
