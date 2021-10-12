@@ -170,7 +170,7 @@
   import PropertyCheckbox from '../components/PropertyCheckbox.vue'
   import PropertyInput from '../components/PropertyInput.vue'
   import PropertySelect from '../components/PropertySelect.vue'
-  import { object2text } from '../utils/r5rtext'
+  import { generateR5RWeapon } from '../utils/r5rtext'
 
   export default Vue.extend({
     name: 'Weapons',
@@ -351,28 +351,40 @@
           low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
         }
 
-        let weapon_dict = { ...weapon_dict_base, ...weapon_dict_ammo, ...weapon_dict_sound }
+        let burst_fire_count = this.$store.state.weapon.burst_fire_count
+        if (burst_fire_count == '1') {
+          burst_fire_count = '0'
+        }
 
-        if (this.$store.state.weapon.burst_fire_count != '1') {
-          const weapon_dict_burst = {
-            burst_fire_count: this.$store.state.weapon.burst_fire_count,
+        let weapon_dict = {
+          WeaponData: {
+            ...weapon_dict_base,
+            ...weapon_dict_ammo,
+            ...weapon_dict_sound,
+
+            burst_fire_count: burst_fire_count,
             burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
-          }
-          weapon_dict = { 
-            ...weapon_dict,
-            ...weapon_dict_burst
+
+            RUI_CrosshairData: {
+              DefaultArgs: {
+                adjustedSpread: 'weapon_spread',
+                adsFrac: 'player_zoomFrac',
+                isSprinting: 'player_is_sprinting',
+                isReloading: 'weapon_is_reloading',
+                teamColor: 'crosshair_team_color',
+                isAmped: 'weapon_is_amped',
+                crosshairMovementX: 'crosshair_movement_x',
+                crosshairMovementY: 'crosshair_movement_y'
+              },
+              Crosshair_1: {
+                ui: 'ui/crosshair_plus',
+                base_spread: '0.0'
+              }
+            }
           }
         }
 
-        const weapon_dict_crosshair = {
-          ui: 'ui/crosshair_tri',
-          base_spread: '0.0'
-        }
-        this.weaponText = object2text(
-          weapon_dict,
-          this.$store.state.weapon.weapon_type + '\nWeaponData',
-          object2text(weapon_dict_crosshair, '\nRUI_CrosshairData\n{DefaultArgs\n{adjustedSpread  weapon_spread\nadsFrac  player_zoomFrac\nisSprinting  player_is_sprinting\nisReloading  weapon_is_reloading\nteamColor  crosshair_team_color\nisAmped  weapon_is_amped\ncrosshairMovementX  crosshair_movement_x\ncrosshairMovementY  crosshair_movement_y\n}\nCrosshair_1', '\n}')
-        )
+        this.weaponText = this.$store.state.weapon.weapon_type + '\n\n' + generateR5RWeapon(weapon_dict)
         this.copyTextButton = false
       },
       copyText: function () {
