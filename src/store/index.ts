@@ -7,6 +7,8 @@ interface weaponProperty {
   [key: string]: string | Record<string, unknown>
   weapon_type: string;
   printname: string;
+  shortprintname: string;
+  description: string;
   icon: string;
   model: string;
   crosshair: string;
@@ -32,6 +34,8 @@ export default new Vuex.Store({
     weapon: {
       weapon_type: '',
       printname: '',
+      shortprintname: '',
+      description: '',
       icon: '',
       model: '',
       crosshair: '',

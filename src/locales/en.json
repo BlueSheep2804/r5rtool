@@ -76,6 +76,8 @@
   "weapon_property": {
     "weapon_type": "Weapon type",
     "printname": "Weapon name",
+    "shortprintname": "Short weapon name",
+    "description": "Description",
     "icon": "Icon",
     "model": "Model",
     "crosshair": "Crosshair",
