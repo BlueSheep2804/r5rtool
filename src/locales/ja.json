@@ -58,8 +58,7 @@
     "bullet": "ライトアモ",
     "highcal": "ヘビーアモ",
     "special": "エネルギーアモ",
-    "shotgun": "ショットガンアモ",
-    "none": "無し(ケアパケ武器)"
+    "shotgun": "ショットガンアモ"
   },
   "weapon_property": {
     "weapon_type": "武器タイプ",
@@ -76,7 +75,6 @@
     "burst_fire_delay": "バースト間隔",
     "ammo_pool_type": "アモタイプ",
     "ammo_clip_size": "マガジンの弾数",
-    "ammo_stockpile_max": "総弾数",
     "reload_time": "タクティカルリロード",
     "reloadempty_time": "リロード"
   }

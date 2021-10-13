@@ -85,13 +85,6 @@
               min="1"
             ></property-input>
             <property-input
-              :label="$t('weapon_property.ammo_stockpile_max')"
-              type="number"
-              weaponKey="ammo_stockpile_max"
-              v-bind:disabled="!isAmmoNone"
-              min="1"
-            ></property-input>
-            <property-input
               :label="$t('weapon_property.reload_time')"
               type="number"
               weaponKey="reload_time"
@@ -206,13 +199,6 @@
       ammoType: function() {
         return this.$store.state.ammoType
       },
-      isAmmoNone: function() {
-        if (this.$store.state.weapon.ammo_pool_type == 'none') {
-          return true
-        } else {
-          return false
-        }
-      },
     },
     methods: {
       generationTxt: function () {
@@ -320,20 +306,14 @@
           rui_crosshair_index: '0',
         }
 
-        let uses_ammo_pool = '1'
-        if (this.$store.state.weapon.ammo_pool_type == 'none') {
-          uses_ammo_pool = '0'
-        }
-
         const weapon_dict_ammo = {
           ammo_pool_type: this.$store.state.weapon.ammo_pool_type,
           ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
-          ammo_default_total: this.$store.state.weapon.ammo_clip_size + this.$store.state.weapon.ammo_stockpile_max,
-          ammo_stockpile_max: this.$store.state.weapon.ammo_stockpile_max,
-          ammo_clip_reload_max: this.$store.state.weapon.ammo_clip_size,
-          ammo_no_remove_from_stockpile: '0',
+          ammo_default_total: '180',
+          ammo_stockpile_max: '180',
+          ammo_no_remove_from_stockpile: '1',
           ammo_min_to_fire: '1',
-          uses_ammo_pool: uses_ammo_pool,
+          uses_ammo_pool: '1',
         }
 
         const weapon_dict_sound = {
@@ -368,10 +348,10 @@
             Mods: {
               gold: {},
               survival_finite_ammo: {
-                ammo_default_total: "0",
-                ammo_stockpile_max: "30",
-                ammo_no_remove_from_stockpile: "0",
-                uses_ammo_pool: uses_ammo_pool
+                ammo_default_total: '180',
+                ammo_stockpile_max: '180',
+                ammo_no_remove_from_stockpile: '0',
+                uses_ammo_pool: '1'
               }
             },
 

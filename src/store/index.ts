@@ -18,7 +18,6 @@ interface weaponProperty {
   burst_fire_delay: string;
   ammo_pool_type: string;
   ammo_clip_size: string;
-  ammo_stockpile_max: string;
   reload_time: string;
   reloadempty_time: string;
 }
@@ -104,8 +103,7 @@ export default new Vuex.Store({
       {text: 'ammo_type.bullet', value: 'bullet'},
       {text: 'ammo_type.highcal', value: 'highcal'},
       {text: 'ammo_type.special', value: 'special'},
-      {text: 'ammo_type.shotgun', value: 'shotgun'},
-      {text: 'ammo_type.none', value: 'none'}
+      {text: 'ammo_type.shotgun', value: 'shotgun'}
     ],
     weaponSound: [
       {

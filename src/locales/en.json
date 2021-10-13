@@ -57,8 +57,7 @@
     "bullet": "Light ammo",
     "highcal": "Heavy ammo",
     "special": "Energy ammo",
-    "shotgun": "Shotgun ammo",
-    "none": "Nothing(Care package weapon)"
+    "shotgun": "Shotgun ammo"
   },
   "weapon_property": {
     "weapon_type": "Weapon type",
@@ -75,7 +74,6 @@
     "burst_fire_delay": "Burst fire delay",
     "ammo_pool_type": "Ammo type",
     "ammo_clip_size": "Mag capacity",
-    "ammo_stockpile_max": "Ammo capacity",
     "reload_time": "Reload time",
     "reloadempty_time": "Reload time(Empty mag)"
   }
