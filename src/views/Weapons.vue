@@ -365,6 +365,16 @@
             burst_fire_count: burst_fire_count,
             burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
 
+            Mods: {
+              gold: {},
+              survival_finite_ammo: {
+                ammo_default_total: "0",
+                ammo_stockpile_max: "30",
+                ammo_no_remove_from_stockpile: "0",
+                uses_ammo_pool: uses_ammo_pool
+              }
+            },
+
             RUI_CrosshairData: {
               DefaultArgs: {
                 adjustedSpread: 'weapon_spread',
