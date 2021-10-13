@@ -31,6 +31,11 @@
               weaponKey="model"
             ></property-select>
             <property-select
+              :label="$t('weapon_property.crosshair')"
+              :items="crosshair"
+              weaponKey="crosshair"
+            ></property-select>
+            <property-select
               :label="$t('weapon_property.sound')"
               :hint="$t('weapon_property.sound_hint')"
               :items="weaponSound"
@@ -185,6 +190,9 @@
       },
       calledWeaponModel: function() {
         return this.$store.state.calledWeaponModel
+      },
+      crosshair: function() {
+        return this.$store.state.crosshair
       },
       weaponSound: function() {
         return this.$store.state.weaponSound
@@ -367,7 +375,7 @@
                 crosshairMovementY: 'crosshair_movement_y'
               },
               Crosshair_1: {
-                ui: 'ui/crosshair_plus',
+                ui: this.$store.state.weapon.crosshair,
                 base_spread: '0.0'
               }
             }

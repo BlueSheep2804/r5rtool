@@ -59,11 +59,25 @@
     "special": "Energy ammo",
     "shotgun": "Shotgun ammo"
   },
+  "crosshair": {
+    "alternator": "@:weapons.alternator",
+    "charge_rifle": "@:weapons.charge_rifle",
+    "circle": "Circle",
+    "dot": "Dot",
+    "lstar": "@:weapons.lstar",
+    "mastiff": "@:weapons.mastiff",
+    "plus": "Plus",
+    "plus_dot": "Plus + dot",
+    "shotgun": "@:weapon_type.sg",
+    "tactical": "None",
+    "tri": "Triangle"
+  },
   "weapon_property": {
     "weapon_type": "Weapon type",
     "printname": "Weapon name",
     "icon": "Icon",
     "model": "Model",
+    "crosshair": "Crosshair",
     "sound": "Sound of gunfire",
     "sound_hint": "Full-auto weapon sounds are not supported",
     "is_semi_auto": "Semi auto",

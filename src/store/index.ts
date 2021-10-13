@@ -39,9 +39,9 @@ export default new Vuex.Store({
       burst_fire_delay: '0.2',
       ammo_pool_type: 'bullet',
       ammo_clip_size: '18',
-      ammo_stockpile_max: '180',
       reload_time: '1.8',
       reloadempty_time: '2.5',
+      crosshair: ''
     } as weaponProperty,
     weaponType: [
       {text: 'weapon_type.ar', value: '#base "_base_assault_rifle.txt"'},
@@ -417,6 +417,19 @@ export default new Vuex.Store({
           'fire_sound_2_npc': 'Weapon_Wingman_Fire_NPC',
         }
       },
+    ],
+    crosshair: [
+      {text: 'crosshair.alternator', value: 'ui/crosshair_alternator'},
+      {text: 'crosshair.charge_rifle', value: 'ui/crosshair_charge_rifle'},
+      {text: 'crosshair.circle', value: 'ui/crosshair_circle2'},
+      {text: 'crosshair.dot', value: 'ui/crosshair_dot'},
+      {text: 'crosshair.lstar', value: 'ui/crosshair_lstar'},
+      {text: 'crosshair.mastiff', value: 'ui/crosshair_mastiff'},
+      {text: 'crosshair.plus', value: 'ui/crosshair_plus'},
+      {text: 'crosshair.plus_dot', value: 'ui/crosshair_plus_dot'},
+      {text: 'crosshair.shotgun', value: 'ui/crosshair_shotgun'},
+      {text: 'crosshair.tactical', value: 'ui/crosshair_tactical'},
+      {text: 'crosshair.tri', value: 'ui/crosshair_tri'},
     ]
   },
   mutations: {
