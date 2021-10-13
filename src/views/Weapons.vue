@@ -265,8 +265,9 @@
         }
 
         let weapon_base = this.$store.state.weapon.weapon_type
+        let burst_fire_count = this.$store.state.weapon.burst_fire_count == '1' ? '0' : this.$store.state.weapon.burst_fire_count
 
-        let weapon_dict_base = {
+        let weapon_dict_data = {
           printname: this.$store.state.weapon.printname,
           shortprintname: this.$store.state.weapon.printname,
           description: this.$store.state.weapon.printname,
@@ -289,6 +290,29 @@
           is_semi_auto: this.$store.state.weapon.is_semi_auto,
           fire_rate: this.$store.state.weapon.fire_rate,
           projectile_launch_speed: this.$store.state.weapon.projectile_launch_speed,
+          burst_fire_count: burst_fire_count,
+          burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
+
+          ...this.$store.state.weapon.sound,
+          sound_dryfire: 'assalt_rifle_dryfire',
+          sound_pickup: 'wpn_pickup_SMG_1P',
+          looping_sounds: '0',
+          sound_zoom_in: 'Weapon_R97_ADS_In',
+          sound_zoom_out: 'Weapon_R97_ADS_Out',
+          low_ammo_sound_name_1: 'R101_LowAmmo_Shot1',
+          low_ammo_sound_name_2: 'R101_LowAmmo_Shot2',
+          low_ammo_sound_name_3: 'R101_LowAmmo_Shot3',
+          low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
+          low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
+          low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
+
+          ammo_pool_type: this.$store.state.weapon.ammo_pool_type,
+          ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
+          ammo_default_total: '180',
+          ammo_stockpile_max: '180',
+          ammo_no_remove_from_stockpile: '1',
+          ammo_min_to_fire: '1',
+          uses_ammo_pool: '1',
 
           reload_time: this.$store.state.weapon.reload_time,
           reload_time_late1: Math.round((this.$store.state.weapon.reload_time * 0.4) * 10) / 10 + '',
@@ -354,31 +378,6 @@
           rui_crosshair_index: '0',
         }
 
-        const weapon_dict_ammo = {
-          ammo_pool_type: this.$store.state.weapon.ammo_pool_type,
-          ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
-          ammo_default_total: '180',
-          ammo_stockpile_max: '180',
-          ammo_no_remove_from_stockpile: '1',
-          ammo_min_to_fire: '1',
-          uses_ammo_pool: '1',
-        }
-
-        const weapon_dict_sound = {
-          ...this.$store.state.weapon.sound,
-          sound_dryfire: 'assalt_rifle_dryfire',
-          sound_pickup: 'wpn_pickup_SMG_1P',
-          looping_sounds: '0',
-          sound_zoom_in: 'Weapon_R97_ADS_In',
-          sound_zoom_out: 'Weapon_R97_ADS_Out',
-          low_ammo_sound_name_1: 'R101_LowAmmo_Shot1',
-          low_ammo_sound_name_2: 'R101_LowAmmo_Shot2',
-          low_ammo_sound_name_3: 'R101_LowAmmo_Shot3',
-          low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
-          low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
-          low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
-        }
-
         let extended_mag_prefix
         switch (this.$store.state.weapon.ammo_pool_type) {
           case 'special':
@@ -409,19 +408,9 @@
           }
         }
 
-        let burst_fire_count = this.$store.state.weapon.burst_fire_count
-        if (burst_fire_count == '1') {
-          burst_fire_count = '0'
-        }
-
         let weapon_dict = {
           WeaponData: {
-            ...weapon_dict_base,
-            ...weapon_dict_ammo,
-            ...weapon_dict_sound,
-
-            burst_fire_count: burst_fire_count,
-            burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
+            ...weapon_dict_data,
 
             Mods: {
               gold: {},
