@@ -89,6 +89,10 @@
     "burst_fire_delay": "バースト間隔",
     "ammo_pool_type": "アモタイプ",
     "ammo_clip_size": "マガジンの弾数",
+    "extended_mag": "拡張マガジン",
+    "mag_l1": "@:weapon_property.extended_mag Lv.1",
+    "mag_l2": "@:weapon_property.extended_mag Lv.2",
+    "mag_l3": "@:weapon_property.extended_mag Lv.3",
     "reload_time": "タクティカルリロード",
     "reloadempty_time": "リロード"
   }

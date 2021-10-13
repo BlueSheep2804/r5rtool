@@ -9,6 +9,7 @@ interface weaponProperty {
   printname: string;
   icon: string;
   model: string;
+  crosshair: string;
   sound: Record<string, unknown>;
   is_semi_auto: string;
   projectile_launch_speed: string;
@@ -18,6 +19,9 @@ interface weaponProperty {
   burst_fire_delay: string;
   ammo_pool_type: string;
   ammo_clip_size: string;
+  mag_l1: string;
+  mag_l2: string;
+  mag_l3: string;
   reload_time: string;
   reloadempty_time: string;
 }
@@ -30,6 +34,7 @@ export default new Vuex.Store({
       printname: '',
       icon: '',
       model: '',
+      crosshair: '',
       sound: {},
       is_semi_auto: '0',
       projectile_launch_speed: '21000',
@@ -39,9 +44,11 @@ export default new Vuex.Store({
       burst_fire_delay: '0.2',
       ammo_pool_type: 'bullet',
       ammo_clip_size: '18',
+      mag_l1: '20',
+      mag_l2: '23',
+      mag_l3: '27',
       reload_time: '1.8',
       reloadempty_time: '2.5',
-      crosshair: ''
     } as weaponProperty,
     weaponType: [
       {text: 'weapon_type.ar', value: '#base "_base_assault_rifle.txt"'},

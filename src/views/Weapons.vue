@@ -89,6 +89,41 @@
               weaponKey="ammo_clip_size"
               min="1"
             ></property-input>
+            <v-row>
+              <v-col
+                cols="12"
+                xl="10"
+              >
+                <v-card
+                  :disabled="!hasExtendedMag"
+                  elevation="2"
+                  class="mb-4"
+                >
+                  <v-card-title>{{ $t('weapon_property.extended_mag') }}</v-card-title>
+                  <property-input
+                    :label="$t('weapon_property.mag_l1')"
+                    type="number"
+                    weaponKey="mag_l1"
+                    min="1"
+                    class="mx-2"
+                  ></property-input>
+                  <property-input
+                    :label="$t('weapon_property.mag_l2')"
+                    type="number"
+                    weaponKey="mag_l2"
+                    min="1"
+                    class="mx-2"
+                  ></property-input>
+                  <property-input
+                    :label="$t('weapon_property.mag_l3')"
+                    type="number"
+                    weaponKey="mag_l3"
+                    min="1"
+                    class="mx-2"
+                  ></property-input>
+                </v-card>
+              </v-col>
+            </v-row>
             <property-input
               :label="$t('weapon_property.reload_time')"
               type="number"
@@ -207,6 +242,9 @@
       ammoType: function() {
         return this.$store.state.ammoType
       },
+      hasExtendedMag: function() {
+        return this.$store.state.weapon.ammo_pool_type != 'shotgun'
+      }
     },
     methods: {
       generationTxt: function () {
@@ -225,6 +263,8 @@
             model_path = 'mastiff_stgn'
             break
         }
+
+        let weapon_base = this.$store.state.weapon.weapon_type
 
         let weapon_dict_base = {
           printname: this.$store.state.weapon.printname,
@@ -339,6 +379,36 @@
           low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
         }
 
+        let extended_mag_prefix
+        switch (this.$store.state.weapon.ammo_pool_type) {
+          case 'special':
+            extended_mag_prefix = 'energy_mag_l'
+            weapon_base += '\n#base "_base_mags_energy.txt"'
+            break
+          case 'bullet':
+            extended_mag_prefix = 'bullets_mag_l'
+            weapon_base += '\n#base "_base_mags_light.txt"'
+            break
+          case 'highcal':
+            extended_mag_prefix = 'highcal_mag_l'
+            weapon_base += '\n#base "_base_mags_heavy.txt"'
+        }
+
+        let weapon_dict_extended_mag: Record<string, unknown> = {}
+        if ( this.$store.state.weapon.ammo_pool_type != 'shotgun' ) {
+          weapon_dict_extended_mag = {
+            [extended_mag_prefix + '1']: {
+              'ammo_clip_size': this.$store.state.weapon.mag_l1
+            },
+            [extended_mag_prefix + '2']: {
+              'ammo_clip_size': this.$store.state.weapon.mag_l2
+            },
+            [extended_mag_prefix + '3']: {
+              'ammo_clip_size': this.$store.state.weapon.mag_l3
+            }
+          }
+        }
+
         let burst_fire_count = this.$store.state.weapon.burst_fire_count
         if (burst_fire_count == '1') {
           burst_fire_count = '0'
@@ -360,7 +430,8 @@
                 ammo_stockpile_max: '180',
                 ammo_no_remove_from_stockpile: '0',
                 uses_ammo_pool: '1'
-              }
+              },
+              ...weapon_dict_extended_mag
             },
 
             RUI_CrosshairData: {
@@ -382,7 +453,7 @@
           }
         }
 
-        this.weaponText = this.$store.state.weapon.weapon_type + '\n\n' + generateR5RWeapon(weapon_dict)
+        this.weaponText = weapon_base + '\n\n' + generateR5RWeapon(weapon_dict)
         this.copyTextButton = false
       },
       copyText: function () {
