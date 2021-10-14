@@ -73,6 +73,12 @@
               step="0.1"
             ></property-input>
             <property-input
+              :label="$t('weapon_property.ammo_per_shot')"
+              type="number"
+              weaponKey="ammo_per_shot"
+              min="0"
+            ></property-input>
+            <property-input
               :label="$t('weapon_property.burst_fire_count')"
               type="number"
               weaponKey="burst_fire_count"
@@ -319,7 +325,8 @@
           ammo_default_total: '180',
           ammo_stockpile_max: '180',
           ammo_no_remove_from_stockpile: '1',
-          ammo_min_to_fire: '1',
+          ammo_per_shot: this.$store.state.weapon.ammo_per_shot,
+          ammo_min_to_fire: this.$store.state.weapon.ammo_per_shot,
           uses_ammo_pool: '1',
 
           reload_time: this.$store.state.weapon.reload_time,

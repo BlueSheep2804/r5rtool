@@ -17,6 +17,7 @@ interface weaponProperty {
   projectile_launch_speed: string;
   damage_value: string;
   fire_rate: string;
+  ammo_per_shot: string;
   burst_fire_count: string;
   burst_fire_delay: string;
   ammo_pool_type: string;
@@ -44,6 +45,7 @@ export default new Vuex.Store({
       projectile_launch_speed: '21000',
       damage_value: '12',
       fire_rate: '18',
+      ammo_per_shot: '1',
       burst_fire_count: '1',
       burst_fire_delay: '0.2',
       ammo_pool_type: 'bullet',

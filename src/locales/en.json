@@ -87,6 +87,7 @@
     "projectile_launch_speed": "Speed of a bullet",
     "damage_value": "Damage",
     "fire_rate": "Fire rate",
+    "ammo_per_shot": "Ammo per shot",
     "burst_fire_count": "Burst",
     "burst_fire_delay": "Burst fire delay",
     "ammo_pool_type": "Ammo type",

@@ -87,6 +87,7 @@
     "projectile_launch_speed": "弾速",
     "damage_value": "ダメージ",
     "fire_rate": "発射レート",
+    "ammo_per_shot": "消費する弾薬量",
     "burst_fire_count": "バースト",
     "burst_fire_delay": "バースト間隔",
     "ammo_pool_type": "アモタイプ",
