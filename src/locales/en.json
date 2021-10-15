@@ -86,6 +86,7 @@
     "is_semi_auto": "Semi auto",
     "projectile_launch_speed": "Speed of a bullet",
     "damage_value": "Damage",
+    "damage_headshot_scale": "Headshot scale",
     "fire_rate": "Fire rate",
     "ammo_per_shot": "Ammo per shot",
     "burst_fire_count": "Burst",

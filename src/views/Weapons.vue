@@ -66,6 +66,12 @@
               min="1"
             ></property-input>
             <property-input
+              :label="$t('weapon_property.damage_headshot_scale')"
+              type="number"
+              weaponKey="damage_headshot_scale"
+              step="0.1"
+            ></property-input>
+            <property-input
               :label="$t('weapon_property.fire_rate')"
               type="number"
               weaponKey="fire_rate"
@@ -214,10 +220,10 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import PropertyCheckbox from '../components/PropertyCheckbox.vue'
-  import PropertyInput from '../components/PropertyInput.vue'
-  import PropertySelect from '../components/PropertySelect.vue'
-  import { generateR5RWeapon } from '../utils/r5rtext'
+import PropertyCheckbox from '../components/PropertyCheckbox.vue'
+import PropertyInput from '../components/PropertyInput.vue'
+import PropertySelect from '../components/PropertySelect.vue'
+import { generateR5RWeapon } from '../utils/r5rtext'
 
   export default Vue.extend({
     name: 'Weapons',
@@ -299,6 +305,8 @@
           damage_near_value: this.$store.state.weapon.damage_value,
           damage_far_value: this.$store.state.weapon.damage_value,
           damage_very_far_value: this.$store.state.weapon.damage_value,
+          allow_headshots: '1',
+          damage_headshot_scale: this.$store.state.weapon.damage_headshot_scale,
 
           fire_mode: 'automatic',
           is_semi_auto: this.$store.state.weapon.is_semi_auto,

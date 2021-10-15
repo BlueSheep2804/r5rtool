@@ -16,6 +16,7 @@ interface weaponProperty {
   is_semi_auto: string;
   projectile_launch_speed: string;
   damage_value: string;
+  damage_headshot_scale: string;
   fire_rate: string;
   ammo_per_shot: string;
   burst_fire_count: string;
@@ -44,6 +45,7 @@ export default new Vuex.Store({
       is_semi_auto: '0',
       projectile_launch_speed: '21000',
       damage_value: '12',
+      damage_headshot_scale: '1.5',
       fire_rate: '18',
       ammo_per_shot: '1',
       burst_fire_count: '1',

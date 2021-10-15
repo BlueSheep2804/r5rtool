@@ -86,6 +86,7 @@
     "is_semi_auto": "セミオート化",
     "projectile_launch_speed": "弾速",
     "damage_value": "ダメージ",
+    "damage_headshot_scale": "ヘッドショット倍率",
     "fire_rate": "発射レート",
     "ammo_per_shot": "消費する弾薬量",
     "burst_fire_count": "バースト",
