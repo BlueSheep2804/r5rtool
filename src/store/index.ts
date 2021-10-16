@@ -15,6 +15,8 @@ interface weaponProperty {
   sound: Record<string, unknown>;
   is_semi_auto: string;
   projectile_launch_speed: string;
+  projectilemodel: string;
+  projectile_trail_effect_0: string;
   damage_value: string;
   damage_headshot_scale: string;
   fire_rate: string;
@@ -44,6 +46,8 @@ export default new Vuex.Store({
       sound: {},
       is_semi_auto: '0',
       projectile_launch_speed: '21000',
+      projectilemodel: 'mdl/dev/empty_model.rmdl',
+      projectile_trail_effect_0: '',
       damage_value: '12',
       damage_headshot_scale: '1.5',
       fire_rate: '18',
@@ -445,6 +449,31 @@ export default new Vuex.Store({
       {text: 'crosshair.shotgun', value: 'ui/crosshair_shotgun'},
       {text: 'crosshair.tactical', value: 'ui/crosshair_tactical'},
       {text: 'crosshair.tri', value: 'ui/crosshair_tri'},
+    ],
+    projectileTrailEffect: [
+      {text: 'projectile_effect.default', value: 'P_tracer_projectile_smg'},
+      {text: 'projectile_effect.default_blue', value: 'P_tracer_projectile_smg_blue'},
+      {text: 'projectile_effect.sniper', value: 'P_tracer_proj_sniper'},
+      {text: 'projectile_effect.sniper_blue', value: 'P_tracer_proj_sniper_blue'},
+      {text: 'projectile_effect.lstar', value: 'P_projectile_lstar'},
+      {text: 'projectile_effect.peacekeeper', value: 'P_projectile_nrg_shotgun'},
+      {text: 'projectile_effect.mastiff', value: 'P_mastiff_proj'},
+      {text: 'projectile_effect.disruptor', value: 'P_tracer_proj_smg_shield_breaker'},
+      {text: 'projectile_effect.hammerpoint', value: 'P_tracer_proj_smg_hammer_point'},
+      {text: 'projectile_effect.skullpiercer', value: 'P_tracer_proj_sniper_piercer'},
+      {text: 'projectile_effect.thermite', value: 'P_grenade_thermite_trail'},
+      {text: 'projectile_effect.frag', value: 'P_wpn_grenade_frag_trail'},
+      {text: 'projectile_effect.arcstar', value: 'wpn_grenade_frag_blue'},
+      {text: 'projectile_effect.bangalore_tactical', value: 'P_SmokeScreen_FD_trail'},
+      {text: 'projectile_effect.bangalore_ultimate', value: 'P_bFlare_trail'},
+      {text: 'projectile_effect.bangalore_missile', value: 'P_projectile_bBomb_trail'},
+      {text: 'projectile_effect.gibraltar_ultimate', value: 'P_artillery_marker_trail'},
+      {text: 'projectile_effect.gibraltar_missile', value: 'P_projectile_artillery_plasma'},
+      {text: 'projectile_effect.caustic_ultimate', value: 'P_wpn_grenade_gas_trail'},
+      {text: 'projectile_effect.zipline', value: 'P_zipline_projectile_trail'},
+      {text: 'projectile_effect.electric_smoke', value: 'P_wpn_grenade_smoke_trail'},
+      {text: 'projectile_effect.grenade', value: 'wpn_grenade_frag'},
+      {text: 'projectile_effect.smoke', value: 'Rocket_Smoke_SMALL_Titan_2'},
     ]
   },
   mutations: {

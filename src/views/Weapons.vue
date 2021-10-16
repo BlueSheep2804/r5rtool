@@ -60,6 +60,15 @@
               weaponKey="projectile_launch_speed"
             ></property-input>
             <property-input
+              :label="$t('weapon_property.projectilemodel')"
+              weaponKey="projectilemodel"
+            ></property-input>
+            <property-select
+              :label="$t('weapon_property.projectile_trail_effect_0')"
+              :items="projectileTrailEffect"
+              weaponKey="projectile_trail_effect_0"
+            ></property-select>
+            <property-input
               :label="$t('weapon_property.damage_value')"
               type="number"
               weaponKey="damage_value"
@@ -252,6 +261,9 @@ import { generateR5RWeapon } from '../utils/r5rtext'
       weaponSound: function() {
         return this.$store.state.weaponSound
       },
+      projectileTrailEffect: function() {
+        return this.$store.state.projectileTrailEffect
+      },
       isBurst: function() {
         if (this.$store.state.weapon.burst_fire_count != '1') {
           return true
@@ -308,10 +320,13 @@ import { generateR5RWeapon } from '../utils/r5rtext'
           allow_headshots: '1',
           damage_headshot_scale: this.$store.state.weapon.damage_headshot_scale,
 
+          projectile_launch_speed: this.$store.state.weapon.projectile_launch_speed,
+          projectilemodel: this.$store.state.weapon.projectilemodel,
+          projectile_trail_effect_0: this.$store.state.weapon.projectile_trail_effect_0,
+
           fire_mode: 'automatic',
           is_semi_auto: this.$store.state.weapon.is_semi_auto,
           fire_rate: this.$store.state.weapon.fire_rate,
-          projectile_launch_speed: this.$store.state.weapon.projectile_launch_speed,
           burst_fire_count: burst_fire_count,
           burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
 
