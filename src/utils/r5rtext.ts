@@ -1,4 +1,5 @@
-export function generateR5RWeapon(dict: Record<string, unknown>, depth = 0): string {
+// eslint-disable-next-line
+export function generateR5RWeapon(dict: any, depth = 0): string {
   let r5rtxt = ''
   for(const k of Object.keys(dict)) {
     if (Object.prototype.toString.call(dict[k]) == '[object Object]') {
