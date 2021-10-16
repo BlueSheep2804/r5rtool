@@ -7,18 +7,27 @@ interface weaponProperty {
   [key: string]: string | Record<string, unknown>
   weapon_type: string;
   printname: string;
+  shortprintname: string;
+  description: string;
   icon: string;
   model: string;
+  crosshair: string;
   sound: Record<string, unknown>;
   is_semi_auto: string;
   projectile_launch_speed: string;
+  projectilemodel: string;
+  projectile_trail_effect_0: string;
   damage_value: string;
+  damage_headshot_scale: string;
   fire_rate: string;
+  ammo_per_shot: string;
   burst_fire_count: string;
   burst_fire_delay: string;
   ammo_pool_type: string;
   ammo_clip_size: string;
-  ammo_stockpile_max: string;
+  mag_l1: string;
+  mag_l2: string;
+  mag_l3: string;
   reload_time: string;
   reloadempty_time: string;
 }
@@ -29,18 +38,27 @@ export default new Vuex.Store({
     weapon: {
       weapon_type: '',
       printname: '',
+      shortprintname: '',
+      description: '',
       icon: '',
       model: '',
+      crosshair: '',
       sound: {},
       is_semi_auto: '0',
       projectile_launch_speed: '21000',
+      projectilemodel: 'mdl/dev/empty_model.rmdl',
+      projectile_trail_effect_0: '',
       damage_value: '12',
+      damage_headshot_scale: '1.5',
       fire_rate: '18',
+      ammo_per_shot: '1',
       burst_fire_count: '1',
       burst_fire_delay: '0.2',
       ammo_pool_type: 'bullet',
       ammo_clip_size: '18',
-      ammo_stockpile_max: '180',
+      mag_l1: '20',
+      mag_l2: '23',
+      mag_l3: '27',
       reload_time: '1.8',
       reloadempty_time: '2.5',
     } as weaponProperty,
@@ -104,8 +122,7 @@ export default new Vuex.Store({
       {text: 'ammo_type.bullet', value: 'bullet'},
       {text: 'ammo_type.highcal', value: 'highcal'},
       {text: 'ammo_type.special', value: 'special'},
-      {text: 'ammo_type.shotgun', value: 'shotgun'},
-      {text: 'ammo_type.none', value: 'none'}
+      {text: 'ammo_type.shotgun', value: 'shotgun'}
     ],
     weaponSound: [
       {
@@ -419,6 +436,44 @@ export default new Vuex.Store({
           'fire_sound_2_npc': 'Weapon_Wingman_Fire_NPC',
         }
       },
+    ],
+    crosshair: [
+      {text: 'crosshair.alternator', value: 'ui/crosshair_alternator'},
+      {text: 'crosshair.charge_rifle', value: 'ui/crosshair_charge_rifle'},
+      {text: 'crosshair.circle', value: 'ui/crosshair_circle2'},
+      {text: 'crosshair.dot', value: 'ui/crosshair_dot'},
+      {text: 'crosshair.lstar', value: 'ui/crosshair_lstar'},
+      {text: 'crosshair.mastiff', value: 'ui/crosshair_mastiff'},
+      {text: 'crosshair.plus', value: 'ui/crosshair_plus'},
+      {text: 'crosshair.plus_dot', value: 'ui/crosshair_plus_dot'},
+      {text: 'crosshair.shotgun', value: 'ui/crosshair_shotgun'},
+      {text: 'crosshair.tactical', value: 'ui/crosshair_tactical'},
+      {text: 'crosshair.tri', value: 'ui/crosshair_tri'},
+    ],
+    projectileTrailEffect: [
+      {text: 'projectile_effect.default', value: 'P_tracer_projectile_smg'},
+      {text: 'projectile_effect.default_blue', value: 'P_tracer_projectile_smg_blue'},
+      {text: 'projectile_effect.sniper', value: 'P_tracer_proj_sniper'},
+      {text: 'projectile_effect.sniper_blue', value: 'P_tracer_proj_sniper_blue'},
+      {text: 'projectile_effect.lstar', value: 'P_projectile_lstar'},
+      {text: 'projectile_effect.peacekeeper', value: 'P_projectile_nrg_shotgun'},
+      {text: 'projectile_effect.mastiff', value: 'P_mastiff_proj'},
+      {text: 'projectile_effect.disruptor', value: 'P_tracer_proj_smg_shield_breaker'},
+      {text: 'projectile_effect.hammerpoint', value: 'P_tracer_proj_smg_hammer_point'},
+      {text: 'projectile_effect.skullpiercer', value: 'P_tracer_proj_sniper_piercer'},
+      {text: 'projectile_effect.thermite', value: 'P_grenade_thermite_trail'},
+      {text: 'projectile_effect.frag', value: 'P_wpn_grenade_frag_trail'},
+      {text: 'projectile_effect.arcstar', value: 'wpn_grenade_frag_blue'},
+      {text: 'projectile_effect.bangalore_tactical', value: 'P_SmokeScreen_FD_trail'},
+      {text: 'projectile_effect.bangalore_ultimate', value: 'P_bFlare_trail'},
+      {text: 'projectile_effect.bangalore_missile', value: 'P_projectile_bBomb_trail'},
+      {text: 'projectile_effect.gibraltar_ultimate', value: 'P_artillery_marker_trail'},
+      {text: 'projectile_effect.gibraltar_missile', value: 'P_projectile_artillery_plasma'},
+      {text: 'projectile_effect.caustic_ultimate', value: 'P_wpn_grenade_gas_trail'},
+      {text: 'projectile_effect.zipline', value: 'P_zipline_projectile_trail'},
+      {text: 'projectile_effect.electric_smoke', value: 'P_wpn_grenade_smoke_trail'},
+      {text: 'projectile_effect.grenade', value: 'wpn_grenade_frag'},
+      {text: 'projectile_effect.smoke', value: 'Rocket_Smoke_SMALL_Titan_2'},
     ]
   },
   mutations: {
