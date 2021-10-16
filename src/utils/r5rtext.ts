@@ -1,12 +1,16 @@
-export function object2text(dict: Record<string, unknown>, prefix: string, suffix: string): string {
-  const weapon: string = JSON.stringify(dict)
-
-  let weaponText = prefix + '\n' + weapon
-  weaponText = weaponText.replaceAll('":', '"  ')
-    .replaceAll('","', '"\n"')
-    .replaceAll('\n{', '\n{\n')
-    .slice(0, -1)
-  weaponText += suffix + '\n}'
-
-  return weaponText
+// eslint-disable-next-line
+export function generateR5RWeapon(dict: any, depth = 0): string {
+  let r5rtxt = ''
+  for(const k of Object.keys(dict)) {
+    if (Object.prototype.toString.call(dict[k]) == '[object Object]') {
+      r5rtxt += (
+        '\t'.repeat(depth) + '"' + k + '"\n' + '\t'.repeat(depth) + '{\n'
+        + generateR5RWeapon(dict[k], depth + 1)
+        + '\t'.repeat(depth) + '}\n'
+      )
+    } else {
+      r5rtxt += '\t'.repeat(depth) + '"' + k + '"\t\t"' + dict[k] + '"\n'
+    }
+  }
+  return r5rtxt
 }

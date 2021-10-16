@@ -20,6 +20,14 @@
               :label="$t('weapon_property.printname')"
               weaponKey="printname"
             ></property-input>
+            <property-input
+              :label="$t('weapon_property.shortprintname')"
+              weaponKey="shortprintname"
+            ></property-input>
+            <property-input
+              :label="$t('weapon_property.description')"
+              weaponKey="description"
+            ></property-input>
             <property-select
               :label="$t('weapon_property.icon')"
               :items="calledWeaponIcon"
@@ -29,6 +37,11 @@
               :label="$t('weapon_property.model')"
               :items="calledWeaponModel"
               weaponKey="model"
+            ></property-select>
+            <property-select
+              :label="$t('weapon_property.crosshair')"
+              :items="crosshair"
+              weaponKey="crosshair"
             ></property-select>
             <property-select
               :label="$t('weapon_property.sound')"
@@ -47,10 +60,25 @@
               weaponKey="projectile_launch_speed"
             ></property-input>
             <property-input
+              :label="$t('weapon_property.projectilemodel')"
+              weaponKey="projectilemodel"
+            ></property-input>
+            <property-select
+              :label="$t('weapon_property.projectile_trail_effect_0')"
+              :items="projectileTrailEffect"
+              weaponKey="projectile_trail_effect_0"
+            ></property-select>
+            <property-input
               :label="$t('weapon_property.damage_value')"
               type="number"
               weaponKey="damage_value"
               min="1"
+            ></property-input>
+            <property-input
+              :label="$t('weapon_property.damage_headshot_scale')"
+              type="number"
+              weaponKey="damage_headshot_scale"
+              step="0.1"
             ></property-input>
             <property-input
               :label="$t('weapon_property.fire_rate')"
@@ -58,6 +86,12 @@
               weaponKey="fire_rate"
               min="0"
               step="0.1"
+            ></property-input>
+            <property-input
+              :label="$t('weapon_property.ammo_per_shot')"
+              type="number"
+              weaponKey="ammo_per_shot"
+              min="0"
             ></property-input>
             <property-input
               :label="$t('weapon_property.burst_fire_count')"
@@ -84,13 +118,41 @@
               weaponKey="ammo_clip_size"
               min="1"
             ></property-input>
-            <property-input
-              :label="$t('weapon_property.ammo_stockpile_max')"
-              type="number"
-              weaponKey="ammo_stockpile_max"
-              v-bind:disabled="!isAmmoNone"
-              min="1"
-            ></property-input>
+            <v-row>
+              <v-col
+                cols="12"
+                xl="10"
+              >
+                <v-card
+                  :disabled="!hasExtendedMag"
+                  elevation="2"
+                  class="mb-4"
+                >
+                  <v-card-title>{{ $t('weapon_property.extended_mag') }}</v-card-title>
+                  <property-input
+                    :label="$t('weapon_property.mag_l1')"
+                    type="number"
+                    weaponKey="mag_l1"
+                    min="1"
+                    class="mx-2"
+                  ></property-input>
+                  <property-input
+                    :label="$t('weapon_property.mag_l2')"
+                    type="number"
+                    weaponKey="mag_l2"
+                    min="1"
+                    class="mx-2"
+                  ></property-input>
+                  <property-input
+                    :label="$t('weapon_property.mag_l3')"
+                    type="number"
+                    weaponKey="mag_l3"
+                    min="1"
+                    class="mx-2"
+                  ></property-input>
+                </v-card>
+              </v-col>
+            </v-row>
             <property-input
               :label="$t('weapon_property.reload_time')"
               type="number"
@@ -167,10 +229,10 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import PropertyCheckbox from '../components/PropertyCheckbox.vue'
-  import PropertyInput from '../components/PropertyInput.vue'
-  import PropertySelect from '../components/PropertySelect.vue'
-  import { object2text } from '../utils/r5rtext'
+import PropertyCheckbox from '../components/PropertyCheckbox.vue'
+import PropertyInput from '../components/PropertyInput.vue'
+import PropertySelect from '../components/PropertySelect.vue'
+import { generateR5RWeapon } from '../utils/r5rtext'
 
   export default Vue.extend({
     name: 'Weapons',
@@ -193,8 +255,14 @@
       calledWeaponModel: function() {
         return this.$store.state.calledWeaponModel
       },
+      crosshair: function() {
+        return this.$store.state.crosshair
+      },
       weaponSound: function() {
         return this.$store.state.weaponSound
+      },
+      projectileTrailEffect: function() {
+        return this.$store.state.projectileTrailEffect
       },
       isBurst: function() {
         if (this.$store.state.weapon.burst_fire_count != '1') {
@@ -206,13 +274,9 @@
       ammoType: function() {
         return this.$store.state.ammoType
       },
-      isAmmoNone: function() {
-        if (this.$store.state.weapon.ammo_pool_type == 'none') {
-          return true
-        } else {
-          return false
-        }
-      },
+      hasExtendedMag: function() {
+        return this.$store.state.weapon.ammo_pool_type != 'shotgun'
+      }
     },
     methods: {
       generationTxt: function () {
@@ -232,11 +296,14 @@
             break
         }
 
-        let weapon_dict_base = {
+        let weapon_base = this.$store.state.weapon.weapon_type
+        let burst_fire_count = this.$store.state.weapon.burst_fire_count == '1' ? '0' : this.$store.state.weapon.burst_fire_count
+
+        let weapon_dict_data = {
           printname: this.$store.state.weapon.printname,
-          shortprintname: this.$store.state.weapon.printname,
-          description: this.$store.state.weapon.printname,
-          longdesc: this.$store.state.weapon.printname,
+          shortprintname: this.$store.state.weapon.shortprintname,
+          description: this.$store.state.weapon.description,
+          longdesc: this.$store.state.weapon.description,
 
           weapon_type_flags: 'WPT_PRIMARY',
 
@@ -250,11 +317,40 @@
           damage_near_value: this.$store.state.weapon.damage_value,
           damage_far_value: this.$store.state.weapon.damage_value,
           damage_very_far_value: this.$store.state.weapon.damage_value,
+          allow_headshots: '1',
+          damage_headshot_scale: this.$store.state.weapon.damage_headshot_scale,
+
+          projectile_launch_speed: this.$store.state.weapon.projectile_launch_speed,
+          projectilemodel: this.$store.state.weapon.projectilemodel,
+          projectile_trail_effect_0: this.$store.state.weapon.projectile_trail_effect_0,
 
           fire_mode: 'automatic',
           is_semi_auto: this.$store.state.weapon.is_semi_auto,
           fire_rate: this.$store.state.weapon.fire_rate,
-          projectile_launch_speed: this.$store.state.weapon.projectile_launch_speed,
+          burst_fire_count: burst_fire_count,
+          burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
+
+          ...this.$store.state.weapon.sound,
+          sound_dryfire: 'assalt_rifle_dryfire',
+          sound_pickup: 'wpn_pickup_SMG_1P',
+          looping_sounds: '0',
+          sound_zoom_in: 'Weapon_R97_ADS_In',
+          sound_zoom_out: 'Weapon_R97_ADS_Out',
+          low_ammo_sound_name_1: 'R101_LowAmmo_Shot1',
+          low_ammo_sound_name_2: 'R101_LowAmmo_Shot2',
+          low_ammo_sound_name_3: 'R101_LowAmmo_Shot3',
+          low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
+          low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
+          low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
+
+          ammo_pool_type: this.$store.state.weapon.ammo_pool_type,
+          ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
+          ammo_default_total: '180',
+          ammo_stockpile_max: '180',
+          ammo_no_remove_from_stockpile: '1',
+          ammo_per_shot: this.$store.state.weapon.ammo_per_shot,
+          ammo_min_to_fire: this.$store.state.weapon.ammo_per_shot,
+          uses_ammo_pool: '1',
 
           reload_time: this.$store.state.weapon.reload_time,
           reload_time_late1: Math.round((this.$store.state.weapon.reload_time * 0.4) * 10) / 10 + '',
@@ -320,59 +416,71 @@
           rui_crosshair_index: '0',
         }
 
-        let uses_ammo_pool = '1'
-        if (this.$store.state.weapon.ammo_pool_type == 'none') {
-          uses_ammo_pool = '0'
+        let extended_mag_prefix
+        switch (this.$store.state.weapon.ammo_pool_type) {
+          case 'special':
+            extended_mag_prefix = 'energy_mag_l'
+            weapon_base += '\n#base "_base_mags_energy.txt"'
+            break
+          case 'bullet':
+            extended_mag_prefix = 'bullets_mag_l'
+            weapon_base += '\n#base "_base_mags_light.txt"'
+            break
+          case 'highcal':
+            extended_mag_prefix = 'highcal_mag_l'
+            weapon_base += '\n#base "_base_mags_heavy.txt"'
         }
 
-        const weapon_dict_ammo = {
-          ammo_pool_type: this.$store.state.weapon.ammo_pool_type,
-          ammo_clip_size: this.$store.state.weapon.ammo_clip_size,
-          ammo_default_total: this.$store.state.weapon.ammo_clip_size + this.$store.state.weapon.ammo_stockpile_max,
-          ammo_stockpile_max: this.$store.state.weapon.ammo_stockpile_max,
-          ammo_clip_reload_max: this.$store.state.weapon.ammo_clip_size,
-          ammo_no_remove_from_stockpile: '0',
-          ammo_min_to_fire: '1',
-          uses_ammo_pool: uses_ammo_pool,
-        }
-
-        const weapon_dict_sound = {
-          ...this.$store.state.weapon.sound,
-          sound_dryfire: 'assalt_rifle_dryfire',
-          sound_pickup: 'wpn_pickup_SMG_1P',
-          looping_sounds: '0',
-          sound_zoom_in: 'Weapon_R97_ADS_In',
-          sound_zoom_out: 'Weapon_R97_ADS_Out',
-          low_ammo_sound_name_1: 'R101_LowAmmo_Shot1',
-          low_ammo_sound_name_2: 'R101_LowAmmo_Shot2',
-          low_ammo_sound_name_3: 'R101_LowAmmo_Shot3',
-          low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
-          low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
-          low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
-        }
-
-        let weapon_dict = { ...weapon_dict_base, ...weapon_dict_ammo, ...weapon_dict_sound }
-
-        if (this.$store.state.weapon.burst_fire_count != '1') {
-          const weapon_dict_burst = {
-            burst_fire_count: this.$store.state.weapon.burst_fire_count,
-            burst_fire_delay: this.$store.state.weapon.burst_fire_delay,
-          }
-          weapon_dict = { 
-            ...weapon_dict,
-            ...weapon_dict_burst
+        let weapon_dict_extended_mag: Record<string, unknown> = {}
+        if ( this.$store.state.weapon.ammo_pool_type != 'shotgun' ) {
+          weapon_dict_extended_mag = {
+            [extended_mag_prefix + '1']: {
+              'ammo_clip_size': this.$store.state.weapon.mag_l1
+            },
+            [extended_mag_prefix + '2']: {
+              'ammo_clip_size': this.$store.state.weapon.mag_l2
+            },
+            [extended_mag_prefix + '3']: {
+              'ammo_clip_size': this.$store.state.weapon.mag_l3
+            }
           }
         }
 
-        const weapon_dict_crosshair = {
-          ui: 'ui/crosshair_tri',
-          base_spread: '0.0'
+        let weapon_dict = {
+          WeaponData: {
+            ...weapon_dict_data,
+
+            Mods: {
+              gold: {},
+              survival_finite_ammo: {
+                ammo_default_total: '180',
+                ammo_stockpile_max: '180',
+                ammo_no_remove_from_stockpile: '0',
+                uses_ammo_pool: '1'
+              },
+              ...weapon_dict_extended_mag
+            },
+
+            RUI_CrosshairData: {
+              DefaultArgs: {
+                adjustedSpread: 'weapon_spread',
+                adsFrac: 'player_zoomFrac',
+                isSprinting: 'player_is_sprinting',
+                isReloading: 'weapon_is_reloading',
+                teamColor: 'crosshair_team_color',
+                isAmped: 'weapon_is_amped',
+                crosshairMovementX: 'crosshair_movement_x',
+                crosshairMovementY: 'crosshair_movement_y'
+              },
+              Crosshair_1: {
+                ui: this.$store.state.weapon.crosshair,
+                base_spread: '0.0'
+              }
+            }
+          }
         }
-        this.weaponText = object2text(
-          weapon_dict,
-          this.$store.state.weapon.weapon_type + '\nWeaponData',
-          object2text(weapon_dict_crosshair, '\nRUI_CrosshairData\n{DefaultArgs\n{adjustedSpread  weapon_spread\nadsFrac  player_zoomFrac\nisSprinting  player_is_sprinting\nisReloading  weapon_is_reloading\nteamColor  crosshair_team_color\nisAmped  weapon_is_amped\ncrosshairMovementX  crosshair_movement_x\ncrosshairMovementY  crosshair_movement_y\n}\nCrosshair_1', '\n}')
-        )
+
+        this.weaponText = weapon_base + '\n\n// Generation by R5RTool\n\n' + generateR5RWeapon(weapon_dict)
         this.copyTextButton = false
       },
       copyText: function () {
