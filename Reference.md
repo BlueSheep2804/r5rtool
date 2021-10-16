@@ -42,6 +42,16 @@ TF2からの流用？
 ## `damage_[ near | far | very_far ]_value`
 ダメージ
 
+## `allow_headshots`
+ヘッドショットが可能か否か
+
+## `damage_headshot_scale`
+ヘッドショット倍率
+
+## `damage_leg_scale`
+手足に撃った場合のダメージ倍率
+R5Rだと適用されないっぽい？
+
 ## `fire_mode`
 とりあえず`automatic`って入れときゃいい
 
