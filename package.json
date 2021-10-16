@@ -1,12 +1,15 @@
 {
   "name": "r5rtool",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
+    "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\"",
+    "updversion": "npm version minor --git-tag-version false",
+    "updversionp": "npm version patch --git-tag-version false",
+    "updversionm": "npm version major --git-tag-version false"
   },
   "dependencies": {
     "core-js": "^3.6.5",
