@@ -114,7 +114,7 @@ export default new Vuex.Store({
       {text: 'weapons.r301', value: 'rspn101'},
       {text: 'weapons.r97', value: 'r97'},
       {text: 'weapons.r45', value:  'p2011_auto'},
-      {text: 'weapons.spitfire', value: 'lmg_hemlock'},
+      {text: 'weapons.spitfire', value: 'lmg_hemlok'},
       {text: 'weapons.triple_take', value: 'doubletake'},
       {text: 'weapons.wingman', value: 'b3wing'},
     ],
