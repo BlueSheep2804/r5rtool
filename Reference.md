@@ -144,6 +144,45 @@ ADS時、非ADS時に鳴る音
 ## `ammo_min_to_fire`
 最小の撃てるマガジンの弾数
 
+## `viewmodel_jolt_scale`
+覗いた際のviewmodelの奥行きのブレ  
++が奥, -が手前に来る
+
+## `viewmodel_jolt_backwardPerShot`
+上と同じ？  
++が奥, -が手前に来る
+
+## `viewmodel_jolt_roll`
+覗いた際のviewmodelの傾き  
+レティクルは常に中央に固定  
+`<右> <左右ランダム？> <左>`で指定する
+
+## `viewmodel_jolt_side`
+覗いた際のviewmodelの移動
+上と違いレティクルも動く  
+`<左> <左右ランダム？> <右>`で指定する
+
+## `viewkick_<pitch | yaw | roll>_base`
+1発ごとの反動  
+`pitch`は上、`yaw`は右、`roll`は左傾き
+
+## `viewkick_<pitch | yaw>_random`
+ランダムリコイルの最大値
+
+## `viewkick_<pitch | yaw>_random_innerexclude`
+上で指定した範囲の内部をランダムから除外する  
+例えば`random`が`10`で`random_innerexclude`を`2`にすると2~10の間で値が決定する  
+~~細かく検証してないけど多分そういうこと~~
+
+## `viewkick_roll_random<Min | Max>`
+傾きのランダムの範囲を指定する
+
+## `viewkick_<pitch | yaw | roll>_softScale`
+わからんけど値をデカくすると反動が増える
+
+## `viewkick_<pitch | yaw | roll>_hardScale`
+わからんけど値をデカくすると反動が増える
+
 
 # `Mods`
 
