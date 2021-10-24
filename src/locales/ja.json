@@ -13,7 +13,14 @@
   "pages": {
     "weapons": {
       "generation_txt": "txtを生成",
-      "copy": "コピー"
+      "copy": "コピー",
+      "tab": {
+        "appearance": "見た目",
+        "fire": "射撃",
+        "damage": "ダメージ",
+        "ammo": "弾薬",
+        "other": "その他"
+      }
     }
   },
   "weapons": {

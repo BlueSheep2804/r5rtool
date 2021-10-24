@@ -1,216 +1,235 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row>
       <v-col
         cols="12"
+        md="6"
+        order-md="last"
       >
-        <v-row no-gutters>
-          <v-col
-            cols="12"
-            sm="10"
-            md="5"
-            order-md="last"
-          >
-            <property-select
-              :label="$t('weapon_property.weapon_type')"
-              :items="weaponType"
-              weaponKey="weapon_type"
-            ></property-select>
-            <property-input
-              :label="$t('weapon_property.printname')"
-              weaponKey="printname"
-            ></property-input>
-            <property-input
-              :label="$t('weapon_property.shortprintname')"
-              weaponKey="shortprintname"
-            ></property-input>
-            <property-input
-              :label="$t('weapon_property.description')"
-              weaponKey="description"
-            ></property-input>
-            <property-select
-              :label="$t('weapon_property.icon')"
-              :items="calledWeaponIcon"
-              weaponKey="icon"
-            ></property-select>
-            <property-select
-              :label="$t('weapon_property.model')"
-              :items="calledWeaponModel"
-              weaponKey="model"
-            ></property-select>
-            <property-select
-              :label="$t('weapon_property.crosshair')"
-              :items="crosshair"
-              weaponKey="crosshair"
-            ></property-select>
-            <property-select
-              :label="$t('weapon_property.sound')"
-              :hint="$t('weapon_property.sound_hint')"
-              :items="weaponSound"
-              weaponKey="sound"
-            ></property-select>
-            <property-checkbox
-              :label="$t('weapon_property.is_semi_auto')"
-              weaponKey="is_semi_auto"
-            ></property-checkbox>
-            <property-input
-              :label="$t('weapon_property.projectile_launch_speed')"
-              type="number"
-              placeholder="10,000~30,000"
-              weaponKey="projectile_launch_speed"
-            ></property-input>
-            <property-input
-              :label="$t('weapon_property.projectilemodel')"
-              weaponKey="projectilemodel"
-            ></property-input>
-            <property-select
-              :label="$t('weapon_property.projectile_trail_effect_0')"
-              :items="projectileTrailEffect"
-              weaponKey="projectile_trail_effect_0"
-            ></property-select>
-            <property-input
-              :label="$t('weapon_property.damage_value')"
-              type="number"
-              weaponKey="damage_value"
-              min="1"
-            ></property-input>
-            <property-input
-              :label="$t('weapon_property.damage_headshot_scale')"
-              type="number"
-              weaponKey="damage_headshot_scale"
-              step="0.1"
-            ></property-input>
-            <property-input
-              :label="$t('weapon_property.fire_rate')"
-              type="number"
-              weaponKey="fire_rate"
-              min="0"
-              step="0.1"
-            ></property-input>
-            <property-input
-              :label="$t('weapon_property.ammo_per_shot')"
-              type="number"
-              weaponKey="ammo_per_shot"
-              min="0"
-            ></property-input>
-            <property-input
-              :label="$t('weapon_property.burst_fire_count')"
-              type="number"
-              weaponKey="burst_fire_count"
-              min="1"
-            ></property-input>
-            <property-input
-              :label="$t('weapon_property.burst_fire_delay')"
-              type="number"
-              weaponKey="burst_fire_delay"
-              :disabled="!isBurst"
-              min="0"
-              step="0.1"
-            ></property-input>
-            <property-select
-              :label="$t('weapon_property.ammo_pool_type')"
-              :items="ammoType"
-              weaponKey="ammo_pool_type"
-            ></property-select>
-            <property-input
-              :label="$t('weapon_property.ammo_clip_size')"
-              type="number"
-              weaponKey="ammo_clip_size"
-              min="1"
-            ></property-input>
-            <v-row>
-              <v-col
-                cols="12"
-                xl="10"
-              >
-                <v-card
-                  :disabled="!hasExtendedMag"
-                  elevation="2"
-                  class="mb-4"
+        <v-card class="mb-4">
+          <v-tabs v-model="model" grow show-arrows>
+            <v-tab href="#tab-appearance">{{ $t('pages.weapons.tab.appearance') }}</v-tab>
+            <v-tab href="#tab-fire">{{ $t('pages.weapons.tab.fire') }}</v-tab>
+            <v-tab href="#tab-damage">{{ $t('pages.weapons.tab.damage') }}</v-tab>
+            <v-tab href="#tab-ammo">{{ $t('pages.weapons.tab.ammo') }}</v-tab>
+            <v-tab href="#tab-other">{{ $t('pages.weapons.tab.other') }}</v-tab>
+          </v-tabs>
+
+          <v-tabs-items v-model="model">
+            <v-tab-item value="tab-appearance" class="pa-4">
+              <v-row no-gutters>
+                <v-col cols="12">
+                  <property-input
+                    :label="$t('weapon_property.printname')"
+                    weaponKey="printname"
+                  ></property-input>
+                  <property-input
+                    :label="$t('weapon_property.shortprintname')"
+                    weaponKey="shortprintname"
+                  ></property-input>
+                  <property-input
+                    :label="$t('weapon_property.description')"
+                    weaponKey="description"
+                  ></property-input>
+                  <property-select
+                    :label="$t('weapon_property.icon')"
+                    :items="calledWeaponIcon"
+                    weaponKey="icon"
+                  ></property-select>
+                  <property-select
+                    :label="$t('weapon_property.model')"
+                    :items="calledWeaponModel"
+                    weaponKey="model"
+                  ></property-select>
+                  <property-select
+                    :label="$t('weapon_property.crosshair')"
+                    :items="crosshair"
+                    weaponKey="crosshair"
+                  ></property-select>
+                </v-col>
+              </v-row>
+            </v-tab-item>
+            <v-tab-item value="tab-fire" class="pa-4">
+              <property-select
+                :label="$t('weapon_property.sound')"
+                :hint="$t('weapon_property.sound_hint')"
+                :items="weaponSound"
+                weaponKey="sound"
+              ></property-select>
+              <property-input
+                :label="$t('weapon_property.projectile_launch_speed')"
+                type="number"
+                placeholder="10,000~30,000"
+                weaponKey="projectile_launch_speed"
+              ></property-input>
+              <property-input
+                :label="$t('weapon_property.projectilemodel')"
+                weaponKey="projectilemodel"
+              ></property-input>
+              <property-select
+                :label="$t('weapon_property.projectile_trail_effect_0')"
+                :items="projectileTrailEffect"
+                weaponKey="projectile_trail_effect_0"
+              ></property-select>
+              <property-input
+                :label="$t('weapon_property.fire_rate')"
+                type="number"
+                weaponKey="fire_rate"
+                min="0"
+                step="0.1"
+              ></property-input>
+              <property-checkbox
+                :label="$t('weapon_property.is_semi_auto')"
+                weaponKey="is_semi_auto"
+              ></property-checkbox>
+              <property-input
+                :label="$t('weapon_property.burst_fire_count')"
+                type="number"
+                weaponKey="burst_fire_count"
+                min="1"
+              ></property-input>
+              <property-input
+                :label="$t('weapon_property.burst_fire_delay')"
+                type="number"
+                weaponKey="burst_fire_delay"
+                :disabled="!isBurst"
+                min="0"
+                step="0.1"
+              ></property-input>
+            </v-tab-item>
+            <v-tab-item value="tab-damage" class="pa-4">
+              <property-input
+                :label="$t('weapon_property.damage_value')"
+                type="number"
+                weaponKey="damage_value"
+                min="1"
+              ></property-input>
+              <property-input
+                :label="$t('weapon_property.damage_headshot_scale')"
+                type="number"
+                weaponKey="damage_headshot_scale"
+                step="0.1"
+              ></property-input>
+            </v-tab-item>
+            <v-tab-item value="tab-ammo" class="pa-4">
+              <property-input
+                :label="$t('weapon_property.ammo_per_shot')"
+                type="number"
+                weaponKey="ammo_per_shot"
+                min="0"
+              ></property-input>
+              <property-select
+                :label="$t('weapon_property.ammo_pool_type')"
+                :items="ammoType"
+                weaponKey="ammo_pool_type"
+              ></property-select>
+              <property-input
+                :label="$t('weapon_property.ammo_clip_size')"
+                type="number"
+                weaponKey="ammo_clip_size"
+                min="1"
+              ></property-input>
+              <v-row>
+                <v-col
+                  cols="12"
+                  xl="10"
                 >
-                  <v-card-title>{{ $t('weapon_property.extended_mag') }}</v-card-title>
-                  <property-input
-                    :label="$t('weapon_property.mag_l1')"
-                    type="number"
-                    weaponKey="mag_l1"
-                    min="1"
-                    class="mx-2"
-                  ></property-input>
-                  <property-input
-                    :label="$t('weapon_property.mag_l2')"
-                    type="number"
-                    weaponKey="mag_l2"
-                    min="1"
-                    class="mx-2"
-                  ></property-input>
-                  <property-input
-                    :label="$t('weapon_property.mag_l3')"
-                    type="number"
-                    weaponKey="mag_l3"
-                    min="1"
-                    class="mx-2"
-                  ></property-input>
-                </v-card>
-              </v-col>
-            </v-row>
-            <property-input
-              :label="$t('weapon_property.reload_time')"
-              type="number"
-              weaponKey="reload_time"
-              min="0"
-              step="0.1"
-            ></property-input>
-            <property-input
-              :label="$t('weapon_property.reloadempty_time')"
-              type="number"
-              weaponKey="reloadempty_time"
-              min="0"
-              step="0.1"
-            ></property-input>
-          </v-col>
-          <v-spacer></v-spacer>
-          <v-col
-            cols="12"
-            md="6"
-            order-md="first"
+                  <v-card
+                    :disabled="!hasExtendedMag"
+                    elevation="2"
+                    class="mb-4"
+                  >
+                    <v-card-title>{{ $t('weapon_property.extended_mag') }}</v-card-title>
+                    <property-input
+                      :label="$t('weapon_property.mag_l1')"
+                      type="number"
+                      weaponKey="mag_l1"
+                      min="1"
+                      class="mx-2"
+                    ></property-input>
+                    <property-input
+                      :label="$t('weapon_property.mag_l2')"
+                      type="number"
+                      weaponKey="mag_l2"
+                      min="1"
+                      class="mx-2"
+                    ></property-input>
+                    <property-input
+                      :label="$t('weapon_property.mag_l3')"
+                      type="number"
+                      weaponKey="mag_l3"
+                      min="1"
+                      class="mx-2"
+                    ></property-input>
+                  </v-card>
+                </v-col>
+              </v-row>
+              <property-input
+                :label="$t('weapon_property.reload_time')"
+                type="number"
+                weaponKey="reload_time"
+                min="0"
+                step="0.1"
+              ></property-input>
+              <property-input
+                :label="$t('weapon_property.reloadempty_time')"
+                type="number"
+                weaponKey="reloadempty_time"
+                min="0"
+                step="0.1"
+              ></property-input>
+            </v-tab-item>
+            <v-tab-item value="tab-other" class="pa-4">
+              <property-select
+                :label="$t('weapon_property.weapon_type')"
+                :items="weaponType"
+                weaponKey="weapon_type"
+              ></property-select>
+            </v-tab-item>
+          </v-tabs-items>
+        </v-card>
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col
+        cols="12"
+        md="6"
+        order-md="first"
+      >
+        <v-btn
+          color="primary"
+          elevation="2"
+          v-on:click="generationTxt"
+        >
+          <v-icon
+            dark
+            left
           >
-            <v-btn
-              color="primary"
-              elevation="2"
-              v-on:click="generationTxt"
-            >
-              <v-icon
-                dark
-                left
-              >
-                mdi-refresh
-              </v-icon>
-              {{ $t('pages.weapons.generation_txt') }}
-            </v-btn>
-            <v-btn
-              color="primary"
-              elevation="2"
-              v-on:click="copyText"
-              v-bind:disabled="copyTextButton"
-              class="ml-4"
-            >
-              <v-icon
-                dark
-                left
-              >
-                mdi-content-copy
-              </v-icon>
-              {{ $t('pages.weapons.copy') }}
-            </v-btn>
-            <v-textarea
-              solo
-              readonly
-              auto-grow
-              :value="weaponText"
-              class="mt-4"
-            ></v-textarea>
-          </v-col>
-        </v-row>
+            mdi-refresh
+          </v-icon>
+          {{ $t('pages.weapons.generation_txt') }}
+        </v-btn>
+        <v-btn
+          color="primary"
+          elevation="2"
+          v-on:click="copyText"
+          v-bind:disabled="copyTextButton"
+          class="ml-4"
+        >
+          <v-icon
+            dark
+            left
+          >
+            mdi-content-copy
+          </v-icon>
+          {{ $t('pages.weapons.copy') }}
+        </v-btn>
+        <v-textarea
+          solo
+          readonly
+          auto-grow
+          :value="weaponText"
+          class="mt-2 mr-4"
+        ></v-textarea>
       </v-col>
     </v-row>
     <v-btn
@@ -228,7 +247,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
+import Vue from 'vue'
 import PropertyCheckbox from '../components/PropertyCheckbox.vue'
 import PropertyInput from '../components/PropertyInput.vue'
 import PropertySelect from '../components/PropertySelect.vue'
@@ -243,7 +262,8 @@ import { generateR5RWeapon } from '../utils/r5rtext'
     },
     data: () => ({
       weaponText: 'none',
-      copyTextButton: true
+      copyTextButton: true,
+      model: ''
     }),
     computed: {
       weaponType: function() {

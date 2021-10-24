@@ -13,7 +13,14 @@
   "pages": {
     "weapons": {
       "generation_txt": "Generation txt",
-      "copy": "Copy"
+      "copy": "Copy",
+      "tab": {
+        "appearance": "Appearance",
+        "fire": "Fire",
+        "damage": "Damage",
+        "ammo": "Ammo",
+        "other": "Other"
+      }
     }
   },
   "weapons": {
