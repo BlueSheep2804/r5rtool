@@ -3,8 +3,8 @@
     <v-row>
       <v-col
         cols="12"
-        md="6"
-        order-md="last"
+        lg="10"
+        offset-lg="1"
       >
         <v-card class="mb-4">
           <v-tabs v-model="model" grow show-arrows>
@@ -189,48 +189,6 @@
           </v-tabs-items>
         </v-card>
       </v-col>
-      <v-spacer></v-spacer>
-      <v-col
-        cols="12"
-        md="6"
-        order-md="first"
-      >
-        <v-btn
-          color="primary"
-          elevation="2"
-          v-on:click="generationTxt"
-        >
-          <v-icon
-            dark
-            left
-          >
-            mdi-refresh
-          </v-icon>
-          {{ $t('pages.weapons.generation_txt') }}
-        </v-btn>
-        <v-btn
-          color="primary"
-          elevation="2"
-          v-on:click="copyText"
-          v-bind:disabled="!copyButton"
-          class="ml-4"
-        >
-          <v-icon
-            dark
-            left
-          >
-            mdi-content-copy
-          </v-icon>
-          {{ $t('pages.weapons.copy') }}
-        </v-btn>
-        <v-textarea
-          solo
-          readonly
-          auto-grow
-          :value="weaponText"
-          class="mt-2 mr-4"
-        ></v-textarea>
-      </v-col>
     </v-row>
     <v-speed-dial
       v-model="fab"
@@ -269,8 +227,65 @@
       >
         <v-icon>mdi-download</v-icon>
       </v-btn>
+      <v-btn
+        color="primary"
+        dark
+        fab
+        small
+        @click.stop="openPreviewDialog"
+      >
+        <v-icon>mdi-eye</v-icon>
+      </v-btn>
     </v-speed-dial>
-    
+    <v-dialog
+      v-model="previewDialog"
+      scrollable
+    >
+      <v-card>
+        <v-card-title>{{ $t('pages.weapons.preview') }}</v-card-title>
+        <v-card-text>
+          <v-textarea
+            solo
+            readonly
+            auto-grow
+            :value="weaponText"
+            rows="20"
+            class="mx-4 mt-2"
+          ></v-textarea>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            v-on:click="copyText"
+            v-bind:disabled="!copyButton"
+          >
+            <v-icon
+              dark
+              left
+            >
+              mdi-content-copy
+            </v-icon>
+            {{ $t('pages.weapons.copy') }}
+          </v-btn>
+          <v-btn
+            color="primary"
+            text
+            v-on:click="downloadText"
+          >
+            <v-icon
+              dark
+              left
+            >
+              mdi-download
+            </v-icon>
+            {{ $t('pages.weapons.download') }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -288,7 +303,8 @@ import PropertySelect from '../components/PropertySelect.vue'
       PropertySelect,
     },
     data: () => ({
-      model: ''
+      model: '',
+      previewDialog: false
     }),
     computed: {
       weaponType: function() {
@@ -330,6 +346,10 @@ import PropertySelect from '../components/PropertySelect.vue'
       }
     },
     methods: {
+      openPreviewDialog() {
+        this.$store.dispatch('generationText')
+        this.previewDialog = true
+      },
       copyText: function () {
         this.$store.dispatch('generationText')
         if (navigator.clipboard){

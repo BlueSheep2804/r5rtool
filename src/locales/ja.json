@@ -14,6 +14,8 @@
     "weapons": {
       "generation_txt": "txtを生成",
       "copy": "コピー",
+      "download": "ダウンロード",
+      "preview": "プレビュー",
       "tab": {
         "appearance": "見た目",
         "fire": "射撃",
