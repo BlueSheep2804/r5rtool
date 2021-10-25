@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 interface weaponProperty {
   [key: string]: string | Record<string, unknown>
+  id: string;
   weapon_type: string;
   printname: string;
   shortprintname: string;
@@ -37,6 +38,7 @@ export default new Vuex.Store({
   state: {
     weaponText: '',
     weapon: {
+      id: '',
       weapon_type: '',
       printname: '',
       shortprintname: '',

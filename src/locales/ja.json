@@ -109,6 +109,8 @@
     "smoke": "スモーク"
   },
   "weapon_property": {
+    "id": "ID(ファイル名の一部)",
+    "id_hint": "ダウンロードされるファイルの名前",
     "weapon_type": "武器タイプ",
     "printname": "武器名",
     "shortprintname": "短めの武器名",

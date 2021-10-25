@@ -20,6 +20,13 @@
               <v-row no-gutters>
                 <v-col cols="12">
                   <property-input
+                    :label="$t('weapon_property.id')"
+                    weaponKey="id"
+                    prefix="mp_weapon_"
+                    suffix=".txt"
+                    :hint="$t('weapon_property.id_hint')"
+                  ></property-input>
+                  <property-input
                     :label="$t('weapon_property.printname')"
                     weaponKey="printname"
                   ></property-input>
@@ -384,7 +391,7 @@ import PropertySelect from '../components/PropertySelect.vue'
         const blob = new Blob([this.$store.state.weaponText], {"type": "text/plain"})
         const link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
-        link.download = 'mp_weapon_.txt'
+        link.download = 'mp_weapon_' + this.$store.state.weapon.id + '.txt'
         link.click()
         URL.revokeObjectURL(link.href)
       }
