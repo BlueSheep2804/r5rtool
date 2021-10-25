@@ -194,7 +194,6 @@
       v-model="fab"
       bottom
       right
-      open-on-hover
       transition="slide-y-reverse-transition"
       fixed
     >
