@@ -198,43 +198,71 @@
       fixed
     >
       <template v-slot:activator>
-        <v-btn
-          color="primary"
-          dark
-          fab
-          @click="returnTop"
-        >
-          <v-icon v-if="fab">mdi-menu-down</v-icon>
-          <v-icon v-else>mdi-menu-up</v-icon>
-        </v-btn>
+        <v-tooltip left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              dark
+              fab
+              @click="returnTop"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon v-if="fab">mdi-menu-down</v-icon>
+              <v-icon v-else>mdi-menu-up</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ $t('pages.weapons.menu') }}</span>
+        </v-tooltip>
       </template>
-      <v-btn
-        color="primary"
-        dark
-        fab
-        small
-        @click="copyText"
-      >
-        <v-icon>mdi-content-copy</v-icon>
-      </v-btn>
-      <v-btn
-        color="primary"
-        dark
-        fab
-        small
-        @click="downloadText"
-      >
-        <v-icon>mdi-download</v-icon>
-      </v-btn>
-      <v-btn
-        color="primary"
-        dark
-        fab
-        small
-        @click.stop="openPreviewDialog"
-      >
-        <v-icon>mdi-eye</v-icon>
-      </v-btn>
+      <v-tooltip left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="primary"
+            dark
+            fab
+            small
+            @click="copyText"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-content-copy</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t('pages.weapons.copy') }}</span>
+      </v-tooltip>
+      <v-tooltip left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="primary"
+            dark
+            fab
+            small
+            @click="downloadText"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-download</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t('pages.weapons.download') }}</span>
+      </v-tooltip>
+      <v-tooltip left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="primary"
+            dark
+            fab
+            small
+            @click.stop="openPreviewDialog"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-eye</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t('pages.weapons.preview') }}</span>
+      </v-tooltip>
     </v-speed-dial>
     <v-dialog
       v-model="previewDialog"
