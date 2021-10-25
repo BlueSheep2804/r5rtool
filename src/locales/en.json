@@ -13,7 +13,17 @@
   "pages": {
     "weapons": {
       "generation_txt": "Generation txt",
-      "copy": "Copy"
+      "copy": "Copy",
+      "download": "Download",
+      "preview": "Preview",
+      "menu": "Menu",
+      "tab": {
+        "appearance": "Appearance",
+        "fire": "Fire",
+        "damage": "Damage",
+        "ammo": "Ammo",
+        "other": "Other"
+      }
     }
   },
   "weapons": {
@@ -99,6 +109,8 @@
     "smoke": "Smoke"
   },
   "weapon_property": {
+    "id": "ID(part of the file name)",
+    "id_hint": "Name of the file to be downloaded",
     "weapon_type": "Weapon type",
     "printname": "Weapon name",
     "shortprintname": "Short weapon name",

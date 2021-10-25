@@ -35,7 +35,7 @@
           <v-list-item
             v-for="i in menuitem.slice(1)"
             :key="i.name"
-            :to="i.link"
+            :href="i.link"
             target="_blank"
           >
             <v-list-item-icon>

@@ -5,7 +5,6 @@
     xl="10"
   >
     <v-select
-      :items="items"
       v-model="weaponProperty"
       v-bind="$attrs"
     >
@@ -25,7 +24,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class PropertySelect extends Vue {
-  @Prop() private items!: string;
   @Prop() private weaponKey!: string;
 
   private get weaponProperty(): string {
