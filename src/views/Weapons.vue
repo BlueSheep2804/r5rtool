@@ -287,7 +287,6 @@
             color="primary"
             text
             v-on:click="copyText"
-            v-bind:disabled="!copyButton"
           >
             <v-icon
               dark
@@ -367,9 +366,6 @@ import PropertySelect from '../components/PropertySelect.vue'
       },
       weaponText: function() {
         return this.$store.state.weaponText
-      },
-      copyButton: function() {
-        return this.$store.state.copyButton
       }
     },
     methods: {
@@ -391,19 +387,7 @@ import PropertySelect from '../components/PropertySelect.vue'
         link.download = 'mp_weapon_.txt'
         link.click()
         URL.revokeObjectURL(link.href)
-      },
-      returnTop: function () {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        })
-      },
+      }
     }
   })
 </script>
-
-<style>
-.fab {
-  position: relative;
-}
-</style>

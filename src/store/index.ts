@@ -36,7 +36,6 @@ interface weaponProperty {
 export default new Vuex.Store({
   state: {
     weaponText: '',
-    copyButton: false,
     weapon: {
       weapon_type: '',
       printname: '',
@@ -484,9 +483,6 @@ export default new Vuex.Store({
     },
     updateWeaponText(state, text: string) {
       state.weaponText = text
-    },
-    updateCopyButton(state, value: boolean) {
-      state.copyButton = value
     }
   },
   actions: {
@@ -692,7 +688,6 @@ export default new Vuex.Store({
       }
 
       context.commit('updateWeaponText', weapon_base + '\n\n// Generation by R5RTool\n\n' + generateR5RWeapon(weapon_dict))
-      context.commit('updateCopyButton', true)
     },
   },
   modules: {
