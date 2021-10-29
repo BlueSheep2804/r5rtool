@@ -22,6 +22,7 @@
         "fire": "射撃",
         "damage": "ダメージ",
         "ammo": "弾薬",
+        "viewkick": "反動",
         "other": "その他"
       }
     }
@@ -31,9 +32,12 @@
     "charge_rifle": "チャージライフル",
     "devotion": "ディヴォーション",
     "eva8": "EVA-8オート",
+    "eva8_double_tap": "EVA-8オート (ダブルタップ)",
     "flatline": "フラットライン",
     "flatline_single": "フラットライン (単発)",
+    "flatline_highcal": "フラットライン (アンビルレシーバー)",
     "g7": "G7スカウト",
+    "g7_double_tap": "G7スカウト (ダブルタップ)",
     "energy_ar": "ハボック",
     "energy_ar_single": "ハボック (単発)",
     "hemlok": "ヘムロック",
@@ -46,8 +50,10 @@
     "p2020": "P2020",
     "peacekeeper": "ピースキーパー",
     "prowler": "プラウラー",
+    "prowler_auto": "プラウラー (オート)",
     "r301": "R-301",
     "r301_single": "R-301 (単発)",
+    "r301_highcal": "R-301 (アンビルレシーバー)",
     "r97": "R-99",
     "r45": "RE-45",
     "spitfire": "スピットファイア",
@@ -137,6 +143,7 @@
     "mag_l2": "@:weapon_property.extended_mag Lv.2",
     "mag_l3": "@:weapon_property.extended_mag Lv.3",
     "reload_time": "タクティカルリロード",
-    "reloadempty_time": "リロード"
+    "reloadempty_time": "リロード",
+    "viewkick_preset": "反動プリセット"
   }
 }
