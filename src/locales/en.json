@@ -22,6 +22,7 @@
         "fire": "Fire",
         "damage": "Damage",
         "ammo": "Ammo",
+        "viewkick": "Viewkick",
         "other": "Other"
       }
     }
@@ -31,9 +32,12 @@
     "charge_rifle": "Charge rifle",
     "devotion": "Devotion",
     "eva8": "EVA-8 Auto",
+    "eva8_double_tap": "EVA-8 Auto (Double Tap)",
     "flatline": "Flatline",
     "flatline_single": "Flatline (Single)",
+    "flatline_highcal": "Flatline (Anvil Receiver)",
     "g7": "G7 Scout",
+    "g7_double_tap": "G7 Scout (Double Tap)",
     "energy_ar": "Havoc",
     "energy_ar_single": "Havoc (Single)",
     "hemlok": "Hemlok",
@@ -46,8 +50,10 @@
     "p2020": "P2020",
     "peacekeeper": "Peacekeeper",
     "prowler": "Prowler",
+    "prowler_auto": "Prowler (Auto)",
     "r301": "R-301",
     "r301_single": "R-301 (Single)",
+    "r301_highcal": "R-301 (Anvil Receiver)",
     "r97": "R-99",
     "r45": "RE-45",
     "spitfire": "Spitfire",
@@ -137,6 +143,7 @@
     "mag_l2": "@:weapon_property.extended_mag Lv.2",
     "mag_l3": "@:weapon_property.extended_mag Lv.3",
     "reload_time": "Reload time",
-    "reloadempty_time": "Reload time(Empty mag)"
+    "reloadempty_time": "Reload time(Empty mag)",
+    "viewkick_preset": "Viewkick preset"
   }
 }

@@ -12,6 +12,7 @@
             <v-tab href="#tab-fire">{{ $t('pages.weapons.tab.fire') }}</v-tab>
             <v-tab href="#tab-damage">{{ $t('pages.weapons.tab.damage') }}</v-tab>
             <v-tab href="#tab-ammo">{{ $t('pages.weapons.tab.ammo') }}</v-tab>
+            <v-tab href="#tab-viewkick">{{ $t('pages.weapons.tab.viewkick') }}</v-tab>
             <v-tab href="#tab-other">{{ $t('pages.weapons.tab.other') }}</v-tab>
           </v-tabs>
 
@@ -185,6 +186,13 @@
                 min="0"
                 step="0.1"
               ></property-input>
+            </v-tab-item>
+            <v-tab-item value="tab-viewkick" class="pa-4">
+              <property-select
+                :label="$t('weapon_property.viewkick_preset')"
+                :items="viewkickPreset"
+                weaponKey="viewkick_preset"
+              ></property-select>
             </v-tab-item>
             <v-tab-item value="tab-other" class="pa-4">
               <property-select
@@ -370,6 +378,9 @@ import PropertySelect from '../components/PropertySelect.vue'
       },
       hasExtendedMag: function() {
         return this.$store.state.weapon.ammo_pool_type != 'shotgun'
+      },
+      viewkickPreset: function() {
+        return this.$store.state.viewkickPreset
       },
       weaponText: function() {
         return this.$store.state.weaponText
