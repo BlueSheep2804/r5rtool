@@ -82,7 +82,7 @@ export default new Vuex.Store({
       { text: 'weapons.eva8', value: 'eva8' },
       { text: 'weapons.flatline', value: 'flatline' },
       { text: 'weapons.g7', value: 'g7' },
-      { text: 'weapons.energy_ar', value: 'energy_ar' },
+      { text: 'weapons.havoc', value: 'energy_ar' },
       { text: 'weapons.hemlok', value: 'hemlok' },
       { text: 'weapons.sniper', value: 'sniper' },
       { text: 'weapons.longbow', value: 'longbow' },
@@ -94,7 +94,7 @@ export default new Vuex.Store({
       { text: 'weapons.prowler', value: 'prowler' },
       { text: 'weapons.r301', value: 'r301' },
       { text: 'weapons.r97', value: 'r97' },
-      { text: 'weapons.r45', value: 'r45' },
+      { text: 'weapons.re45', value: 'r45' },
       { text: 'weapons.spitfire', value: 'spitfire' },
       { text: 'weapons.triple_take', value: 'triple_take' },
       { text: 'weapons.wingman', value: 'wingman' },
@@ -106,7 +106,7 @@ export default new Vuex.Store({
       { text: 'weapons.eva8', value: 'w1128' },
       { text: 'weapons.flatline', value: 'vinson' },
       { text: 'weapons.g7', value: 'g2a4' }, //g2
-      { text: 'weapons.energy_ar', value: 'beam_ar' },
+      { text: 'weapons.havoc', value: 'beam_ar' },
       { text: 'weapons.hemlok', value: 'hemlok' }, //m1a1_hemlok
       { text: 'weapons.sniper', value: 'at_rifle' },
       { text: 'weapons.longbow', value: 'rspn101_dmr' },
@@ -118,7 +118,7 @@ export default new Vuex.Store({
       { text: 'weapons.prowler', value: 'prowler_smg' },
       { text: 'weapons.r301', value: 'rspn101' },
       { text: 'weapons.r97', value: 'r97' },
-      { text: 'weapons.r45', value: 'p2011_auto' },
+      { text: 'weapons.re45', value: 'p2011_auto' },
       { text: 'weapons.spitfire', value: 'lmg_hemlok' },
       { text: 'weapons.triple_take', value: 'doubletake' },
       { text: 'weapons.wingman', value: 'b3wing' },
@@ -211,7 +211,7 @@ export default new Vuex.Store({
         }
       },
       {
-        text: 'weapons.energy_ar',
+        text: 'weapons.havoc',
         value: {
           'fire_sound_1_player_1p': 'weapon_havoc_secondshot_1p',
           'fire_sound_1_player_3p': 'weapon_havoc_secondshot_3p',
@@ -222,7 +222,7 @@ export default new Vuex.Store({
         }
       },
       {
-        text: 'weapons.energy_ar_single',
+        text: 'weapons.havoc_single',
         value: {
           'fire_sound_1_player_1p': 'weapon_havoc_altfire_singleshot_1p',
           'fire_sound_1_player_3p': 'weapon_havoc_altfire_singleshot_3p',
@@ -376,7 +376,7 @@ export default new Vuex.Store({
         }
       },
       {
-        text: 'weapons.r45',
+        text: 'weapons.re45',
         value: {
           'fire_sound_1_player_1p': 'Weapon_RE45_Firstshot_1P',
           'fire_sound_1_player_3p': '',
@@ -443,15 +443,15 @@ export default new Vuex.Store({
       },
     ],
     crosshair: [
-      { text: 'crosshair.alternator', value: 'ui/crosshair_alternator' },
-      { text: 'crosshair.charge_rifle', value: 'ui/crosshair_charge_rifle' },
+      { text: 'weapons.alternator', value: 'ui/crosshair_alternator' },
+      { text: 'weapons.charge_rifle', value: 'ui/crosshair_charge_rifle' },
       { text: 'crosshair.circle', value: 'ui/crosshair_circle2' },
       { text: 'crosshair.dot', value: 'ui/crosshair_dot' },
-      { text: 'crosshair.lstar', value: 'ui/crosshair_lstar' },
-      { text: 'crosshair.mastiff', value: 'ui/crosshair_mastiff' },
+      { text: 'weapons.lstar', value: 'ui/crosshair_lstar' },
+      { text: 'weapons.mastiff', value: 'ui/crosshair_mastiff' },
       { text: 'crosshair.plus', value: 'ui/crosshair_plus' },
       { text: 'crosshair.plus_dot', value: 'ui/crosshair_plus_dot' },
-      { text: 'crosshair.shotgun', value: 'ui/crosshair_shotgun' },
+      { text: 'weapon_type.sg', value: 'ui/crosshair_shotgun' },
       { text: 'crosshair.tactical', value: 'ui/crosshair_tactical' },
       { text: 'crosshair.tri', value: 'ui/crosshair_tri' },
     ],
@@ -460,9 +460,9 @@ export default new Vuex.Store({
       { text: 'projectile_effect.default_blue', value: 'P_tracer_projectile_smg_blue' },
       { text: 'projectile_effect.sniper', value: 'P_tracer_proj_sniper' },
       { text: 'projectile_effect.sniper_blue', value: 'P_tracer_proj_sniper_blue' },
-      { text: 'projectile_effect.lstar', value: 'P_projectile_lstar' },
-      { text: 'projectile_effect.peacekeeper', value: 'P_projectile_nrg_shotgun' },
-      { text: 'projectile_effect.mastiff', value: 'P_mastiff_proj' },
+      { text: 'weapons.lstar', value: 'P_projectile_lstar' },
+      { text: 'weapons.peacekeeper', value: 'P_projectile_nrg_shotgun' },
+      { text: 'weapons.mastiff', value: 'P_mastiff_proj' },
       { text: 'projectile_effect.disruptor', value: 'P_tracer_proj_smg_shield_breaker' },
       { text: 'projectile_effect.hammerpoint', value: 'P_tracer_proj_smg_hammer_point' },
       { text: 'projectile_effect.skullpiercer', value: 'P_tracer_proj_sniper_piercer' },
@@ -927,7 +927,7 @@ export default new Vuex.Store({
         }
       },
       {
-        text: 'weapons.energy_ar',
+        text: 'weapons.havoc',
         value: {
           viewkick_pattern: 'energy_ar_2',
 
@@ -991,7 +991,7 @@ export default new Vuex.Store({
         }
       },
       {
-        text: 'weapons.energy_ar_single',
+        text: 'weapons.havoc_single',
         value: {
           viewkick_pattern: '',
 
@@ -1192,7 +1192,6 @@ export default new Vuex.Store({
           viewkick_scale_max_ads: '1.5'
         }
       },
-      //{ text: 'weapons.hemlok_3', value: 'hemlok_3' },
       {
         text: 'weapons.lstar',
         value: {
@@ -1768,7 +1767,7 @@ export default new Vuex.Store({
         }
       },
       {
-        text: 'weapons.r45',
+        text: 'weapons.re45',
         value: {
           viewkick_pattern: 'autopistol_2',
 
@@ -2010,7 +2009,6 @@ export default new Vuex.Store({
           viewmodel_shake_right: '0.0',
         }
       }
-      //{ text: 'weapons.rspn101_zero', value: 'rspn101_zero' }
     ]
   },
   mutations: {

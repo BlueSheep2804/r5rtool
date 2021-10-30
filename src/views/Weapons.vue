@@ -1,18 +1,13 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col
-        cols="12"
-        lg="10"
-        offset-lg="1"
-      >
+      <v-col cols="12" lg="10" offset-lg="1">
         <v-card class="mb-4">
           <v-tabs v-model="model" grow show-arrows>
             <v-tab href="#tab-appearance">{{ $t('pages.weapons.tab.appearance') }}</v-tab>
             <v-tab href="#tab-fire">{{ $t('pages.weapons.tab.fire') }}</v-tab>
             <v-tab href="#tab-damage">{{ $t('pages.weapons.tab.damage') }}</v-tab>
             <v-tab href="#tab-ammo">{{ $t('pages.weapons.tab.ammo') }}</v-tab>
-            <!--v-tab href="#tab-viewkick">{{ $t('pages.weapons.tab.viewkick') }}</v-tab-->
             <v-tab href="#tab-other">{{ $t('pages.weapons.tab.other') }}</v-tab>
           </v-tabs>
 
@@ -138,10 +133,7 @@
                 min="1"
               ></property-input>
               <v-row>
-                <v-col
-                  cols="12"
-                  xl="10"
-                >
+                <v-col cols="12" xl="10">
                   <v-card
                     :disabled="!hasExtendedMag"
                     elevation="2"
@@ -187,8 +179,6 @@
                 step="0.1"
               ></property-input>
             </v-tab-item>
-            <!--v-tab-item value="tab-viewkick" class="pa-4">
-            </v-tab-item-->
             <v-tab-item value="tab-other" class="pa-4">
               <property-select
                 :label="$t('weapon_property.weapon_type')"
@@ -279,10 +269,7 @@
         <span>{{ $t('pages.weapons.preview') }}</span>
       </v-tooltip>
     </v-speed-dial>
-    <v-dialog
-      v-model="previewDialog"
-      scrollable
-    >
+    <v-dialog v-model="previewDialog" scrollable>
       <v-card>
         <v-card-title>{{ $t('pages.weapons.preview') }}</v-card-title>
         <v-card-text>
@@ -298,30 +285,12 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            v-on:click="copyText"
-          >
-            <v-icon
-              dark
-              left
-            >
-              mdi-content-copy
-            </v-icon>
+          <v-btn color="primary" text v-on:click="copyText">
+            <v-icon dark left> mdi-content-copy </v-icon>
             {{ $t('pages.weapons.copy') }}
           </v-btn>
-          <v-btn
-            color="primary"
-            text
-            v-on:click="downloadText"
-          >
-            <v-icon
-              dark
-              left
-            >
-              mdi-download
-            </v-icon>
+          <v-btn color="primary" text v-on:click="downloadText">
+            <v-icon dark left> mdi-download </v-icon>
             {{ $t('pages.weapons.download') }}
           </v-btn>
         </v-card-actions>
@@ -331,81 +300,83 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import PropertyCheckbox from '../components/PropertyCheckbox.vue'
-import PropertyInput from '../components/PropertyInput.vue'
-import PropertySelect from '../components/PropertySelect.vue'
+import Vue from 'vue';
+import PropertyCheckbox from '../components/PropertyCheckbox.vue';
+import PropertyInput from '../components/PropertyInput.vue';
+import PropertySelect from '../components/PropertySelect.vue';
 
-  export default Vue.extend({
-    name: 'Weapons',
-    components: {
-      PropertyCheckbox,
-      PropertyInput,
-      PropertySelect,
+export default Vue.extend({
+  name: 'Weapons',
+  components: {
+    PropertyCheckbox,
+    PropertyInput,
+    PropertySelect,
+  },
+  data: () => ({
+    model: '',
+    previewDialog: false,
+  }),
+  computed: {
+    weaponType: function () {
+      return this.$store.state.weaponType;
     },
-    data: () => ({
-      model: '',
-      previewDialog: false
-    }),
-    computed: {
-      weaponType: function() {
-        return this.$store.state.weaponType
-      },
-      calledWeaponIcon: function() {
-        return this.$store.state.calledWeaponIcon
-      },
-      calledWeaponModel: function() {
-        return this.$store.state.calledWeaponModel
-      },
-      crosshair: function() {
-        return this.$store.state.crosshair
-      },
-      weaponSound: function() {
-        return this.$store.state.weaponSound
-      },
-      projectileTrailEffect: function() {
-        return this.$store.state.projectileTrailEffect
-      },
-      isBurst: function() {
-        if (this.$store.state.weapon.burst_fire_count != '1') {
-          return true
-        } else {
-          return false
-        }
-      },
-      ammoType: function() {
-        return this.$store.state.ammoType
-      },
-      hasExtendedMag: function() {
-        return this.$store.state.weapon.ammo_pool_type != 'shotgun'
-      },
-      viewkickPreset: function() {
-        return this.$store.state.viewkickPreset
-      },
-      weaponText: function() {
-        return this.$store.state.weaponText
+    calledWeaponIcon: function () {
+      return this.$store.state.calledWeaponIcon;
+    },
+    calledWeaponModel: function () {
+      return this.$store.state.calledWeaponModel;
+    },
+    crosshair: function () {
+      return this.$store.state.crosshair;
+    },
+    weaponSound: function () {
+      return this.$store.state.weaponSound;
+    },
+    projectileTrailEffect: function () {
+      return this.$store.state.projectileTrailEffect;
+    },
+    isBurst: function () {
+      if (this.$store.state.weapon.burst_fire_count != '1') {
+        return true;
+      } else {
+        return false;
       }
     },
-    methods: {
-      openPreviewDialog() {
-        this.$store.dispatch('generationText')
-        this.previewDialog = true
-      },
-      copyText: function () {
-        this.$store.dispatch('generationText')
-        if (navigator.clipboard){
-          navigator.clipboard.writeText(this.$store.state.weaponText)
-        }
-      },
-      downloadText: function() {
-        this.$store.dispatch('generationText')
-        const blob = new Blob([this.$store.state.weaponText], {"type": "text/plain"})
-        const link = document.createElement('a')
-        link.href = window.URL.createObjectURL(blob)
-        link.download = 'mp_weapon_' + this.$store.state.weapon.id + '.txt'
-        link.click()
-        URL.revokeObjectURL(link.href)
+    ammoType: function () {
+      return this.$store.state.ammoType;
+    },
+    hasExtendedMag: function () {
+      return this.$store.state.weapon.ammo_pool_type != 'shotgun';
+    },
+    viewkickPreset: function () {
+      return this.$store.state.viewkickPreset;
+    },
+    weaponText: function () {
+      return this.$store.state.weaponText;
+    },
+  },
+  methods: {
+    openPreviewDialog() {
+      this.$store.dispatch('generationText');
+      this.previewDialog = true;
+    },
+    copyText: function () {
+      this.$store.dispatch('generationText');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(this.$store.state.weaponText);
       }
-    }
-  })
+    },
+    downloadText: function () {
+      this.$store.dispatch('generationText');
+      const blob = new Blob([this.$store.state.weaponText], {
+        type: 'text/plain',
+      });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'mp_weapon_' + this.$store.state.weapon.id + '.txt';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    },
+  },
+});
 </script>

@@ -22,7 +22,6 @@
         "fire": "射撃",
         "damage": "ダメージ",
         "ammo": "弾薬",
-        "viewkick": "反動",
         "other": "その他"
       }
     }
@@ -38,8 +37,8 @@
     "flatline_highcal": "フラットライン (アンビルレシーバー)",
     "g7": "G7スカウト",
     "g7_double_tap": "G7スカウト (ダブルタップ)",
-    "energy_ar": "ハボック",
-    "energy_ar_single": "ハボック (単発)",
+    "havoc": "ハボック",
+    "havoc_single": "ハボック (単発)",
     "hemlok": "ヘムロック",
     "sniper": "クレーバー",
     "longbow": "ロングボウ",
@@ -55,7 +54,7 @@
     "r301_single": "R-301 (単発)",
     "r301_highcal": "R-301 (アンビルレシーバー)",
     "r97": "R-99",
-    "r45": "RE-45",
+    "re45": "RE-45",
     "spitfire": "スピットファイア",
     "smart_pistol": "スマートピストル",
     "triple_take": "トリプルテイク",
@@ -77,15 +76,10 @@
     "shotgun": "ショットガンアモ"
   },
   "crosshair": {
-    "alternator": "@:weapons.alternator",
-    "charge_rifle": "@:weapons.charge_rifle",
     "circle": "丸",
     "dot": "ドット",
-    "lstar": "@:weapons.lstar",
-    "mastiff": "@:weapons.mastiff",
     "plus": "十字",
     "plus_dot": "十字 + ドット",
-    "shotgun": "@:weapon_type.sg",
     "tactical": "無し",
     "tri": "三角"
   },
@@ -94,9 +88,6 @@
     "default_blue": "デフォルト(青)",
     "sniper": "スナイパー",
     "sniper_blue": "スナイパー(青)",
-    "lstar": "@:weapons.lstar",
-    "peacekeeper": "@:weapons.peacekeeper",
-    "mastiff": "@:weapons.mastiff",
     "disruptor": "ディスラプター",
     "hammerpoint": "ハンマーポイント",
     "skullpiercer": "スカルピアサー",
