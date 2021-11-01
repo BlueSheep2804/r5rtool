@@ -12,7 +12,8 @@ interface weaponProperty {
   shortprintname: string;
   description: string;
   icon: string;
-  model: string;
+  viewmodel: string;
+  playermodel: string;
   crosshair: string;
   sound: Record<string, unknown>;
   is_semi_auto: string;
@@ -45,7 +46,8 @@ export default new Vuex.Store({
       shortprintname: '',
       description: '',
       icon: '',
-      model: '',
+      viewmodel: '',
+      playermodel: '',
       crosshair: '',
       sound: {},
       is_semi_auto: '0',
@@ -99,7 +101,31 @@ export default new Vuex.Store({
       { text: 'weapons.triple_take', value: 'triple_take' },
       { text: 'weapons.wingman', value: 'wingman' },
     ],
-    calledWeaponModel: [
+    viewmodels: [
+      { text: 'weapons.alternator', value: 'alternator_smg' },
+      { text: 'weapons.charge_rifle', value: 'defender' },
+      { text: 'weapons.devotion', value: 'hemlock_br' },
+      { text: 'weapons.eva8', value: 'w1128' },
+      { text: 'weapons.flatline', value: 'vinson' },
+      { text: 'weapons.g7', value: 'g2a4' }, //g2
+      { text: 'weapons.havoc', value: 'beam_ar' },
+      { text: 'weapons.hemlok', value: 'hemlok' }, //m1a1_hemlok
+      { text: 'weapons.sniper', value: 'at_rifle' },
+      { text: 'weapons.longbow', value: 'rspn101_dmr' },
+      { text: 'weapons.lstar', value: 'lstar' },
+      { text: 'weapons.mastiff', value: 'mastiff' }, //mastiff_stgn
+      { text: 'weapons.mozambique', value: 'pstl_sa3' },
+      { text: 'weapons.p2020', value: 'p2011' },
+      { text: 'weapons.peacekeeper', value: 'peacekeeper' },
+      { text: 'weapons.prowler', value: 'prowler_smg' },
+      { text: 'weapons.r301', value: 'rspn101' },
+      { text: 'weapons.r97', value: 'r97' },
+      { text: 'weapons.re45', value: 'p2011_auto' },
+      { text: 'weapons.spitfire', value: 'lmg_hemlok' },
+      { text: 'weapons.triple_take', value: 'doubletake' },
+      { text: 'weapons.wingman', value: 'b3wing' },
+    ],
+    playermodels: [
       { text: 'weapons.alternator', value: 'alternator_smg' },
       { text: 'weapons.charge_rifle', value: 'defender' },
       { text: 'weapons.devotion', value: 'hemlock_br' },
@@ -2022,18 +2048,32 @@ export default new Vuex.Store({
   actions: {
     generationText(context) {
       const icon = context.state.weapon.icon
-      const model = context.state.weapon.model
+      const viewmodel = context.state.weapon.viewmodel
+      const playermodel = context.state.weapon.playermodel
 
-      let model_path = model
-      switch (model) {
+      let viewmodel_path = viewmodel
+      switch (viewmodel) {
         case 'g2a4':
-          model_path = 'g2'
+          viewmodel_path = 'g2'
           break
         case 'hemlok':
-          model_path = 'm1a1_hemlok'
+          viewmodel_path = 'm1a1_hemlok'
           break
         case 'mastiff':
-          model_path = 'mastiff_stgn'
+          viewmodel_path = 'mastiff_stgn'
+          break
+      }
+
+      let playermodel_path = playermodel
+      switch (playermodel) {
+        case 'g2a4':
+          playermodel_path = 'g2'
+          break
+        case 'hemlok':
+          playermodel_path = 'm1a1_hemlok'
+          break
+        case 'mastiff':
+          playermodel_path = 'mastiff_stgn'
           break
       }
 
@@ -2051,8 +2091,8 @@ export default new Vuex.Store({
         menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
         hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,
 
-        viewmodel: 'mdl/weapons/' + model_path + '/ptpov_' + model + '.rmdl',
-        playermodel: 'mdl/weapons/' + model_path + '/w_' + model + '.rmdl',
+        viewmodel: 'mdl/weapons/' + viewmodel_path + '/ptpov_' + viewmodel + '.rmdl',
+        playermodel: 'mdl/weapons/' + playermodel_path + '/w_' + playermodel + '.rmdl',
 
         damage_type: 'bullet',
         damage_near_value: context.state.weapon.damage_value,

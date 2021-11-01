@@ -40,9 +40,14 @@
                     weaponKey="icon"
                   ></property-select>
                   <property-select
-                    :label="$t('weapon_property.model')"
-                    :items="calledWeaponModel"
-                    weaponKey="model"
+                    :label="$t('weapon_property.viewmodel')"
+                    :items="viewmodels"
+                    weaponKey="viewmodel"
+                  ></property-select>
+                  <property-select
+                    :label="$t('weapon_property.playermodel')"
+                    :items="playermodels"
+                    weaponKey="playermodel"
                   ></property-select>
                   <property-select
                     :label="$t('weapon_property.crosshair')"
@@ -323,8 +328,11 @@ export default Vue.extend({
     calledWeaponIcon: function () {
       return this.$store.state.calledWeaponIcon;
     },
-    calledWeaponModel: function () {
-      return this.$store.state.calledWeaponModel;
+    viewmodels: function () {
+      return this.$store.state.viewmodels;
+    },
+    playermodels: function () {
+      return this.$store.state.playermodels;
     },
     crosshair: function () {
       return this.$store.state.crosshair;
