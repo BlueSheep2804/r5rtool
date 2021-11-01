@@ -24,6 +24,7 @@ interface weaponProperty {
   damage_headshot_scale: string;
   fire_rate: string;
   ammo_per_shot: string;
+  regen_ammo_refill_rate: string;
   burst_fire_count: string;
   burst_fire_delay: string;
   ammo_pool_type: string;
@@ -58,6 +59,7 @@ export default new Vuex.Store({
       damage_headshot_scale: '1.5',
       fire_rate: '18',
       ammo_per_shot: '1',
+      regen_ammo_refill_rate: '0',
       burst_fire_count: '1',
       burst_fire_delay: '0.2',
       ammo_pool_type: 'bullet',
@@ -2077,6 +2079,27 @@ export default new Vuex.Store({
           break
       }
 
+      const weapon_dict_ammo = {
+        ammo_pool_type: context.state.weapon.ammo_pool_type,
+        ammo_clip_size: context.state.weapon.ammo_clip_size,
+        ammo_default_total: '180',
+        ammo_stockpile_max: '180',
+        ammo_no_remove_from_stockpile: '1',
+        ammo_per_shot: context.state.weapon.ammo_per_shot,
+        ammo_min_to_fire: context.state.weapon.ammo_per_shot,
+        uses_ammo_pool: '1',
+        regen_ammo_refill_rate: context.state.weapon.regen_ammo_refill_rate,
+        reload_enabled: '1',
+        reload_time: context.state.weapon.reload_time,
+        reload_time_late1: Math.round((Number(context.state.weapon.reload_time) * 0.4) * 10) / 10 + '',
+        reloadempty_time: context.state.weapon.reloadempty_time,
+        reloadempty_time_late1: Math.round((Number(context.state.weapon.reloadempty_time) * 0.6) * 10) / 10 + '',
+        reloadempty_time_late2: Math.round((Number(context.state.weapon.reloadempty_time) * 0.3) * 10) / 10 + '',
+      }
+      if (context.state.weapon.regen_ammo_refill_rate != '0') {
+        weapon_dict_ammo.reload_enabled = '0'
+      }
+
       let weapon_base = context.state.weapon.weapon_type
       const burst_fire_count = context.state.weapon.burst_fire_count == '1' ? '0' : context.state.weapon.burst_fire_count
 
@@ -2124,20 +2147,7 @@ export default new Vuex.Store({
         low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
         low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
 
-        ammo_pool_type: context.state.weapon.ammo_pool_type,
-        ammo_clip_size: context.state.weapon.ammo_clip_size,
-        ammo_default_total: '180',
-        ammo_stockpile_max: '180',
-        ammo_no_remove_from_stockpile: '1',
-        ammo_per_shot: context.state.weapon.ammo_per_shot,
-        ammo_min_to_fire: context.state.weapon.ammo_per_shot,
-        uses_ammo_pool: '1',
-
-        reload_time: context.state.weapon.reload_time,
-        reload_time_late1: Math.round((Number(context.state.weapon.reload_time) * 0.4) * 10) / 10 + '',
-        reloadempty_time: context.state.weapon.reloadempty_time,
-        reloadempty_time_late1: Math.round((Number(context.state.weapon.reloadempty_time) * 0.6) * 10) / 10 + '',
-        reloadempty_time_late2: Math.round((Number(context.state.weapon.reloadempty_time) * 0.3) * 10) / 10 + '',
+        ...weapon_dict_ammo,
 
         ...context.state.weapon.viewkick_preset,
 

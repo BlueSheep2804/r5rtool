@@ -136,6 +136,7 @@
     "mag_l3": "@:weapon_property.extended_mag Lv.3",
     "reload_time": "タクティカルリロード",
     "reloadempty_time": "リロード",
-    "viewkick_preset": "反動プリセット"
+    "viewkick_preset": "反動プリセット",
+    "regen_ammo_refill_rate": "1秒あたりの弾薬回復量"
   }
 }

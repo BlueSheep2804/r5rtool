@@ -120,12 +120,6 @@
               ></property-input>
             </v-tab-item>
             <v-tab-item value="tab-ammo" class="pa-4">
-              <property-input
-                :label="$t('weapon_property.ammo_per_shot')"
-                type="number"
-                weaponKey="ammo_per_shot"
-                min="0"
-              ></property-input>
               <property-select
                 :label="$t('weapon_property.ammo_pool_type')"
                 :items="ammoType"
@@ -170,11 +164,24 @@
                 </v-col>
               </v-row>
               <property-input
+                :label="$t('weapon_property.ammo_per_shot')"
+                type="number"
+                weaponKey="ammo_per_shot"
+                min="0"
+              ></property-input>
+              <property-input
+                :label="$t('weapon_property.regen_ammo_refill_rate')"
+                type="number"
+                weaponKey="regen_ammo_refill_rate"
+                min="0"
+              ></property-input>
+              <property-input
                 :label="$t('weapon_property.reload_time')"
                 type="number"
                 weaponKey="reload_time"
                 min="0"
                 step="0.1"
+                :disabled="hasRegenammo"
               ></property-input>
               <property-input
                 :label="$t('weapon_property.reloadempty_time')"
@@ -182,6 +189,7 @@
                 weaponKey="reloadempty_time"
                 min="0"
                 step="0.1"
+                :disabled="hasRegenammo"
               ></property-input>
             </v-tab-item>
             <v-tab-item value="tab-other" class="pa-4">
@@ -355,6 +363,9 @@ export default Vue.extend({
     },
     hasExtendedMag: function () {
       return this.$store.state.weapon.ammo_pool_type != 'shotgun';
+    },
+    hasRegenammo: function () {
+      return this.$store.state.weapon.regen_ammo_refill_rate != '0';
     },
     viewkickPreset: function () {
       return this.$store.state.viewkickPreset;
