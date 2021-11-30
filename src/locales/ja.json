@@ -113,7 +113,8 @@
     "shortprintname": "短めの武器名",
     "description": "説明",
     "icon": "アイコン",
-    "model": "モデル",
+    "viewmodel": "モデル(1人称視点)",
+    "playermodel": "モデル(3人称視点)",
     "crosshair": "クロスヘア",
     "sound": "射撃音",
     "sound_hint": "フルオート武器の音はサポートされていません",
@@ -135,6 +136,7 @@
     "mag_l3": "@:weapon_property.extended_mag Lv.3",
     "reload_time": "タクティカルリロード",
     "reloadempty_time": "リロード",
-    "viewkick_preset": "反動プリセット"
+    "viewkick_preset": "反動プリセット",
+    "regen_ammo_refill_rate": "1秒あたりの弾薬回復量"
   }
 }

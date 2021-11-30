@@ -113,7 +113,8 @@
     "shortprintname": "Short weapon name",
     "description": "Description",
     "icon": "Icon",
-    "model": "Model",
+    "viewmodel": "Model(First Person)",
+    "playermodel": "Model(Third Person)",
     "crosshair": "Crosshair",
     "sound": "Sound of gunfire",
     "sound_hint": "Full-auto weapon sounds are not supported",
@@ -135,6 +136,7 @@
     "mag_l3": "@:weapon_property.extended_mag Lv.3",
     "reload_time": "Reload time",
     "reloadempty_time": "Reload time(Empty mag)",
-    "viewkick_preset": "Viewkick preset"
+    "viewkick_preset": "Viewkick preset",
+    "regen_ammo_refill_rate": "Ammo recovery per second"
   }
 }

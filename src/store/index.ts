@@ -12,7 +12,8 @@ interface weaponProperty {
   shortprintname: string;
   description: string;
   icon: string;
-  model: string;
+  viewmodel: string;
+  playermodel: string;
   crosshair: string;
   sound: Record<string, unknown>;
   is_semi_auto: string;
@@ -23,6 +24,7 @@ interface weaponProperty {
   damage_headshot_scale: string;
   fire_rate: string;
   ammo_per_shot: string;
+  regen_ammo_refill_rate: string;
   burst_fire_count: string;
   burst_fire_delay: string;
   ammo_pool_type: string;
@@ -45,7 +47,8 @@ export default new Vuex.Store({
       shortprintname: '',
       description: '',
       icon: '',
-      model: '',
+      viewmodel: '',
+      playermodel: '',
       crosshair: '',
       sound: {},
       is_semi_auto: '0',
@@ -56,6 +59,7 @@ export default new Vuex.Store({
       damage_headshot_scale: '1.5',
       fire_rate: '18',
       ammo_per_shot: '1',
+      regen_ammo_refill_rate: '0',
       burst_fire_count: '1',
       burst_fire_delay: '0.2',
       ammo_pool_type: 'bullet',
@@ -99,7 +103,31 @@ export default new Vuex.Store({
       { text: 'weapons.triple_take', value: 'triple_take' },
       { text: 'weapons.wingman', value: 'wingman' },
     ],
-    calledWeaponModel: [
+    viewmodels: [
+      { text: 'weapons.alternator', value: 'alternator_smg' },
+      { text: 'weapons.charge_rifle', value: 'defender' },
+      { text: 'weapons.devotion', value: 'hemlock_br' },
+      { text: 'weapons.eva8', value: 'w1128' },
+      { text: 'weapons.flatline', value: 'vinson' },
+      { text: 'weapons.g7', value: 'g2a4' }, //g2
+      { text: 'weapons.havoc', value: 'beam_ar' },
+      { text: 'weapons.hemlok', value: 'hemlok' }, //m1a1_hemlok
+      { text: 'weapons.sniper', value: 'at_rifle' },
+      { text: 'weapons.longbow', value: 'rspn101_dmr' },
+      { text: 'weapons.lstar', value: 'lstar' },
+      { text: 'weapons.mastiff', value: 'mastiff' }, //mastiff_stgn
+      { text: 'weapons.mozambique', value: 'pstl_sa3' },
+      { text: 'weapons.p2020', value: 'p2011' },
+      { text: 'weapons.peacekeeper', value: 'peacekeeper' },
+      { text: 'weapons.prowler', value: 'prowler_smg' },
+      { text: 'weapons.r301', value: 'rspn101' },
+      { text: 'weapons.r97', value: 'r97' },
+      { text: 'weapons.re45', value: 'p2011_auto' },
+      { text: 'weapons.spitfire', value: 'lmg_hemlok' },
+      { text: 'weapons.triple_take', value: 'doubletake' },
+      { text: 'weapons.wingman', value: 'b3wing' },
+    ],
+    playermodels: [
       { text: 'weapons.alternator', value: 'alternator_smg' },
       { text: 'weapons.charge_rifle', value: 'defender' },
       { text: 'weapons.devotion', value: 'hemlock_br' },
@@ -2022,19 +2050,54 @@ export default new Vuex.Store({
   actions: {
     generationText(context) {
       const icon = context.state.weapon.icon
-      const model = context.state.weapon.model
+      const viewmodel = context.state.weapon.viewmodel
+      const playermodel = context.state.weapon.playermodel
 
-      let model_path = model
-      switch (model) {
+      let viewmodel_path = viewmodel
+      switch (viewmodel) {
         case 'g2a4':
-          model_path = 'g2'
+          viewmodel_path = 'g2'
           break
         case 'hemlok':
-          model_path = 'm1a1_hemlok'
+          viewmodel_path = 'm1a1_hemlok'
           break
         case 'mastiff':
-          model_path = 'mastiff_stgn'
+          viewmodel_path = 'mastiff_stgn'
           break
+      }
+
+      let playermodel_path = playermodel
+      switch (playermodel) {
+        case 'g2a4':
+          playermodel_path = 'g2'
+          break
+        case 'hemlok':
+          playermodel_path = 'm1a1_hemlok'
+          break
+        case 'mastiff':
+          playermodel_path = 'mastiff_stgn'
+          break
+      }
+
+      const weapon_dict_ammo = {
+        ammo_pool_type: context.state.weapon.ammo_pool_type,
+        ammo_clip_size: context.state.weapon.ammo_clip_size,
+        ammo_default_total: '180',
+        ammo_stockpile_max: '180',
+        ammo_no_remove_from_stockpile: '1',
+        ammo_per_shot: context.state.weapon.ammo_per_shot,
+        ammo_min_to_fire: context.state.weapon.ammo_per_shot,
+        uses_ammo_pool: '1',
+        regen_ammo_refill_rate: context.state.weapon.regen_ammo_refill_rate,
+        reload_enabled: '1',
+        reload_time: context.state.weapon.reload_time,
+        reload_time_late1: Math.round((Number(context.state.weapon.reload_time) * 0.4) * 10) / 10 + '',
+        reloadempty_time: context.state.weapon.reloadempty_time,
+        reloadempty_time_late1: Math.round((Number(context.state.weapon.reloadempty_time) * 0.6) * 10) / 10 + '',
+        reloadempty_time_late2: Math.round((Number(context.state.weapon.reloadempty_time) * 0.3) * 10) / 10 + '',
+      }
+      if (context.state.weapon.regen_ammo_refill_rate != '0') {
+        weapon_dict_ammo.reload_enabled = '0'
       }
 
       let weapon_base = context.state.weapon.weapon_type
@@ -2051,8 +2114,8 @@ export default new Vuex.Store({
         menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
         hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,
 
-        viewmodel: 'mdl/weapons/' + model_path + '/ptpov_' + model + '.rmdl',
-        playermodel: 'mdl/weapons/' + model_path + '/w_' + model + '.rmdl',
+        viewmodel: 'mdl/weapons/' + viewmodel_path + '/ptpov_' + viewmodel + '.rmdl',
+        playermodel: 'mdl/weapons/' + playermodel_path + '/w_' + playermodel + '.rmdl',
 
         damage_type: 'bullet',
         damage_near_value: context.state.weapon.damage_value,
@@ -2084,20 +2147,7 @@ export default new Vuex.Store({
         low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
         low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
 
-        ammo_pool_type: context.state.weapon.ammo_pool_type,
-        ammo_clip_size: context.state.weapon.ammo_clip_size,
-        ammo_default_total: '180',
-        ammo_stockpile_max: '180',
-        ammo_no_remove_from_stockpile: '1',
-        ammo_per_shot: context.state.weapon.ammo_per_shot,
-        ammo_min_to_fire: context.state.weapon.ammo_per_shot,
-        uses_ammo_pool: '1',
-
-        reload_time: context.state.weapon.reload_time,
-        reload_time_late1: Math.round((Number(context.state.weapon.reload_time) * 0.4) * 10) / 10 + '',
-        reloadempty_time: context.state.weapon.reloadempty_time,
-        reloadempty_time_late1: Math.round((Number(context.state.weapon.reloadempty_time) * 0.6) * 10) / 10 + '',
-        reloadempty_time_late2: Math.round((Number(context.state.weapon.reloadempty_time) * 0.3) * 10) / 10 + '',
+        ...weapon_dict_ammo,
 
         ...context.state.weapon.viewkick_preset,
 
