@@ -9,7 +9,11 @@ export function generateR5RWeapon(dict: any, depth = 0): string {
         + '\t'.repeat(depth) + '}\n'
       )
     } else {
-      r5rtxt += '\t'.repeat(depth) + '"' + k + '"\t\t"' + dict[k] + '"\n'
+      if (dict[k] == '--- separator ---' && k.substring(0, 5) == '__sep') {
+        r5rtxt += '\n'
+      } else {
+        r5rtxt += '\t'.repeat(depth) + '"' + k + '"\t\t"' + dict[k] + '"\n'
+      }
     }
   }
   return r5rtxt

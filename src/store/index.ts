@@ -2095,6 +2095,7 @@ export default new Vuex.Store({
         reloadempty_time: context.state.weapon.reloadempty_time,
         reloadempty_time_late1: Math.round((Number(context.state.weapon.reloadempty_time) * 0.6) * 10) / 10 + '',
         reloadempty_time_late2: Math.round((Number(context.state.weapon.reloadempty_time) * 0.3) * 10) / 10 + '',
+        __sep1: '--- separator ---',
       }
       if (context.state.weapon.regen_ammo_refill_rate != '0') {
         weapon_dict_ammo.reload_enabled = '0'
@@ -2108,31 +2109,34 @@ export default new Vuex.Store({
         shortprintname: context.state.weapon.shortprintname,
         description: context.state.weapon.description,
         longdesc: context.state.weapon.description,
-
-        weapon_type_flags: 'WPT_PRIMARY',
+        __sep2: '--- separator ---',
 
         menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
         hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,
-
         viewmodel: 'mdl/weapons/' + viewmodel_path + '/ptpov_' + viewmodel + '.rmdl',
         playermodel: 'mdl/weapons/' + playermodel_path + '/w_' + playermodel + '.rmdl',
+        __sep3: '--- separator ---',
 
+        weapon_type_flags: 'WPT_PRIMARY',
         damage_type: 'bullet',
         damage_near_value: context.state.weapon.damage_value,
         damage_far_value: context.state.weapon.damage_value,
         damage_very_far_value: context.state.weapon.damage_value,
         allow_headshots: '1',
         damage_headshot_scale: context.state.weapon.damage_headshot_scale,
+        __sep4: '--- separator ---',
 
         projectile_launch_speed: context.state.weapon.projectile_launch_speed,
         projectilemodel: context.state.weapon.projectilemodel,
         projectile_trail_effect_0: context.state.weapon.projectile_trail_effect_0,
+        __sep5: '--- separator ---',
 
         fire_mode: 'automatic',
         is_semi_auto: context.state.weapon.is_semi_auto,
         fire_rate: context.state.weapon.fire_rate,
         burst_fire_count: burst_fire_count,
         burst_fire_delay: context.state.weapon.burst_fire_delay,
+        __sep6: '--- separator ---',
 
         ...context.state.weapon.sound,
         sound_dryfire: 'assalt_rifle_dryfire',
@@ -2146,10 +2150,12 @@ export default new Vuex.Store({
         low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
         low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
         low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
+        __sep7: '--- separator ---',
 
         ...weapon_dict_ammo,
 
         ...context.state.weapon.viewkick_preset,
+        __sep8: '--- separator ---',
 
         active_crosshair_count: '1',
         rui_crosshair_index: '0',
@@ -2176,9 +2182,11 @@ export default new Vuex.Store({
           [extended_mag_prefix + '1']: {
             'ammo_clip_size': context.state.weapon.mag_l1
           },
+          __sep21: '--- separator ---',
           [extended_mag_prefix + '2']: {
             'ammo_clip_size': context.state.weapon.mag_l2
           },
+          __sep22: '--- separator ---',
           [extended_mag_prefix + '3']: {
             'ammo_clip_size': context.state.weapon.mag_l3
           }
@@ -2191,12 +2199,14 @@ export default new Vuex.Store({
 
           Mods: {
             gold: {},
+            __sep11: '--- separator ---',
             survival_finite_ammo: {
               ammo_default_total: '180',
               ammo_stockpile_max: '180',
               ammo_no_remove_from_stockpile: '0',
               uses_ammo_pool: '1'
             },
+            __sep12: '--- separator ---',
             ...weapon_dict_extended_mag
           },
 
