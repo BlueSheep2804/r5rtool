@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { generateR5RWeapon } from '../utils/r5rtext'
+import { generateR5RWeapon, importR5RWeapon, modelname } from '../utils/r5rtext'
 
 Vue.use(Vuex)
 
@@ -2043,6 +2043,11 @@ export default new Vuex.Store({
     weaponPropertyUpdate(state, value: string[]) {
       state.weapon[value[0]] = value[1]
     },
+    weaponPropertyImport(state, value: string[]) {
+      if (value[1] != '') {
+        state.weapon[value[0]] = value[1]
+      }
+    },
     updateWeaponText(state, text: string) {
       state.weaponText = text
     }
@@ -2231,6 +2236,35 @@ export default new Vuex.Store({
 
       context.commit('updateWeaponText', weapon_base + '\n\n// Generation by R5RTool\n\n' + generateR5RWeapon(weapon_dict))
     },
+    importText(context, kvfile: string) {
+      context.commit('weaponPropertyImport', ['printname', importR5RWeapon(kvfile, 'printname')])
+      context.commit('weaponPropertyImport', ['shortprintname', importR5RWeapon(kvfile, 'shortprintname')])
+      context.commit('weaponPropertyImport', ['description', importR5RWeapon(kvfile, 'description')])
+      //context.commit('weaponPropertyImport', ['icon', importR5RWeapon(kvfile, '')])
+      context.commit('weaponPropertyImport', ['viewmodel', modelname(importR5RWeapon(kvfile, 'viewmodel'))])
+      context.commit('weaponPropertyImport', ['playermodel', modelname(importR5RWeapon(kvfile, 'playermodel'))])
+      //context.commit('weaponPropertyImport', ['crosshair', importR5RWeapon(kvfile, 'ui')])
+      //context.commit('weaponPropertyImport', ['sound', importR5RWeapon(kvfile, '')])
+      context.commit('weaponPropertyImport', ['is_semi_auto', importR5RWeapon(kvfile, 'is_semi_auto')])
+      context.commit('weaponPropertyImport', ['projectile_launch_speed', importR5RWeapon(kvfile, 'projectile_launch_speed')])
+      context.commit('weaponPropertyImport', ['projectilemodel', importR5RWeapon(kvfile, 'projectilemodel')])
+      context.commit('weaponPropertyImport', ['projectile_trail_effect_0', importR5RWeapon(kvfile, 'projectile_trail_effect_0')])
+      context.commit('weaponPropertyImport', ['damage_value', importR5RWeapon(kvfile, 'damage_near_value')])
+      context.commit('weaponPropertyImport', ['damage_headshot_scale', importR5RWeapon(kvfile, 'damage_headshot_scale')])
+      context.commit('weaponPropertyImport', ['fire_rate', importR5RWeapon(kvfile, 'fire_rate')])
+      context.commit('weaponPropertyImport', ['ammo_per_shot', importR5RWeapon(kvfile, 'ammo_per_shot')])
+      context.commit('weaponPropertyImport', ['regen_ammo_refill_rate', importR5RWeapon(kvfile, 'regen_ammo_refill_rate')])
+      context.commit('weaponPropertyImport', ['burst_fire_count', importR5RWeapon(kvfile, 'burst_fire_count')])
+      context.commit('weaponPropertyImport', ['burst_fire_delay', importR5RWeapon(kvfile, 'burst_fire_delay')])
+      context.commit('weaponPropertyImport', ['ammo_pool_type', importR5RWeapon(kvfile, 'ammo_pool_type')])
+      context.commit('weaponPropertyImport', ['ammo_clip_size', importR5RWeapon(kvfile, 'ammo_clip_size')])
+      // context.commit('weaponPropertyImport', ['mag_l1', importR5RWeapon(kvfile, '')])
+      // context.commit('weaponPropertyImport', ['mag_l2', importR5RWeapon(kvfile, '')])
+      // context.commit('weaponPropertyImport', ['mag_l3', importR5RWeapon(kvfile, '')])
+      context.commit('weaponPropertyImport', ['reload_time', importR5RWeapon(kvfile, 'reload_time')])
+      context.commit('weaponPropertyImport', ['reloadempty_time', importR5RWeapon(kvfile, 'reloadempty_time')])
+      // context.commit('weaponPropertyImport', ['viewkick_preset', importR5RWeapon(kvfile, '')])
+    }
   },
   modules: {
   }
