@@ -223,7 +223,6 @@
               color="primary"
               dark
               fab
-              @click="returnTop"
               v-bind="attrs"
               v-on="on"
             >
