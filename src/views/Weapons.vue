@@ -7,7 +7,6 @@
           <v-tabs v-model="model" grow show-arrows>
             <v-tab href="#tab-appearance">{{ $t('pages.weapons.tab.appearance') }}</v-tab>
             <v-tab href="#tab-fire">{{ $t('pages.weapons.tab.fire') }}</v-tab>
-            <v-tab href="#tab-damage">{{ $t('pages.weapons.tab.damage') }}</v-tab>
             <v-tab href="#tab-ammo">{{ $t('pages.weapons.tab.ammo') }}</v-tab>
             <v-tab href="#tab-other">{{ $t('pages.weapons.tab.other') }}</v-tab>
           </v-tabs>
@@ -81,6 +80,18 @@
                 weaponKey="projectile_trail_effect_0"
               ></property-select>
               <property-input
+                :label="$t('weapon_property.damage_value')"
+                type="number"
+                weaponKey="damage_value"
+                min="1"
+              ></property-input>
+              <property-input
+                :label="$t('weapon_property.damage_headshot_scale')"
+                type="number"
+                weaponKey="damage_headshot_scale"
+                step="0.1"
+              ></property-input>
+              <property-input
                 :label="$t('weapon_property.fire_rate')"
                 type="number"
                 weaponKey="fire_rate"
@@ -103,20 +114,6 @@
                 weaponKey="burst_fire_delay"
                 :disabled="!isBurst"
                 min="0"
-                step="0.1"
-              ></property-input>
-            </v-tab-item>
-            <v-tab-item value="tab-damage" class="pa-4">
-              <property-input
-                :label="$t('weapon_property.damage_value')"
-                type="number"
-                weaponKey="damage_value"
-                min="1"
-              ></property-input>
-              <property-input
-                :label="$t('weapon_property.damage_headshot_scale')"
-                type="number"
-                weaponKey="damage_headshot_scale"
                 step="0.1"
               ></property-input>
             </v-tab-item>
