@@ -18,7 +18,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class PropertyInput extends Vue {
   @Prop() private weaponKey!: string;
-  @Prop({ default: false }) private disabled!: boolean;
 
   private get weaponProperty(): boolean {
     if (this.$store.state.weapon[this.weaponKey] == '1') {

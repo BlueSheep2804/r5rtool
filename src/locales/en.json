@@ -13,7 +13,18 @@
   "pages": {
     "weapons": {
       "generation_txt": "Generation txt",
-      "copy": "Copy"
+      "copy": "Copy",
+      "download": "Download",
+      "preview": "Preview",
+      "import": "Import(WIP)",
+      "menu": "Menu",
+      "tab": {
+        "appearance": "Appearance",
+        "fire": "Fire",
+        "damage": "Damage",
+        "ammo": "Ammo",
+        "other": "Other"
+      }
     }
   },
   "weapons": {
@@ -21,25 +32,30 @@
     "charge_rifle": "Charge rifle",
     "devotion": "Devotion",
     "eva8": "EVA-8 Auto",
+    "eva8_double_tap": "EVA-8 Auto (Double Tap)",
     "flatline": "Flatline",
     "flatline_single": "Flatline (Single)",
+    "flatline_highcal": "Flatline (Anvil Receiver)",
     "g7": "G7 Scout",
-    "energy_ar": "Havoc",
-    "energy_ar_single": "Havoc (Single)",
+    "g7_double_tap": "G7 Scout (Double Tap)",
+    "havoc": "Havoc",
+    "havoc_single": "Havoc (Single)",
     "hemlok": "Hemlok",
     "sniper": "Kraber",
     "longbow": "Longbow",
     "longbow_skull": "Longbow (Skullpiercer)",
     "lstar": "L-Star",
     "mastiff": "Mastiff",
-    "mozambique": "Mozanbique",
+    "mozambique": "Mozambique",
     "p2020": "P2020",
     "peacekeeper": "Peacekeeper",
     "prowler": "Prowler",
+    "prowler_auto": "Prowler (Auto)",
     "r301": "R-301",
     "r301_single": "R-301 (Single)",
+    "r301_highcal": "R-301 (Anvil Receiver)",
     "r97": "R-99",
-    "r45": "RE-45",
+    "re45": "RE-45",
     "spitfire": "Spitfire",
     "smart_pistol": "SMART PISTOL",
     "triple_take": "Triple take",
@@ -61,15 +77,10 @@
     "shotgun": "Shotgun ammo"
   },
   "crosshair": {
-    "alternator": "@:weapons.alternator",
-    "charge_rifle": "@:weapons.charge_rifle",
     "circle": "Circle",
     "dot": "Dot",
-    "lstar": "@:weapons.lstar",
-    "mastiff": "@:weapons.mastiff",
     "plus": "Plus",
     "plus_dot": "Plus + dot",
-    "shotgun": "@:weapon_type.sg",
     "tactical": "None",
     "tri": "Triangle"
   },
@@ -78,9 +89,6 @@
     "default_blue": "Default(Blue)",
     "sniper": "Sniper",
     "sniper_blue": "Sniper(Blue)",
-    "lstar": "@:weapons.lstar",
-    "peacekeeper": "@:weapons.peacekeeper",
-    "mastiff": "@:weapons.mastiff",
     "disruptor": "Disruptor",
     "hammerpoint": "Hammerpoint",
     "skullpiercer": "Skullpiercer",
@@ -99,12 +107,15 @@
     "smoke": "Smoke"
   },
   "weapon_property": {
+    "id": "ID(part of the file name)",
+    "id_hint": "Name of the file to be downloaded",
     "weapon_type": "Weapon type",
     "printname": "Weapon name",
     "shortprintname": "Short weapon name",
     "description": "Description",
     "icon": "Icon",
-    "model": "Model",
+    "viewmodel": "Model(First Person)",
+    "playermodel": "Model(Third Person)",
     "crosshair": "Crosshair",
     "sound": "Sound of gunfire",
     "sound_hint": "Full-auto weapon sounds are not supported",
@@ -125,6 +136,8 @@
     "mag_l2": "@:weapon_property.extended_mag Lv.2",
     "mag_l3": "@:weapon_property.extended_mag Lv.3",
     "reload_time": "Reload time",
-    "reloadempty_time": "Reload time(Empty mag)"
+    "reloadempty_time": "Reload time(Empty mag)",
+    "viewkick_preset": "Viewkick preset",
+    "regen_ammo_refill_rate": "Ammo recovery per second"
   }
 }

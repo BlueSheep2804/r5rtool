@@ -1,32 +1,19 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <v-app-bar-title>R5RTool</v-app-bar-title>
 
       <v-spacer></v-spacer>
 
-      <v-menu
-        bottom
-        left
-      >
+      <v-menu bottom left>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-          >
+          <v-btn icon v-bind="attrs" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
 
         <v-list>
-          <v-list-item
-            @click.stop="dialog = true"
-          >
+          <v-list-item @click.stop="dialog = true">
             <v-list-item-icon>
               <v-icon>{{ menuitem[0].icon }}</v-icon>
             </v-list-item-icon>
@@ -35,7 +22,7 @@
           <v-list-item
             v-for="i in menuitem.slice(1)"
             :key="i.name"
-            :to="i.link"
+            :href="i.link"
             target="_blank"
           >
             <v-list-item-icon>
@@ -45,10 +32,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-dialog
-        v-model="dialog"
-        max-width="500"
-      >
+      <v-dialog v-model="dialog" max-width="500">
         <v-card>
           <v-card-title>
             {{ $t('appbar.select_lang') }}
@@ -73,7 +57,7 @@
     </v-app-bar>
 
     <v-main>
-      <router-view/>
+      <router-view />
     </v-main>
   </v-app>
 </template>
@@ -87,31 +71,31 @@ export default Vue.extend({
   data: () => ({
     dialog: false,
     langs: [
-      {text: 'appbar.langs.ja', value: 'ja'},
-      {text: 'appbar.langs.en', value: 'en'}
+      { text: 'appbar.langs.ja', value: 'ja' },
+      { text: 'appbar.langs.en', value: 'en' },
     ],
     menuitem: [
       {
         icon: 'mdi-translate',
         name: 'appbar.lang',
-        link: '__dialog'
+        link: '__dialog',
       },
       {
         icon: 'mdi-update',
         name: 'appbar.changelog',
-        link: 'https://github.com/BlueSheep2804/r5rtool/blob/master/Changelog.md'
+        link: 'https://github.com/BlueSheep2804/r5rtool/blob/master/Changelog.md',
       },
       {
         icon: 'mdi-github',
         name: 'appbar.source_code',
-        link: 'https://github.com/BlueSheep2804/r5rtool'
+        link: 'https://github.com/BlueSheep2804/r5rtool',
       },
       {
         icon: 'mdi-twitter',
         name: 'appbar.twitter_author',
-        link: 'https://twitter.com/BlueSheep2804'
-      }
-    ]
+        link: 'https://twitter.com/BlueSheep2804',
+      },
+    ],
   }),
 });
 </script>
