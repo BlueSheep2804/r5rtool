@@ -2,6 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12" lg="10" offset-lg="1">
+
         <v-card class="mb-4">
           <v-tabs v-model="model" grow show-arrows>
             <v-tab href="#tab-appearance">{{ $t('pages.weapons.tab.appearance') }}</v-tab>
@@ -240,6 +241,24 @@
             dark
             fab
             small
+            v-bind="attrs"
+            v-on="on"
+          >
+            <label>
+              <v-icon>mdi-upload</v-icon>
+              <input type="file" style="display: none;" @change="importText">
+            </label>
+          </v-btn>
+        </template>
+        <span>{{ $t('pages.weapons.import') }}</span>
+      </v-tooltip>
+      <v-tooltip left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="primary"
+            dark
+            fab
+            small
             @click="copyText"
             v-bind="attrs"
             v-on="on"
@@ -395,6 +414,14 @@ export default Vue.extend({
       link.download = 'mp_weapon_' + this.$store.state.weapon.id + '.txt';
       link.click();
       URL.revokeObjectURL(link.href);
+    },
+    importText(e: any) {
+      const files = e.target.files || e.dataTransfer.files
+      const reader = new FileReader()
+      reader.readAsText(files[0])
+      reader.onload = () => {
+        this.$store.dispatch('importText', reader.result);
+      }
     },
   },
 });

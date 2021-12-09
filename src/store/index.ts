@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { generateR5RWeapon } from '../utils/r5rtext'
+import { generateR5RWeapon, importR5RWeapon, modelname } from '../utils/r5rtext'
 
 Vue.use(Vuex)
 
@@ -2043,6 +2043,11 @@ export default new Vuex.Store({
     weaponPropertyUpdate(state, value: string[]) {
       state.weapon[value[0]] = value[1]
     },
+    weaponPropertyImport(state, value: string[]) {
+      if (value[1] != '') {
+        state.weapon[value[0]] = value[1]
+      }
+    },
     updateWeaponText(state, text: string) {
       state.weaponText = text
     }
@@ -2095,6 +2100,7 @@ export default new Vuex.Store({
         reloadempty_time: context.state.weapon.reloadempty_time,
         reloadempty_time_late1: Math.round((Number(context.state.weapon.reloadempty_time) * 0.6) * 10) / 10 + '',
         reloadempty_time_late2: Math.round((Number(context.state.weapon.reloadempty_time) * 0.3) * 10) / 10 + '',
+        __sep1: '--- separator ---',
       }
       if (context.state.weapon.regen_ammo_refill_rate != '0') {
         weapon_dict_ammo.reload_enabled = '0'
@@ -2108,31 +2114,34 @@ export default new Vuex.Store({
         shortprintname: context.state.weapon.shortprintname,
         description: context.state.weapon.description,
         longdesc: context.state.weapon.description,
-
-        weapon_type_flags: 'WPT_PRIMARY',
+        __sep2: '--- separator ---',
 
         menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
         hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,
-
         viewmodel: 'mdl/weapons/' + viewmodel_path + '/ptpov_' + viewmodel + '.rmdl',
         playermodel: 'mdl/weapons/' + playermodel_path + '/w_' + playermodel + '.rmdl',
+        __sep3: '--- separator ---',
 
+        weapon_type_flags: 'WPT_PRIMARY',
         damage_type: 'bullet',
         damage_near_value: context.state.weapon.damage_value,
         damage_far_value: context.state.weapon.damage_value,
         damage_very_far_value: context.state.weapon.damage_value,
         allow_headshots: '1',
         damage_headshot_scale: context.state.weapon.damage_headshot_scale,
+        __sep4: '--- separator ---',
 
         projectile_launch_speed: context.state.weapon.projectile_launch_speed,
         projectilemodel: context.state.weapon.projectilemodel,
         projectile_trail_effect_0: context.state.weapon.projectile_trail_effect_0,
+        __sep5: '--- separator ---',
 
         fire_mode: 'automatic',
         is_semi_auto: context.state.weapon.is_semi_auto,
         fire_rate: context.state.weapon.fire_rate,
         burst_fire_count: burst_fire_count,
         burst_fire_delay: context.state.weapon.burst_fire_delay,
+        __sep6: '--- separator ---',
 
         ...context.state.weapon.sound,
         sound_dryfire: 'assalt_rifle_dryfire',
@@ -2146,10 +2155,12 @@ export default new Vuex.Store({
         low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
         low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
         low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
+        __sep7: '--- separator ---',
 
         ...weapon_dict_ammo,
 
         ...context.state.weapon.viewkick_preset,
+        __sep8: '--- separator ---',
 
         active_crosshair_count: '1',
         rui_crosshair_index: '0',
@@ -2176,9 +2187,11 @@ export default new Vuex.Store({
           [extended_mag_prefix + '1']: {
             'ammo_clip_size': context.state.weapon.mag_l1
           },
+          __sep21: '--- separator ---',
           [extended_mag_prefix + '2']: {
             'ammo_clip_size': context.state.weapon.mag_l2
           },
+          __sep22: '--- separator ---',
           [extended_mag_prefix + '3']: {
             'ammo_clip_size': context.state.weapon.mag_l3
           }
@@ -2191,12 +2204,14 @@ export default new Vuex.Store({
 
           Mods: {
             gold: {},
+            __sep11: '--- separator ---',
             survival_finite_ammo: {
               ammo_default_total: '180',
               ammo_stockpile_max: '180',
               ammo_no_remove_from_stockpile: '0',
               uses_ammo_pool: '1'
             },
+            __sep12: '--- separator ---',
             ...weapon_dict_extended_mag
           },
 
@@ -2221,6 +2236,35 @@ export default new Vuex.Store({
 
       context.commit('updateWeaponText', weapon_base + '\n\n// Generation by R5RTool\n\n' + generateR5RWeapon(weapon_dict))
     },
+    importText(context, kvfile: string) {
+      context.commit('weaponPropertyImport', ['printname', importR5RWeapon(kvfile, 'printname')])
+      context.commit('weaponPropertyImport', ['shortprintname', importR5RWeapon(kvfile, 'shortprintname')])
+      context.commit('weaponPropertyImport', ['description', importR5RWeapon(kvfile, 'description')])
+      //context.commit('weaponPropertyImport', ['icon', importR5RWeapon(kvfile, '')])
+      context.commit('weaponPropertyImport', ['viewmodel', modelname(importR5RWeapon(kvfile, 'viewmodel'))])
+      context.commit('weaponPropertyImport', ['playermodel', modelname(importR5RWeapon(kvfile, 'playermodel'))])
+      //context.commit('weaponPropertyImport', ['crosshair', importR5RWeapon(kvfile, 'ui')])
+      //context.commit('weaponPropertyImport', ['sound', importR5RWeapon(kvfile, '')])
+      context.commit('weaponPropertyImport', ['is_semi_auto', importR5RWeapon(kvfile, 'is_semi_auto')])
+      context.commit('weaponPropertyImport', ['projectile_launch_speed', importR5RWeapon(kvfile, 'projectile_launch_speed')])
+      context.commit('weaponPropertyImport', ['projectilemodel', importR5RWeapon(kvfile, 'projectilemodel')])
+      context.commit('weaponPropertyImport', ['projectile_trail_effect_0', importR5RWeapon(kvfile, 'projectile_trail_effect_0')])
+      context.commit('weaponPropertyImport', ['damage_value', importR5RWeapon(kvfile, 'damage_near_value')])
+      context.commit('weaponPropertyImport', ['damage_headshot_scale', importR5RWeapon(kvfile, 'damage_headshot_scale')])
+      context.commit('weaponPropertyImport', ['fire_rate', importR5RWeapon(kvfile, 'fire_rate')])
+      context.commit('weaponPropertyImport', ['ammo_per_shot', importR5RWeapon(kvfile, 'ammo_per_shot')])
+      context.commit('weaponPropertyImport', ['regen_ammo_refill_rate', importR5RWeapon(kvfile, 'regen_ammo_refill_rate')])
+      context.commit('weaponPropertyImport', ['burst_fire_count', importR5RWeapon(kvfile, 'burst_fire_count')])
+      context.commit('weaponPropertyImport', ['burst_fire_delay', importR5RWeapon(kvfile, 'burst_fire_delay')])
+      context.commit('weaponPropertyImport', ['ammo_pool_type', importR5RWeapon(kvfile, 'ammo_pool_type')])
+      context.commit('weaponPropertyImport', ['ammo_clip_size', importR5RWeapon(kvfile, 'ammo_clip_size')])
+      // context.commit('weaponPropertyImport', ['mag_l1', importR5RWeapon(kvfile, '')])
+      // context.commit('weaponPropertyImport', ['mag_l2', importR5RWeapon(kvfile, '')])
+      // context.commit('weaponPropertyImport', ['mag_l3', importR5RWeapon(kvfile, '')])
+      context.commit('weaponPropertyImport', ['reload_time', importR5RWeapon(kvfile, 'reload_time')])
+      context.commit('weaponPropertyImport', ['reloadempty_time', importR5RWeapon(kvfile, 'reloadempty_time')])
+      // context.commit('weaponPropertyImport', ['viewkick_preset', importR5RWeapon(kvfile, '')])
+    }
   },
   modules: {
   }
