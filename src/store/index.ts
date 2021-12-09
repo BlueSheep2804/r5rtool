@@ -72,12 +72,12 @@ export default new Vuex.Store({
       viewkick_preset: {},
     } as weaponProperty,
     weaponType: [
-      { text: 'weapon_type.ar', value: '#base "_base_assault_rifle.txt"' },
-      { text: 'weapon_type.smg', value: '#base "_base_smg.txt"' },
-      { text: 'weapon_type.lmg', value: '#base "_base_lmg.txt"' },
-      { text: 'weapon_type.sr', value: '#base "_base_sniper.txt"\n#base "_base_sniper_optics.txt"' },
-      { text: 'weapon_type.sg', value: '#base "_base_shotgun.txt"' },
-      { text: 'weapon_type.pistol', value: '#base "_base_handgun.txt"' },
+      { text: 'weapon_type.ar', value: '#base "_base_assault_rifle.txt"\n' },
+      { text: 'weapon_type.smg', value: '#base "_base_smg.txt"\n' },
+      { text: 'weapon_type.lmg', value: '#base "_base_lmg.txt"\n' },
+      { text: 'weapon_type.sr', value: '#base "_base_sniper.txt"\n#base "_base_sniper_optics.txt"\n' },
+      { text: 'weapon_type.sg', value: '#base "_base_shotgun.txt"\n' },
+      { text: 'weapon_type.pistol', value: '#base "_base_handgun.txt"\n' },
     ],
     calledWeaponIcon: [ //rui/menu/dpad_comms/emoji/fist
       { text: 'weapons.alternator', value: 'alternator' },
@@ -2170,15 +2170,15 @@ export default new Vuex.Store({
       switch (context.state.weapon.ammo_pool_type) {
         case 'special':
           extended_mag_prefix = 'energy_mag_l'
-          weapon_base += '\n#base "_base_mags_energy.txt"'
+          weapon_base += '#base "_base_mags_energy.txt"\n'
           break
         case 'bullet':
           extended_mag_prefix = 'bullets_mag_l'
-          weapon_base += '\n#base "_base_mags_light.txt"'
+          weapon_base += '#base "_base_mags_light.txt"\n'
           break
         case 'highcal':
           extended_mag_prefix = 'highcal_mag_l'
-          weapon_base += '\n#base "_base_mags_heavy.txt"'
+          weapon_base += '#base "_base_mags_heavy.txt"\n'
       }
 
       let weapon_dict_extended_mag: Record<string, unknown> = {}
@@ -2234,7 +2234,7 @@ export default new Vuex.Store({
         }
       }
 
-      context.commit('updateWeaponText', weapon_base + '\n\n// Generation by R5RTool\n\n' + generateR5RWeapon(weapon_dict))
+      context.commit('updateWeaponText', weapon_base + '\n// Generation by R5RTool\n\n' + generateR5RWeapon(weapon_dict))
     },
     importText(context, kvfile: string) {
       context.commit('weaponPropertyImport', ['printname', importR5RWeapon(kvfile, 'printname')])
