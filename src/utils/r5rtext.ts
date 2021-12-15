@@ -19,17 +19,24 @@ export function generateR5RWeapon(dict: any, depth = 0): string {
   return r5rtxt
 }
 
-export function importR5RWeapon(kvfile: string, searchkey: string): string {
-  //kvfile.indexOf(searchkey)
-  const re = new RegExp(`"?${searchkey}"?[\t ]+"?.+"?`)
-  const replacere = new RegExp(`"?${searchkey}"?[\t ]+`)
-  const reResult = re.exec(kvfile)
-  if (reResult) {
-    console.log(`${searchkey}: ${(reResult + '').replace(replacere, '').replaceAll('"', '')}`)
-    return (reResult + '').replace(replacere, '').replaceAll('"', '')
-  } else {
-    return ''
-  }
+export function importR5RWeapon(kvfile: string): any {
+  const kvjson = kvfile
+    .replace(/\r\n/g, '\n')
+    .replace(/[\s]*\/\/[\S\t ]*\n/g, '\n')
+    .replace(/#base "_[\S]+\n/g, '')
+    .replace(/(\t+| {2,})([\w]+)([\t ]+)("{0}[\w.-]+"{0})\n/g, '$1"$2"$3"$4"\n')
+    .replace(/(\t+| {2,})("[\w]+")([\t ]+)("{0}[\w.-]+"{0})\n/g, '$1$2$3"$4"\n')
+    .replace(/(\t+| {2,})([\w]+)([\t ]+)("[\w.-]+")\n/g, '$1"$2"$3$4\n')
+    .replace(/("{0}[\w]+"{0})(\n[\s]*\{)/g, '"$1": {')
+    .replace(/("[\w]+")(\n[\s]*\{)/g, '$1: {')
+    .replace(/"+WeaponData"+: {/g, '{')
+    .replaceAll('}', '},')
+    .replace(/"([\t ]+)"/g, '": "')
+    .replaceAll('"\n', '",\n')
+    .replace(/,(\n[\s]*})/g, '$1')
+    .replaceAll('\n},', '\n}')
+  console.log(kvjson)
+  return JSON.parse(kvjson)
 }
 
 export function modelname(modelpath: string): string {
