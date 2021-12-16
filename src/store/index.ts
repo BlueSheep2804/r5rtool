@@ -2044,7 +2044,7 @@ export default new Vuex.Store({
       state.weapon[value[0]] = value[1]
     },
     weaponPropertyImport(state, value: string[]) {
-      if (value[1] != '') {
+      if (typeof value[1] !== 'undefined') {
         state.weapon[value[0]] = value[1]
       }
     },

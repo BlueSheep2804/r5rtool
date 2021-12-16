@@ -1,5 +1,5 @@
 interface R5RWeaponDict {
-  [key: string]: string;
+  [key: string]: string | R5RWeaponDict;
 }
 
 
@@ -47,15 +47,20 @@ export class R5RWeapon {
     this.dict = JSON.parse(kvjson)
   }
 
-  get(key: string): string {
+  get(key: string): string | R5RWeaponDict | undefined {
     if (key in this.dict) {
       return this.dict[key]
     } else {
-      return ''
+      return undefined
     }
   }
 
   getModel(key: string): string {
-    return (this.get(key).match(/[a-zA-Z0-9_]+\.rmdl/) + '').replace('.rmdl', '').replace(/ptpov_|w_/, '')
+    const modelpath = this.get(key)
+    if (typeof modelpath === 'string') {
+      return (modelpath.match(/[a-zA-Z0-9_]+\.rmdl/) + '').replace('.rmdl', '').replace(/ptpov_|w_/, '')
+    } else {
+      throw TypeError
+    }
   }
 }
