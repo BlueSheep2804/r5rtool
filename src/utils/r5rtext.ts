@@ -1,12 +1,32 @@
 interface R5RWeaponDict {
-  [key: string]: string | {} | CrosshairData;
+  [key: string]: string | ModsData | CrosshairData;
   printname: string;
-  mods: {};
+  mods: ModsData;
   RUI_Crosshair_Data: CrosshairData;
 }
 
+interface ModsData {
+  [key: string]: Record<string, never> | Record<string, unknown> | ModsExtendedMag
+  gold: Record<string, never>;
+  survival_finite_ammo: Record<string, unknown>;
+  bullets_mag_l1: ModsExtendedMag;
+  bullets_mag_l2: ModsExtendedMag;
+  bullets_mag_l3: ModsExtendedMag;
+  highcal_mag_l1: ModsExtendedMag;
+  highcal_mag_l2: ModsExtendedMag;
+  highcal_mag_l3: ModsExtendedMag;
+  energy_mag_l1: ModsExtendedMag;
+  energy_mag_l2: ModsExtendedMag;
+  energy_mag_l3: ModsExtendedMag;
+}
+
+interface ModsExtendedMag {
+  [key: string]: string
+  ammo_clip_size: string;
+}
+
 interface CrosshairData {
-  [key: string]: string | {};
+  [key: string]: {ui: string};
   Crosshair_1: {ui: string};
 }
 
@@ -58,7 +78,7 @@ export class R5RWeapon {
     this.dict = JSON.parse(kvjson)
   }
 
-  get(key: string): string | {} | undefined {
+  get(key: string): string | ModsData | CrosshairData | undefined {
     if (key in this.dict) {
       return this.dict[key]
     } else {
