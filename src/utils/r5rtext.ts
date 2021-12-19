@@ -1,7 +1,8 @@
 interface R5RWeaponDict {
   [key: string]: string | ModsData | CrosshairData;
   printname: string;
-  mods: ModsData;
+  ammo_pool_type: string;
+  Mods: ModsData;
   RUI_Crosshair_Data: CrosshairData;
 }
 
@@ -95,11 +96,38 @@ export class R5RWeapon {
     }
   }
 
+  getExtendedMag(level: 'l1' | 'l2' | 'l3'): string | undefined {
+    if (this.dict.ammo_pool_type === 'shotgun') {
+      return undefined
+    }
+
+    const ammoType = this.ammoPool2ExtendedAmmo(this.dict.ammo_pool_type)
+    if (`${ammoType}_mag_${level}` in this.dict.Mods) {
+      const extendedMag = this.dict.Mods[`${ammoType}_mag_${level}`] as ModsExtendedMag
+      return extendedMag.ammo_clip_size
+    } else {
+      return undefined
+    }
+  }
+
   getCrosshair(): string | undefined {
     if (isCrosshairData(this.dict.RUI_CrosshairData)) {
       return this.dict.RUI_CrosshairData.Crosshair_1.ui
     } else {
       return undefined
+    }
+  }
+
+  private ammoPool2ExtendedAmmo(ammo: string): string {
+    switch (ammo) {
+      case 'special':
+        return 'energy'
+      case 'bullet':
+        return 'bullets'
+      case 'highcal':
+        return 'highcal'
+      default:
+        throw TypeError
     }
   }
 }
