@@ -1,7 +1,18 @@
 interface R5RWeaponDict {
-  [key: string]: string | R5RWeaponDict;
+  [key: string]: string | {} | CrosshairData;
+  printname: string;
+  mods: {};
+  RUI_Crosshair_Data: CrosshairData;
 }
 
+interface CrosshairData {
+  [key: string]: string | {};
+  Crosshair_1: {ui: string};
+}
+
+function isCrosshairData(arg: any): arg is CrosshairData {
+  return arg !== null && typeof arg === 'object' && typeof arg.Crosshair_1 === 'object'
+}
 
 // eslint-disable-next-line
 export function generateR5RWeapon(dict: any, depth = 0): string {
@@ -47,7 +58,7 @@ export class R5RWeapon {
     this.dict = JSON.parse(kvjson)
   }
 
-  get(key: string): string | R5RWeaponDict | undefined {
+  get(key: string): string | {} | undefined {
     if (key in this.dict) {
       return this.dict[key]
     } else {
@@ -61,6 +72,14 @@ export class R5RWeapon {
       return (modelpath.match(/[a-zA-Z0-9_]+\.rmdl/) + '').replace('.rmdl', '').replace(/ptpov_|w_/, '')
     } else {
       throw TypeError
+    }
+  }
+
+  getCrosshair(): string | undefined {
+    if (isCrosshairData(this.dict.RUI_CrosshairData)) {
+      return this.dict.RUI_CrosshairData.Crosshair_1.ui
+    } else {
+      return undefined
     }
   }
 }

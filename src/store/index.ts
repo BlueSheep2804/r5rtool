@@ -2244,7 +2244,7 @@ export default new Vuex.Store({
       //context.commit('weaponPropertyImport', ['icon', kvjson['')])
       context.commit('weaponPropertyImport', ['viewmodel', weapon.getModel('viewmodel')])
       context.commit('weaponPropertyImport', ['playermodel', weapon.getModel('playermodel')])
-      context.commit('weaponPropertyImport', ['crosshair', weapon.get('RUI_CrosshairData.Crosshair_1.ui')])
+      context.commit('weaponPropertyImport', ['crosshair', weapon.getCrosshair()])
       //context.commit('weaponPropertyImport', ['sound', kvjson['')])
       context.commit('weaponPropertyImport', ['is_semi_auto', weapon.get('is_semi_auto')])
       context.commit('weaponPropertyImport', ['projectile_launch_speed', weapon.get('projectile_launch_speed')])
