@@ -139,21 +139,18 @@
                     <v-card-title>{{ $t('weapon_property.extended_mag') }}</v-card-title>
                     <property-input
                       :label="$t('weapon_property.mag_l1')"
-                      type="number"
                       weaponKey="mag_l1"
                       min="1"
                       class="mx-2"
                     ></property-input>
                     <property-input
                       :label="$t('weapon_property.mag_l2')"
-                      type="number"
                       weaponKey="mag_l2"
                       min="1"
                       class="mx-2"
                     ></property-input>
                     <property-input
                       :label="$t('weapon_property.mag_l3')"
-                      type="number"
                       weaponKey="mag_l3"
                       min="1"
                       class="mx-2"
