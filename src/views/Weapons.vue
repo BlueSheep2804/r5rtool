@@ -325,6 +325,7 @@
 </template>
 
 <script lang="ts">
+import { R5RWeapon } from '@/utils/r5rtext';
 import Vue from 'vue';
 import PropertyCheckbox from '../components/PropertyCheckbox.vue';
 import PropertyInput from '../components/PropertyInput.vue';
@@ -417,5 +418,10 @@ export default Vue.extend({
       }
     },
   },
+  mounted() {
+    this.$nextTick(function () {
+      this.$store.state.weaponData.loadSample(this.$store.state.weapon)
+    })
+  }
 });
 </script>

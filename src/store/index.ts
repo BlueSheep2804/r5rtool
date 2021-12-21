@@ -40,6 +40,7 @@ interface weaponProperty {
 export default new Vuex.Store({
   state: {
     weaponText: '',
+    weaponData: new R5RWeapon(),
     weapon: {
       id: '',
       weapon_type: '',
@@ -2237,33 +2238,34 @@ export default new Vuex.Store({
       context.commit('updateWeaponText', weapon_base + '\n// Generation by R5RTool\n\n' + generateR5RWeapon(weapon_dict))
     },
     importText(context, kvfile: string) {
-      const weapon = new R5RWeapon(kvfile)
-      context.commit('weaponPropertyImport', ['printname', weapon.get('printname')])
-      context.commit('weaponPropertyImport', ['shortprintname', weapon.get('shortprintname')])
-      context.commit('weaponPropertyImport', ['description', weapon.get('description')])
-      //context.commit('weaponPropertyImport', ['icon', kvjson['')])
-      context.commit('weaponPropertyImport', ['viewmodel', weapon.getModel('viewmodel')])
-      context.commit('weaponPropertyImport', ['playermodel', weapon.getModel('playermodel')])
-      context.commit('weaponPropertyImport', ['crosshair', weapon.getCrosshair()])
-      //context.commit('weaponPropertyImport', ['sound', kvjson['')])
-      context.commit('weaponPropertyImport', ['is_semi_auto', weapon.get('is_semi_auto')])
-      context.commit('weaponPropertyImport', ['projectile_launch_speed', weapon.get('projectile_launch_speed')])
-      context.commit('weaponPropertyImport', ['projectilemodel', weapon.get('projectilemodel')])
-      context.commit('weaponPropertyImport', ['projectile_trail_effect_0', weapon.get('projectile_trail_effect_0')])
-      context.commit('weaponPropertyImport', ['damage_value', weapon.get('damage_near_value')])
-      context.commit('weaponPropertyImport', ['damage_headshot_scale', weapon.get('damage_headshot_scale')])
-      context.commit('weaponPropertyImport', ['fire_rate', weapon.get('fire_rate')])
-      context.commit('weaponPropertyImport', ['ammo_per_shot', weapon.get('ammo_per_shot')])
-      context.commit('weaponPropertyImport', ['regen_ammo_refill_rate', weapon.get('regen_ammo_refill_rate')])
-      context.commit('weaponPropertyImport', ['burst_fire_count', weapon.get('burst_fire_count')])
-      context.commit('weaponPropertyImport', ['burst_fire_delay', weapon.get('burst_fire_delay')])
-      context.commit('weaponPropertyImport', ['ammo_pool_type', weapon.get('ammo_pool_type')])
-      context.commit('weaponPropertyImport', ['ammo_clip_size', weapon.get('ammo_clip_size')])
-      context.commit('weaponPropertyImport', ['mag_l1', weapon.getExtendedMag('l1')])
-      context.commit('weaponPropertyImport', ['mag_l2', weapon.getExtendedMag('l2')])
-      context.commit('weaponPropertyImport', ['mag_l3', weapon.getExtendedMag('l3')])
-      context.commit('weaponPropertyImport', ['reload_time', weapon.get('reload_time')])
-      context.commit('weaponPropertyImport', ['reloadempty_time', weapon.get('reloadempty_time')])
+      // 一時的にコメントアウト
+      // const weapon = new R5RWeapon()
+      // context.commit('weaponPropertyImport', ['printname', weapon.get('printname')])
+      // context.commit('weaponPropertyImport', ['shortprintname', weapon.get('shortprintname')])
+      // context.commit('weaponPropertyImport', ['description', weapon.get('description')])
+      // context.commit('weaponPropertyImport', ['icon', kvjson['')])
+      // context.commit('weaponPropertyImport', ['viewmodel', weapon.getModel('viewmodel')])
+      // context.commit('weaponPropertyImport', ['playermodel', weapon.getModel('playermodel')])
+      // context.commit('weaponPropertyImport', ['crosshair', weapon.getCrosshair()])
+      // context.commit('weaponPropertyImport', ['sound', kvjson['')])
+      // context.commit('weaponPropertyImport', ['is_semi_auto', weapon.get('is_semi_auto')])
+      // context.commit('weaponPropertyImport', ['projectile_launch_speed', weapon.get('projectile_launch_speed')])
+      // context.commit('weaponPropertyImport', ['projectilemodel', weapon.get('projectilemodel')])
+      // context.commit('weaponPropertyImport', ['projectile_trail_effect_0', weapon.get('projectile_trail_effect_0')])
+      // context.commit('weaponPropertyImport', ['damage_value', weapon.get('damage_near_value')])
+      // context.commit('weaponPropertyImport', ['damage_headshot_scale', weapon.get('damage_headshot_scale')])
+      // context.commit('weaponPropertyImport', ['fire_rate', weapon.get('fire_rate')])
+      // context.commit('weaponPropertyImport', ['ammo_per_shot', weapon.get('ammo_per_shot')])
+      // context.commit('weaponPropertyImport', ['regen_ammo_refill_rate', weapon.get('regen_ammo_refill_rate')])
+      // context.commit('weaponPropertyImport', ['burst_fire_count', weapon.get('burst_fire_count')])
+      // context.commit('weaponPropertyImport', ['burst_fire_delay', weapon.get('burst_fire_delay')])
+      // context.commit('weaponPropertyImport', ['ammo_pool_type', weapon.get('ammo_pool_type')])
+      // context.commit('weaponPropertyImport', ['ammo_clip_size', weapon.get('ammo_clip_size')])
+      // context.commit('weaponPropertyImport', ['mag_l1', weapon.getExtendedMag('l1')])
+      // context.commit('weaponPropertyImport', ['mag_l2', weapon.getExtendedMag('l2')])
+      // context.commit('weaponPropertyImport', ['mag_l3', weapon.getExtendedMag('l3')])
+      // context.commit('weaponPropertyImport', ['reload_time', weapon.get('reload_time')])
+      // context.commit('weaponPropertyImport', ['reloadempty_time', weapon.get('reloadempty_time')])
       // context.commit('weaponPropertyImport', ['viewkick_preset', kvjson['')])
     }
   },
