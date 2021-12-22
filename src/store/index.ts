@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { generateR5RWeapon, R5RWeapon } from '../utils/r5rtext'
+import { R5RWeapon } from '../utils/r5rtext'
 
 Vue.use(Vuex)
 
 interface weaponProperty {
-  [key: string]: string | Record<string, unknown>
+  [key: string]: string | Record<string, string>
   id: string;
   weapon_type: string;
   printname: string;
@@ -15,7 +15,7 @@ interface weaponProperty {
   viewmodel: string;
   playermodel: string;
   crosshair: string;
-  sound: Record<string, unknown>;
+  sound: Record<string, string>;
   is_semi_auto: string;
   projectile_launch_speed: string;
   projectilemodel: string;
@@ -34,7 +34,7 @@ interface weaponProperty {
   mag_l3: string;
   reload_time: string;
   reloadempty_time: string;
-  viewkick_preset: Record<string, unknown>;
+  viewkick_preset: Record<string, string>;
 }
 
 export default new Vuex.Store({
@@ -2055,187 +2055,7 @@ export default new Vuex.Store({
   },
   actions: {
     generationText(context) {
-      const icon = context.state.weapon.icon
-      const viewmodel = context.state.weapon.viewmodel
-      const playermodel = context.state.weapon.playermodel
-
-      let viewmodel_path = viewmodel
-      switch (viewmodel) {
-        case 'g2a4':
-          viewmodel_path = 'g2'
-          break
-        case 'hemlok':
-          viewmodel_path = 'm1a1_hemlok'
-          break
-        case 'mastiff':
-          viewmodel_path = 'mastiff_stgn'
-          break
-      }
-
-      let playermodel_path = playermodel
-      switch (playermodel) {
-        case 'g2a4':
-          playermodel_path = 'g2'
-          break
-        case 'hemlok':
-          playermodel_path = 'm1a1_hemlok'
-          break
-        case 'mastiff':
-          playermodel_path = 'mastiff_stgn'
-          break
-      }
-
-      const weapon_dict_ammo = {
-        ammo_pool_type: context.state.weapon.ammo_pool_type,
-        ammo_clip_size: context.state.weapon.ammo_clip_size,
-        ammo_default_total: '180',
-        ammo_stockpile_max: '180',
-        ammo_no_remove_from_stockpile: '1',
-        ammo_per_shot: context.state.weapon.ammo_per_shot,
-        ammo_min_to_fire: context.state.weapon.ammo_per_shot,
-        uses_ammo_pool: '1',
-        regen_ammo_refill_rate: context.state.weapon.regen_ammo_refill_rate,
-        reload_enabled: '1',
-        reload_time: context.state.weapon.reload_time,
-        reload_time_late1: Math.round((Number(context.state.weapon.reload_time) * 0.4) * 10) / 10 + '',
-        reloadempty_time: context.state.weapon.reloadempty_time,
-        reloadempty_time_late1: Math.round((Number(context.state.weapon.reloadempty_time) * 0.6) * 10) / 10 + '',
-        reloadempty_time_late2: Math.round((Number(context.state.weapon.reloadempty_time) * 0.3) * 10) / 10 + '',
-        __sep1: '--- separator ---',
-      }
-      if (context.state.weapon.regen_ammo_refill_rate != '0') {
-        weapon_dict_ammo.reload_enabled = '0'
-      }
-
-      let weapon_base = context.state.weapon.weapon_type
-      const burst_fire_count = context.state.weapon.burst_fire_count == '1' ? '0' : context.state.weapon.burst_fire_count
-
-      const weapon_dict_data = {
-        printname: context.state.weapon.printname,
-        shortprintname: context.state.weapon.shortprintname,
-        description: context.state.weapon.description,
-        longdesc: context.state.weapon.description,
-        __sep2: '--- separator ---',
-
-        menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
-        hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,
-        viewmodel: 'mdl/weapons/' + viewmodel_path + '/ptpov_' + viewmodel + '.rmdl',
-        playermodel: 'mdl/weapons/' + playermodel_path + '/w_' + playermodel + '.rmdl',
-        __sep3: '--- separator ---',
-
-        weapon_type_flags: 'WPT_PRIMARY',
-        damage_type: 'bullet',
-        damage_near_value: context.state.weapon.damage_value,
-        damage_far_value: context.state.weapon.damage_value,
-        damage_very_far_value: context.state.weapon.damage_value,
-        allow_headshots: '1',
-        damage_headshot_scale: context.state.weapon.damage_headshot_scale,
-        __sep4: '--- separator ---',
-
-        projectile_launch_speed: context.state.weapon.projectile_launch_speed,
-        projectilemodel: context.state.weapon.projectilemodel,
-        projectile_trail_effect_0: context.state.weapon.projectile_trail_effect_0,
-        __sep5: '--- separator ---',
-
-        fire_mode: 'automatic',
-        is_semi_auto: context.state.weapon.is_semi_auto,
-        fire_rate: context.state.weapon.fire_rate,
-        burst_fire_count: burst_fire_count,
-        burst_fire_delay: context.state.weapon.burst_fire_delay,
-        __sep6: '--- separator ---',
-
-        ...context.state.weapon.sound,
-        sound_dryfire: 'assalt_rifle_dryfire',
-        sound_pickup: 'wpn_pickup_SMG_1P',
-        looping_sounds: '0',
-        sound_zoom_in: 'Weapon_R97_ADS_In',
-        sound_zoom_out: 'Weapon_R97_ADS_Out',
-        low_ammo_sound_name_1: 'R101_LowAmmo_Shot1',
-        low_ammo_sound_name_2: 'R101_LowAmmo_Shot2',
-        low_ammo_sound_name_3: 'R101_LowAmmo_Shot3',
-        low_ammo_sound_name_4: 'R101_LowAmmo_Shot4',
-        low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
-        low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
-        __sep7: '--- separator ---',
-
-        ...weapon_dict_ammo,
-
-        ...context.state.weapon.viewkick_preset,
-        __sep8: '--- separator ---',
-
-        active_crosshair_count: '1',
-        rui_crosshair_index: '0',
-      }
-
-      let extended_mag_prefix
-      switch (context.state.weapon.ammo_pool_type) {
-        case 'special':
-          extended_mag_prefix = 'energy_mag_l'
-          weapon_base += '#base "_base_mags_energy.txt"\n'
-          break
-        case 'bullet':
-          extended_mag_prefix = 'bullets_mag_l'
-          weapon_base += '#base "_base_mags_light.txt"\n'
-          break
-        case 'highcal':
-          extended_mag_prefix = 'highcal_mag_l'
-          weapon_base += '#base "_base_mags_heavy.txt"\n'
-      }
-
-      let weapon_dict_extended_mag: Record<string, unknown> = {}
-      if (context.state.weapon.ammo_pool_type != 'shotgun') {
-        weapon_dict_extended_mag = {
-          [extended_mag_prefix + '1']: {
-            'ammo_clip_size': context.state.weapon.mag_l1
-          },
-          __sep21: '--- separator ---',
-          [extended_mag_prefix + '2']: {
-            'ammo_clip_size': context.state.weapon.mag_l2
-          },
-          __sep22: '--- separator ---',
-          [extended_mag_prefix + '3']: {
-            'ammo_clip_size': context.state.weapon.mag_l3
-          }
-        }
-      }
-
-      const weapon_dict = {
-        WeaponData: {
-          ...weapon_dict_data,
-
-          Mods: {
-            gold: {},
-            __sep11: '--- separator ---',
-            survival_finite_ammo: {
-              ammo_default_total: '180',
-              ammo_stockpile_max: '180',
-              ammo_no_remove_from_stockpile: '0',
-              uses_ammo_pool: '1'
-            },
-            __sep12: '--- separator ---',
-            ...weapon_dict_extended_mag
-          },
-
-          RUI_CrosshairData: {
-            DefaultArgs: {
-              adjustedSpread: 'weapon_spread',
-              adsFrac: 'player_zoomFrac',
-              isSprinting: 'player_is_sprinting',
-              isReloading: 'weapon_is_reloading',
-              teamColor: 'crosshair_team_color',
-              isAmped: 'weapon_is_amped',
-              crosshairMovementX: 'crosshair_movement_x',
-              crosshairMovementY: 'crosshair_movement_y'
-            },
-            Crosshair_1: {
-              ui: context.state.weapon.crosshair,
-              base_spread: '0.0'
-            }
-          }
-        }
-      }
-
-      context.commit('updateWeaponText', weapon_base + '\n// Generation by R5RTool\n\n' + generateR5RWeapon(weapon_dict))
+      context.commit('updateWeaponText', `WeaponData\n{\n${context.state.weaponData.export(1)}}`)
     },
     importText(context, kvfile: string) {
       // 一時的にコメントアウト

@@ -36,27 +36,6 @@ function isCrosshairData(arg: any): arg is CrosshairData {
   return arg !== null && typeof arg === 'object' && typeof arg.Crosshair_1 === 'object'
 }
 
-// eslint-disable-next-line
-export function generateR5RWeapon(dict: any, depth = 0): string {
-  let r5rtxt = ''
-  for(const k of Object.keys(dict)) {
-    if (Object.prototype.toString.call(dict[k]) == '[object Object]') {
-      r5rtxt += (
-        '\t'.repeat(depth) + '"' + k + '"\n' + '\t'.repeat(depth) + '{\n'
-        + generateR5RWeapon(dict[k], depth + 1)
-        + '\t'.repeat(depth) + '}\n'
-      )
-    } else {
-      if (dict[k] == '--- separator ---' && k.substring(0, 5) == '__sep') {
-        r5rtxt += '\n'
-      } else {
-        r5rtxt += '\t'.repeat(depth) + '"' + k + '"\t\t"' + dict[k] + '"\n'
-      }
-    }
-  }
-  return r5rtxt
-}
-
 export class R5RWeapon {
   dict: R5RWeaponDict
 
@@ -308,5 +287,25 @@ export class R5RWeapon {
       default:
         throw TypeError
     }
+  }
+
+  export(depth = 0, dict: any = this.dict): string {
+    let r5rtxt = ''
+    for(const k of Object.keys(dict)) {
+      if (typeof dict[k] !== 'string') {
+        r5rtxt += (
+          '\t'.repeat(depth) + '"' + k + '"\n' + '\t'.repeat(depth) + '{\n'
+          + this.export(depth + 1, dict[k])
+          + '\t'.repeat(depth) + '}\n'
+        )
+      } else {
+        if (dict[k] == '--- separator ---' && k.substring(0, 5) == '__sep') {
+          r5rtxt += '\n'
+        } else {
+          r5rtxt += '\t'.repeat(depth) + '"' + k + '"\t\t"' + dict[k] + '"\n'
+        }
+      }
+    }
+    return r5rtxt
   }
 }
