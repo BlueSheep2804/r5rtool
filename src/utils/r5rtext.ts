@@ -71,6 +71,7 @@ interface weaponProperty {
 
 export class R5RWeapon {
   dict: R5RWeaponDict
+  base = ''
 
   constructor() {
     this.dict = {
@@ -108,6 +109,7 @@ export class R5RWeapon {
   }
 
   loadForm(weaponData: weaponProperty): void {
+
     this.dict.printname = weaponData.printname
     this.dict.shortprintname = weaponData.shortprintname
     this.dict.description = weaponData.description
@@ -214,88 +216,35 @@ export class R5RWeapon {
     this.dict.RUI_CrosshairData.Crosshair_1.ui = weaponData.crosshair
   }
 
-  loadSample(weaponData: Record<string, string>): void {
-    const icon = weaponData.icon
-    const viewmodel = weaponData.viewmodel
-    const playermodel = weaponData.playermodel
-
-    let viewmodel_path = viewmodel
-    switch (viewmodel) {
-      case 'g2a4':
-        viewmodel_path = 'g2'
-        break
-      case 'hemlok':
-        viewmodel_path = 'm1a1_hemlok'
-        break
-      case 'mastiff':
-        viewmodel_path = 'mastiff_stgn'
-        break
-    }
-
-    let playermodel_path = playermodel
-    switch (playermodel) {
-      case 'g2a4':
-        playermodel_path = 'g2'
-        break
-      case 'hemlok':
-        playermodel_path = 'm1a1_hemlok'
-        break
-      case 'mastiff':
-        playermodel_path = 'mastiff_stgn'
-        break
-    }
-
-    const weapon_dict_ammo = {
-      ammo_pool_type: weaponData.ammo_pool_type,
-      ammo_clip_size: weaponData.ammo_clip_size,
-      ammo_default_total: '180',
-      ammo_stockpile_max: '180',
-      ammo_no_remove_from_stockpile: '1',
-      ammo_per_shot: weaponData.ammo_per_shot,
-      ammo_min_to_fire: weaponData.ammo_per_shot,
-      uses_ammo_pool: '1',
-      regen_ammo_refill_rate: weaponData.regen_ammo_refill_rate,
-      reload_enabled: '1',
-      reload_time: weaponData.reload_time,
-      reload_time_late1: Math.round((Number(weaponData.reload_time) * 0.4) * 10) / 10 + '',
-      reloadempty_time: weaponData.reloadempty_time,
-      reloadempty_time_late1: Math.round((Number(weaponData.reloadempty_time) * 0.6) * 10) / 10 + '',
-      reloadempty_time_late2: Math.round((Number(weaponData.reloadempty_time) * 0.3) * 10) / 10 + '',
-    }
-    if (weaponData.regen_ammo_refill_rate != '0') {
-      weapon_dict_ammo.reload_enabled = '0'
-    }
-
-    const burst_fire_count = weaponData.burst_fire_count == '1' ? '0' : weaponData.burst_fire_count
-
+  loadSample(): void {
     const weapon_dict_data = {
-      printname: weaponData.printname,
-      shortprintname: weaponData.shortprintname,
-      description: weaponData.description,
-      longdesc: weaponData.description,
+      printname: '',
+      shortprintname: '',
+      description: '',
+      longdesc: '',
 
-      menu_icon: 'rui/weapon_icons/r5/weapon_' + icon,
-      hud_icon: 'rui/weapon_icons/r5/weapon_' + icon,
-      viewmodel: 'mdl/weapons/' + viewmodel_path + '/ptpov_' + viewmodel + '.rmdl',
-      playermodel: 'mdl/weapons/' + playermodel_path + '/w_' + playermodel + '.rmdl',
+      menu_icon: 'rui/weapon_icons/r5/weapon_r97',
+      hud_icon: 'rui/weapon_icons/r5/weapon_r97',
+      viewmodel: 'mdl/weapons/r97/ptpov_r97.rmdl',
+      playermodel: 'mdl/weapons/r97/w_r97.rmdl',
 
       weapon_type_flags: 'WPT_PRIMARY',
       damage_type: 'bullet',
-      damage_near_value: weaponData.damage_value,
-      damage_far_value: weaponData.damage_value,
-      damage_very_far_value: weaponData.damage_value,
+      damage_near_value: '12',
+      damage_far_value: '12',
+      damage_very_far_value: '12',
       allow_headshots: '1',
-      damage_headshot_scale: weaponData.damage_headshot_scale,
+      damage_headshot_scale: '1.0',
 
-      projectile_launch_speed: weaponData.projectile_launch_speed,
-      projectilemodel: weaponData.projectilemodel,
-      projectile_trail_effect_0: weaponData.projectile_trail_effect_0,
+      projectile_launch_speed: '28000',
+      projectilemodel: 'mdl/dev/empty_model.rmdl',
+      projectile_trail_effect_0: 'P_tracer_projectile_smg',
 
       fire_mode: 'automatic',
-      is_semi_auto: weaponData.is_semi_auto,
-      fire_rate: weaponData.fire_rate,
-      burst_fire_count: burst_fire_count,
-      burst_fire_delay: weaponData.burst_fire_delay,
+      is_semi_auto: '0',
+      fire_rate: '12',
+      burst_fire_count: '0',
+      burst_fire_delay: '0.3',
 
       sound_dryfire: 'assalt_rifle_dryfire',
       sound_pickup: 'wpn_pickup_SMG_1P',
@@ -309,39 +258,24 @@ export class R5RWeapon {
       low_ammo_sound_name_5: 'R101_LowAmmo_Shot5',
       low_ammo_sound_name_6: 'R101_LowAmmo_Shot6',
 
-      ...weapon_dict_ammo,
+      ammo_pool_type: 'bullet',
+      ammo_clip_size: '18',
+      ammo_default_total: '180',
+      ammo_stockpile_max: '180',
+      ammo_no_remove_from_stockpile: '1',
+      ammo_per_shot: '1',
+      ammo_min_to_fire: '1',
+      uses_ammo_pool: '1',
+      regen_ammo_refill_rate: '0',
+      reload_enabled: '1',
+      reload_time: '1.5',
+      reload_time_late1: '0.6',
+      reloadempty_time: '3.2',
+      reloadempty_time_late1: '1.9',
+      reloadempty_time_late2: '0.9',
 
       active_crosshair_count: '1',
       rui_crosshair_index: '0',
-    }
-
-    let extended_mag_prefix
-    switch (weaponData.ammo_pool_type) {
-      case 'special':
-        extended_mag_prefix = 'energy_mag_l'
-        break
-      case 'bullet':
-        extended_mag_prefix = 'bullets_mag_l'
-        break
-      case 'highcal':
-        extended_mag_prefix = 'highcal_mag_l'
-    }
-
-    let weapon_dict_extended_mag: Record<string, unknown> = {}
-    if (weaponData.ammo_pool_type != 'shotgun') {
-      weapon_dict_extended_mag = {
-        [extended_mag_prefix + '1']: {
-          'ammo_clip_size': weaponData.mag_l1
-        },
-        __sep21: '--- separator ---',
-        [extended_mag_prefix + '2']: {
-          'ammo_clip_size': weaponData.mag_l2
-        },
-        __sep22: '--- separator ---',
-        [extended_mag_prefix + '3']: {
-          'ammo_clip_size': weaponData.mag_l3
-        }
-      }
     }
 
     this.dict = {
@@ -355,7 +289,15 @@ export class R5RWeapon {
           ammo_no_remove_from_stockpile: '0',
           uses_ammo_pool: '1'
         },
-        ...weapon_dict_extended_mag
+        bullets_mag_l1: {
+          ammo_clip_size: '20'
+        },
+        bullets_mag_l2: {
+          ammo_clip_size: '22'
+        },
+        bullets_mag_l3: {
+          ammo_clip_size: '24'
+        }
       },
 
       RUI_CrosshairData: {
@@ -370,7 +312,7 @@ export class R5RWeapon {
           crosshairMovementY: 'crosshair_movement_y'
         },
         Crosshair_1: {
-          ui: weaponData.crosshair,
+          ui: 'ui/crosshair_plus',
           base_spread: '0.0'
         }
       }

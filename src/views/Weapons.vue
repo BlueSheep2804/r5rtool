@@ -421,6 +421,7 @@ export default Vue.extend({
   mounted() {
     this.$nextTick(function () {
       this.$store.state.weaponData.loadSample(this.$store.state.weapon)
+      this.$store.state.weaponData.loadForm()
     })
   }
 });
