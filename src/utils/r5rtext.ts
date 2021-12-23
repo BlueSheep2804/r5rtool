@@ -36,6 +36,39 @@ function isCrosshairData(arg: any): arg is CrosshairData {
   return arg !== null && typeof arg === 'object' && typeof arg.Crosshair_1 === 'object'
 }
 
+interface weaponProperty {
+  [key: string]: string | Record<string, string>
+  id: string;
+  weapon_type: string;
+  printname: string;
+  shortprintname: string;
+  description: string;
+  icon: string;
+  viewmodel: string;
+  playermodel: string;
+  crosshair: string;
+  sound: Record<string, string>;
+  is_semi_auto: string;
+  projectile_launch_speed: string;
+  projectilemodel: string;
+  projectile_trail_effect_0: string;
+  damage_value: string;
+  damage_headshot_scale: string;
+  fire_rate: string;
+  ammo_per_shot: string;
+  regen_ammo_refill_rate: string;
+  burst_fire_count: string;
+  burst_fire_delay: string;
+  ammo_pool_type: string;
+  ammo_clip_size: string;
+  mag_l1: string;
+  mag_l2: string;
+  mag_l3: string;
+  reload_time: string;
+  reloadempty_time: string;
+  viewkick_preset: Record<string, string>;
+}
+
 export class R5RWeapon {
   dict: R5RWeaponDict
 
@@ -72,6 +105,113 @@ export class R5RWeapon {
       .replaceAll('\n},', '\n}')
     console.log(kvjson)
     this.dict = JSON.parse(kvjson)
+  }
+
+  loadForm(weaponData: weaponProperty): void {
+    this.dict.printname = weaponData.printname
+    this.dict.shortprintname = weaponData.shortprintname
+    this.dict.description = weaponData.description
+    this.dict.longdesc = weaponData.description
+
+    this.dict.menu_icon = 'rui/weapon_icons/r5/weapon_' + weaponData.icon
+    this.dict.hud_icon = 'rui/weapon_icons/r5/weapon_' + weaponData.icon
+
+    let viewmodel_path = weaponData.viewmodel
+    switch (weaponData.viewmodel) {
+      case 'g2a4':
+        viewmodel_path = 'g2'
+        break
+      case 'hemlok':
+        viewmodel_path = 'm1a1_hemlok'
+        break
+      case 'mastiff':
+        viewmodel_path = 'mastiff_stgn'
+        break
+    }
+    this.dict.viewmodel = 'mdl/weapons/' + viewmodel_path + '/ptpov_' + weaponData.viewmodel + '.rmdl'
+
+    let playermodel_path = weaponData.playermodel
+    switch (weaponData.playermodel) {
+      case 'g2a4':
+        playermodel_path = 'g2'
+        break
+      case 'hemlok':
+        playermodel_path = 'm1a1_hemlok'
+        break
+      case 'mastiff':
+        playermodel_path = 'mastiff_stgn'
+        break
+    }
+    this.dict.playermodel = 'mdl/weapons/' + playermodel_path + '/w_' + weaponData.playermodel + '.rmdl'
+
+    this.dict.damage_near_value = weaponData.damage_value
+    this.dict.damage_far_value = weaponData.damage_value
+    this.dict.damage_very_far_value = weaponData.damage_value
+    this.dict.damage_headshot_scale = weaponData.damage_headshot_scale
+
+    this.dict.projectile_launch_speed = weaponData.projectile_launch_speed
+    this.dict.projectilemodel = weaponData.projectilemodel
+    this.dict.projectile_trail_effect_0 = weaponData.projectile_trail_effect_0
+
+    this.dict.is_semi_auto = weaponData.is_semi_auto
+    this.dict.fire_rate = weaponData.fire_rate
+    const burst_fire_count = weaponData.burst_fire_count == '1' ? '0' : weaponData.burst_fire_count
+    this.dict.burst_fire_count = burst_fire_count
+    this.dict.burst_fire_delay = weaponData.burst_fire_delay
+
+    this.dict.ammo_pool_type = weaponData.ammo_pool_type
+    this.dict.ammo_clip_size = weaponData.ammo_clip_size
+    this.dict.ammo_per_shot = weaponData.ammo_per_shot
+    this.dict.ammo_min_to_fire = weaponData.ammo_per_shot
+    this.dict.regen_ammo_refill_rate = weaponData.regen_ammo_refill_rate
+    this.dict.reload_time = weaponData.reload_time
+    this.dict.reload_time_late1 = Math.round((Number(weaponData.reload_time) * 0.4) * 10) / 10 + ''
+    this.dict.reloadempty_time = weaponData.reloadempty_time
+    this.dict.reloadempty_time_late1 = Math.round((Number(weaponData.reloadempty_time) * 0.6) * 10) / 10 + ''
+    this.dict.reloadempty_time_late2 = Math.round((Number(weaponData.reloadempty_time) * 0.3) * 10) / 10 + ''
+    if (weaponData.regen_ammo_refill_rate != '0') {
+      this.dict.reload_enabled = '0'
+    }
+
+    let extended_mag_prefix
+    switch (weaponData.ammo_pool_type) {
+      case 'special':
+        extended_mag_prefix = 'energy_mag_l'
+        break
+      case 'bullet':
+        extended_mag_prefix = 'bullets_mag_l'
+        break
+      case 'highcal':
+        extended_mag_prefix = 'highcal_mag_l'
+    }
+
+    let weapon_dict_extended_mag: Record<string, unknown> = {}
+    if (weaponData.ammo_pool_type != 'shotgun') {
+      weapon_dict_extended_mag = {
+        [extended_mag_prefix + '1']: {
+          'ammo_clip_size': weaponData.mag_l1
+        },
+        [extended_mag_prefix + '2']: {
+          'ammo_clip_size': weaponData.mag_l2
+        },
+        [extended_mag_prefix + '3']: {
+          'ammo_clip_size': weaponData.mag_l3
+        }
+      }
+    }
+
+    this.dict.Mods = {
+      gold: {},
+      survival_finite_ammo: {
+        ammo_default_total: '180',
+        ammo_stockpile_max: '180',
+        ammo_no_remove_from_stockpile: '0',
+        uses_ammo_pool: '1'
+      },
+      ...weapon_dict_extended_mag
+    }
+
+    this.dict.RUI_CrosshairData.Crosshair_1.ui = weaponData.crosshair
   }
 
   loadSample(weaponData: Record<string, string>): void {
