@@ -27,7 +27,7 @@ export default class PropertySelect extends Vue {
   @Prop() private weaponKey!: string;
 
   private get weaponProperty(): string {
-    return this.$store.state.weapon[this.weaponKey]
+    return this.$store.state.weaponData.get(this.weaponKey)
   }
   private set weaponProperty(value: string) {
     const args: string[] = [this.weaponKey, value]

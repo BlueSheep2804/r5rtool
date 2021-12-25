@@ -20,7 +20,7 @@ export default class PropertyInput extends Vue {
   @Prop() private weaponKey!: string;
 
   private get weaponProperty(): boolean {
-    if (this.$store.state.weapon[this.weaponKey] == '1') {
+    if (this.$store.state.weaponData.get(this.weaponKey) == '1') {
       return true
     } else {
       return false

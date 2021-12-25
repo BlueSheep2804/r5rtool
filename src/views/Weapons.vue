@@ -37,7 +37,7 @@
                   <property-select
                     :label="$t('weapon_property.icon')"
                     :items="calledWeaponIcon"
-                    weaponKey="icon"
+                    weaponKey="hud_icon"
                   ></property-select>
                   <property-select
                     :label="$t('weapon_property.viewmodel')"
@@ -365,7 +365,7 @@ export default Vue.extend({
       return this.$store.state.projectileTrailEffect;
     },
     isBurst: function () {
-      if (this.$store.state.weapon.burst_fire_count != '1') {
+      if (this.$store.state.weaponData.get('burst_fire_count') != '1') {
         return true;
       } else {
         return false;
@@ -375,10 +375,10 @@ export default Vue.extend({
       return this.$store.state.ammoType;
     },
     hasExtendedMag: function () {
-      return this.$store.state.weapon.ammo_pool_type != 'shotgun';
+      return this.$store.state.weaponData.get('ammo_pool_type') != 'shotgun';
     },
     hasRegenammo: function () {
-      return this.$store.state.weapon.regen_ammo_refill_rate != '0';
+      return this.$store.state.weaponData.get('regen_ammo_refill_rate') != '0';
     },
     viewkickPreset: function () {
       return this.$store.state.viewkickPreset;

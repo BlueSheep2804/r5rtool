@@ -4,74 +4,11 @@ import { R5RWeapon } from '../utils/r5rtext'
 
 Vue.use(Vuex)
 
-interface weaponProperty {
-  [key: string]: string | Record<string, string>
-  id: string;
-  weapon_type: string;
-  printname: string;
-  shortprintname: string;
-  description: string;
-  icon: string;
-  viewmodel: string;
-  playermodel: string;
-  crosshair: string;
-  sound: Record<string, string>;
-  is_semi_auto: string;
-  projectile_launch_speed: string;
-  projectilemodel: string;
-  projectile_trail_effect_0: string;
-  damage_value: string;
-  damage_headshot_scale: string;
-  fire_rate: string;
-  ammo_per_shot: string;
-  regen_ammo_refill_rate: string;
-  burst_fire_count: string;
-  burst_fire_delay: string;
-  ammo_pool_type: string;
-  ammo_clip_size: string;
-  mag_l1: string;
-  mag_l2: string;
-  mag_l3: string;
-  reload_time: string;
-  reloadempty_time: string;
-  viewkick_preset: Record<string, string>;
-}
 
 export default new Vuex.Store({
   state: {
     weaponText: '',
     weaponData: new R5RWeapon(),
-    weapon: {
-      id: '',
-      weapon_type: '',
-      printname: '',
-      shortprintname: '',
-      description: '',
-      icon: '',
-      viewmodel: '',
-      playermodel: '',
-      crosshair: '',
-      sound: {},
-      is_semi_auto: '0',
-      projectile_launch_speed: '21000',
-      projectilemodel: 'mdl/dev/empty_model.rmdl',
-      projectile_trail_effect_0: '',
-      damage_value: '12',
-      damage_headshot_scale: '1.5',
-      fire_rate: '18',
-      ammo_per_shot: '1',
-      regen_ammo_refill_rate: '0',
-      burst_fire_count: '1',
-      burst_fire_delay: '0.2',
-      ammo_pool_type: 'bullet',
-      ammo_clip_size: '18',
-      mag_l1: '20',
-      mag_l2: '23',
-      mag_l3: '27',
-      reload_time: '1.8',
-      reloadempty_time: '2.5',
-      viewkick_preset: {},
-    } as weaponProperty,
     weaponType: [
       { text: 'weapon_type.ar', value: '#base "_base_assault_rifle.txt"\n' },
       { text: 'weapon_type.smg', value: '#base "_base_smg.txt"\n' },
@@ -81,76 +18,76 @@ export default new Vuex.Store({
       { text: 'weapon_type.pistol', value: '#base "_base_handgun.txt"\n' },
     ],
     calledWeaponIcon: [ //rui/menu/dpad_comms/emoji/fist
-      { text: 'weapons.alternator', value: 'alternator' },
-      { text: 'weapons.charge_rifle', value: 'charge_rifle' },
-      { text: 'weapons.devotion', value: 'devotion' },
-      { text: 'weapons.eva8', value: 'eva8' },
-      { text: 'weapons.flatline', value: 'flatline' },
-      { text: 'weapons.g7', value: 'g7' },
-      { text: 'weapons.havoc', value: 'energy_ar' },
-      { text: 'weapons.hemlok', value: 'hemlok' },
-      { text: 'weapons.sniper', value: 'sniper' },
-      { text: 'weapons.longbow', value: 'longbow' },
-      { text: 'weapons.lstar', value: 'lstar' },
-      { text: 'weapons.mastiff', value: 'mastiff' },
-      { text: 'weapons.mozambique', value: 'mozambique' },
-      { text: 'weapons.p2020', value: 'p2020' },
-      { text: 'weapons.peacekeeper', value: 'peacekeeper' },
-      { text: 'weapons.prowler', value: 'prowler' },
-      { text: 'weapons.r301', value: 'r301' },
-      { text: 'weapons.r97', value: 'r97' },
-      { text: 'weapons.re45', value: 'r45' },
-      { text: 'weapons.spitfire', value: 'spitfire' },
-      { text: 'weapons.triple_take', value: 'triple_take' },
-      { text: 'weapons.wingman', value: 'wingman' },
+      { text: 'weapons.alternator', value: 'rui/weapon_icons/r5/weapon_alternator' },
+      { text: 'weapons.charge_rifle', value: 'rui/weapon_icons/r5/weapon_charge_rifle' },
+      { text: 'weapons.devotion', value: 'rui/weapon_icons/r5/weapon_devotion' },
+      { text: 'weapons.eva8', value: 'rui/weapon_icons/r5/weapon_eva8' },
+      { text: 'weapons.flatline', value: 'rui/weapon_icons/r5/weapon_flatline' },
+      { text: 'weapons.g7', value: 'rui/weapon_icons/r5/weapon_g7' },
+      { text: 'weapons.havoc', value: 'rui/weapon_icons/r5/weapon_energy_ar' },
+      { text: 'weapons.hemlok', value: 'rui/weapon_icons/r5/weapon_hemlok' },
+      { text: 'weapons.sniper', value: 'rui/weapon_icons/r5/weapon_sniper' },
+      { text: 'weapons.longbow', value: 'rui/weapon_icons/r5/weapon_longbow' },
+      { text: 'weapons.lstar', value: 'rui/weapon_icons/r5/weapon_lstar' },
+      { text: 'weapons.mastiff', value: 'rui/weapon_icons/r5/weapon_mastiff' },
+      { text: 'weapons.mozambique', value: 'rui/weapon_icons/r5/weapon_mozambique' },
+      { text: 'weapons.p2020', value: 'rui/weapon_icons/r5/weapon_p2020' },
+      { text: 'weapons.peacekeeper', value: 'rui/weapon_icons/r5/weapon_peacekeeper' },
+      { text: 'weapons.prowler', value: 'rui/weapon_icons/r5/weapon_prowler' },
+      { text: 'weapons.r301', value: 'rui/weapon_icons/r5/weapon_r301' },
+      { text: 'weapons.r97', value: 'rui/weapon_icons/r5/weapon_r97' },
+      { text: 'weapons.re45', value: 'rui/weapon_icons/r5/weapon_r45' },
+      { text: 'weapons.spitfire', value: 'rui/weapon_icons/r5/weapon_spitfire' },
+      { text: 'weapons.triple_take', value: 'rui/weapon_icons/r5/weapon_triple_take' },
+      { text: 'weapons.wingman', value: 'rui/weapon_icons/r5/weapon_wingman' },
     ],
     viewmodels: [
-      { text: 'weapons.alternator', value: 'alternator_smg' },
-      { text: 'weapons.charge_rifle', value: 'defender' },
-      { text: 'weapons.devotion', value: 'hemlock_br' },
-      { text: 'weapons.eva8', value: 'w1128' },
-      { text: 'weapons.flatline', value: 'vinson' },
-      { text: 'weapons.g7', value: 'g2a4' }, //g2
-      { text: 'weapons.havoc', value: 'beam_ar' },
-      { text: 'weapons.hemlok', value: 'hemlok' }, //m1a1_hemlok
-      { text: 'weapons.sniper', value: 'at_rifle' },
-      { text: 'weapons.longbow', value: 'rspn101_dmr' },
-      { text: 'weapons.lstar', value: 'lstar' },
-      { text: 'weapons.mastiff', value: 'mastiff' }, //mastiff_stgn
-      { text: 'weapons.mozambique', value: 'pstl_sa3' },
-      { text: 'weapons.p2020', value: 'p2011' },
-      { text: 'weapons.peacekeeper', value: 'peacekeeper' },
-      { text: 'weapons.prowler', value: 'prowler_smg' },
-      { text: 'weapons.r301', value: 'rspn101' },
-      { text: 'weapons.r97', value: 'r97' },
-      { text: 'weapons.re45', value: 'p2011_auto' },
-      { text: 'weapons.spitfire', value: 'lmg_hemlok' },
-      { text: 'weapons.triple_take', value: 'doubletake' },
-      { text: 'weapons.wingman', value: 'b3wing' },
+      { text: 'weapons.alternator', value: 'mdl/weapons/alternator/ptpov_alternator_smg.rmdl' },
+      { text: 'weapons.charge_rifle', value: 'mdl/weapons/defender/ptpov_defender.rmdl' },
+      { text: 'weapons.devotion', value: 'mdl/weapons/hemlok_br/ptpov_hemlock_br.rmdl' },
+      { text: 'weapons.eva8', value: 'mdl/weapons/w1128/ptpov_w1128.rmdl' },
+      { text: 'weapons.flatline', value: 'mdl/weapons/vinson/ptpov_vinson.rmdl' },
+      { text: 'weapons.g7', value: 'mdl/weapons/g2/ptpov_g2a4.rmdl' }, //g2
+      { text: 'weapons.havoc', value: 'mdl/weapons/beam_ar/ptpov_beam_ar.rmdl' },
+      { text: 'weapons.hemlok', value: 'mdl/weapons/m1a1_hemlok/ptpov_hemlok.rmdl' }, //m1a1_hemlok
+      { text: 'weapons.sniper', value: 'mdl/weapons/at_rifle/ptpov_at_rifle.rmdl' },
+      { text: 'weapons.longbow', value: 'mdl/weapons/dmr/ptpov_rspn101_dmr.rmdl' },
+      { text: 'weapons.lstar', value: 'mdl/weapons/lstar/ptpov_lstar.rmdl' },
+      { text: 'weapons.mastiff', value: 'mdl/weapons/mastiff_stgn/ptpov_mastiff.rmdl' }, //mastiff_stgn
+      { text: 'weapons.mozambique', value: 'mdl/weapons/pstl_sa3/ptpov_pstl_sa3.rmdl' },
+      { text: 'weapons.p2020', value: 'mdl/weapons/p2011/ptpov_p2011.rmdl' },
+      { text: 'weapons.peacekeeper', value: 'mdl/weapons/peacekeeper/ptpov_peacekeeper.rmdl' },
+      { text: 'weapons.prowler', value: 'mdl/weapons/prowler/ptpov_prowler_smg.rmdl' },
+      { text: 'weapons.r301', value: 'mdl/weapons/rspn101/ptpov_rspn101.rmdl' },
+      { text: 'weapons.r97', value: 'mdl/weapons/r97/ptpov_r97.rmdl' },
+      { text: 'weapons.re45', value: 'mdl/weapons/p2011_auto/ptpov_p2011_auto.rmdl' },
+      { text: 'weapons.spitfire', value: 'mdl/weapons/lmg_hemlok/ptpov_lmg_hemlok.rmdl' },
+      { text: 'weapons.triple_take', value: 'mdl/weapons/doubletake/ptpov_doubletake.rmdl' },
+      { text: 'weapons.wingman', value: 'mdl/weapons/b3wing/ptpov_b3wing.rmdl' },
     ],
     playermodels: [
-      { text: 'weapons.alternator', value: 'alternator_smg' },
-      { text: 'weapons.charge_rifle', value: 'defender' },
-      { text: 'weapons.devotion', value: 'hemlock_br' },
-      { text: 'weapons.eva8', value: 'w1128' },
-      { text: 'weapons.flatline', value: 'vinson' },
-      { text: 'weapons.g7', value: 'g2a4' }, //g2
-      { text: 'weapons.havoc', value: 'beam_ar' },
-      { text: 'weapons.hemlok', value: 'hemlok' }, //m1a1_hemlok
-      { text: 'weapons.sniper', value: 'at_rifle' },
-      { text: 'weapons.longbow', value: 'rspn101_dmr' },
-      { text: 'weapons.lstar', value: 'lstar' },
-      { text: 'weapons.mastiff', value: 'mastiff' }, //mastiff_stgn
-      { text: 'weapons.mozambique', value: 'pstl_sa3' },
-      { text: 'weapons.p2020', value: 'p2011' },
-      { text: 'weapons.peacekeeper', value: 'peacekeeper' },
-      { text: 'weapons.prowler', value: 'prowler_smg' },
-      { text: 'weapons.r301', value: 'rspn101' },
-      { text: 'weapons.r97', value: 'r97' },
-      { text: 'weapons.re45', value: 'p2011_auto' },
-      { text: 'weapons.spitfire', value: 'lmg_hemlok' },
-      { text: 'weapons.triple_take', value: 'doubletake' },
-      { text: 'weapons.wingman', value: 'b3wing' },
+      { text: 'weapons.alternator', value: 'mdl/weapons/alternator/w_alternator_smg.rmdl' },
+      { text: 'weapons.charge_rifle', value: 'mdl/weapons/defender/w_defender.rmdl' },
+      { text: 'weapons.devotion', value: 'mdl/weapons/hemlok_br/w_hemlock_br.rmdl' },
+      { text: 'weapons.eva8', value: 'mdl/weapons/w1128/w_w1128.rmdl' },
+      { text: 'weapons.flatline', value: 'mdl/weapons/vinson/w_vinson.rmdl' },
+      { text: 'weapons.g7', value: 'mdl/weapons/g2/w_g2a4.rmdl' }, //g2
+      { text: 'weapons.havoc', value: 'mdl/weapons/beam_ar/w_beam_ar.rmdl' },
+      { text: 'weapons.hemlok', value: 'mdl/weapons/m1a1_hemlok/w_hemlok.rmdl' }, //m1a1_hemlok
+      { text: 'weapons.sniper', value: 'mdl/weapons/at_rifle/w_at_rifle.rmdl' },
+      { text: 'weapons.longbow', value: 'mdl/weapons/dmr/w_rspn101_dmr.rmdl' },
+      { text: 'weapons.lstar', value: 'mdl/weapons/lstar/w_lstar.rmdl' },
+      { text: 'weapons.mastiff', value: 'mdl/weapons/mastiff_stgn/w_mastiff.rmdl' }, //mastiff_stgn
+      { text: 'weapons.mozambique', value: 'mdl/weapons/pstl_sa3/w_pstl_sa3.rmdl' },
+      { text: 'weapons.p2020', value: 'mdl/weapons/p2011/w_p2011.rmdl' },
+      { text: 'weapons.peacekeeper', value: 'mdl/weapons/peacekeeper/w_peacekeeper.rmdl' },
+      { text: 'weapons.prowler', value: 'mdl/weapons/prowler/w_prowler_smg.rmdl' },
+      { text: 'weapons.r301', value: 'mdl/weapons/rspn101/w_rspn101.rmdl' },
+      { text: 'weapons.r97', value: 'mdl/weapons/r97/w_r97.rmdl' },
+      { text: 'weapons.re45', value: 'mdl/weapons/p2011_auto/w_p2011_auto.rmdl' },
+      { text: 'weapons.spitfire', value: 'mdl/weapons/lmg_hemlok/w_lmg_hemlok.rmdl' },
+      { text: 'weapons.triple_take', value: 'mdl/weapons/doubletake/w_doubletake.rmdl' },
+      { text: 'weapons.wingman', value: 'mdl/weapons/b3wing/w_b3wing.rmdl' },
     ],
     ammoType: [
       { text: 'ammo_type.bullet', value: 'bullet' },
@@ -2042,12 +1979,8 @@ export default new Vuex.Store({
   },
   mutations: {
     weaponPropertyUpdate(state, value: string[]) {
-      state.weapon[value[0]] = value[1]
-    },
-    weaponPropertyImport(state, value: string[]) {
-      if (typeof value[1] !== 'undefined') {
-        state.weapon[value[0]] = value[1]
-      }
+      state.weaponData.dict[value[0]] = value[1]
+      console.log(`${value[0]}: ${value[1]}`)
     },
     updateWeaponText(state, text: string) {
       state.weaponText = text
@@ -2055,39 +1988,11 @@ export default new Vuex.Store({
   },
   actions: {
     generationText(context) {
-      context.state.weaponData.loadForm(context.state.weapon)
+      //context.state.weaponData.loadForm(context.state.weapon)
       context.commit('updateWeaponText', `WeaponData\n{\n${context.state.weaponData.export(1)}}`)
     },
     importText(context, kvfile: string) {
       context.state.weaponData.load(kvfile)
-      const weapon = context.state.weaponData
-      context.commit('weaponPropertyImport', ['printname', weapon.get('printname')])
-      context.commit('weaponPropertyImport', ['shortprintname', weapon.get('shortprintname')])
-      context.commit('weaponPropertyImport', ['description', weapon.get('description')])
-      // context.commit('weaponPropertyImport', ['icon', weapon.get('')])
-      context.commit('weaponPropertyImport', ['viewmodel', weapon.getModel('viewmodel')])
-      context.commit('weaponPropertyImport', ['playermodel', weapon.getModel('playermodel')])
-      context.commit('weaponPropertyImport', ['crosshair', weapon.getCrosshair()])
-      // context.commit('weaponPropertyImport', ['sound', weapon.get('')])
-      context.commit('weaponPropertyImport', ['is_semi_auto', weapon.get('is_semi_auto')])
-      context.commit('weaponPropertyImport', ['projectile_launch_speed', weapon.get('projectile_launch_speed')])
-      context.commit('weaponPropertyImport', ['projectilemodel', weapon.get('projectilemodel')])
-      context.commit('weaponPropertyImport', ['projectile_trail_effect_0', weapon.get('projectile_trail_effect_0')])
-      context.commit('weaponPropertyImport', ['damage_value', weapon.get('damage_near_value')])
-      context.commit('weaponPropertyImport', ['damage_headshot_scale', weapon.get('damage_headshot_scale')])
-      context.commit('weaponPropertyImport', ['fire_rate', weapon.get('fire_rate')])
-      context.commit('weaponPropertyImport', ['ammo_per_shot', weapon.get('ammo_per_shot')])
-      context.commit('weaponPropertyImport', ['regen_ammo_refill_rate', weapon.get('regen_ammo_refill_rate')])
-      context.commit('weaponPropertyImport', ['burst_fire_count', weapon.get('burst_fire_count')])
-      context.commit('weaponPropertyImport', ['burst_fire_delay', weapon.get('burst_fire_delay')])
-      context.commit('weaponPropertyImport', ['ammo_pool_type', weapon.get('ammo_pool_type')])
-      context.commit('weaponPropertyImport', ['ammo_clip_size', weapon.get('ammo_clip_size')])
-      context.commit('weaponPropertyImport', ['mag_l1', weapon.getExtendedMag('l1')])
-      context.commit('weaponPropertyImport', ['mag_l2', weapon.getExtendedMag('l2')])
-      context.commit('weaponPropertyImport', ['mag_l3', weapon.getExtendedMag('l3')])
-      context.commit('weaponPropertyImport', ['reload_time', weapon.get('reload_time')])
-      context.commit('weaponPropertyImport', ['reloadempty_time', weapon.get('reloadempty_time')])
-      // context.commit('weaponPropertyImport', ['viewkick_preset', weapon.get('')])
     }
   },
   modules: {
