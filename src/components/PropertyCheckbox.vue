@@ -27,12 +27,7 @@ export default class PropertyInput extends Vue {
     }
   }
   private set weaponProperty(value: boolean) {
-    let convertValue = '0'
-    if (value) {
-      convertValue = '1'
-    }
-    const args: string[] = [this.weaponKey, convertValue]
-    this.$store.commit('weaponPropertyUpdate', args)
+    this.$store.state.weaponData.set(this.weaponKey, value ? '1' : '0')
   }
 }
 </script>

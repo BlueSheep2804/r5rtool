@@ -17,7 +17,7 @@
                 <v-col cols="12">
                   <property-input
                     :label="$t('weapon_property.id')"
-                    weaponKey="id"
+                    weaponKey="^id"
                     prefix="mp_weapon_"
                     suffix=".txt"
                     :hint="$t('weapon_property.id_hint')"
@@ -52,7 +52,7 @@
                   <property-select
                     :label="$t('weapon_property.crosshair')"
                     :items="crosshair"
-                    weaponKey="crosshair"
+                    weaponKey="^crosshair"
                   ></property-select>
                 </v-col>
               </v-row>
@@ -82,7 +82,7 @@
               <property-input
                 :label="$t('weapon_property.damage_value')"
                 type="number"
-                weaponKey="damage_value"
+                weaponKey="^damage_value"
                 min="1"
               ></property-input>
               <property-input
@@ -139,19 +139,19 @@
                     <v-card-title>{{ $t('weapon_property.extended_mag') }}</v-card-title>
                     <property-input
                       :label="$t('weapon_property.mag_l1')"
-                      weaponKey="mag_l1"
+                      weaponKey="^mag_l1"
                       min="1"
                       class="mx-2"
                     ></property-input>
                     <property-input
                       :label="$t('weapon_property.mag_l2')"
-                      weaponKey="mag_l2"
+                      weaponKey="^mag_l2"
                       min="1"
                       class="mx-2"
                     ></property-input>
                     <property-input
                       :label="$t('weapon_property.mag_l3')"
-                      weaponKey="mag_l3"
+                      weaponKey="^mag_l3"
                       min="1"
                       class="mx-2"
                     ></property-input>
@@ -405,7 +405,7 @@ export default Vue.extend({
       });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.download = 'mp_weapon_' + this.$store.state.weapon.id + '.txt';
+      link.download = `mp_weapon_${this.$store.state.weaponData.id}.txt`;
       link.click();
       URL.revokeObjectURL(link.href);
     },

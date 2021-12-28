@@ -2,6 +2,9 @@ interface R5RWeaponDict {
   [key: string]: string | ModsData | CrosshairData;
   printname: string;
   ammo_pool_type: string;
+  damage_near_value: string;
+  damage_far_value: string;
+  damage_very_far_value: string;
   Mods: ModsData;
   RUI_CrosshairData: CrosshairData;
 }
@@ -72,11 +75,16 @@ interface weaponProperty {
 export class R5RWeapon {
   dict: R5RWeaponDict
   base = ''
+  _id = ''
+  _damage_value = ''
 
   constructor() {
     this.dict = {
       printname: '',
       ammo_pool_type: '',
+      damage_near_value: '',
+      damage_far_value: '',
+      damage_very_far_value: '',
       Mods: {gold: {}},
       RUI_CrosshairData: {
         DefaultArgs: {},
@@ -212,6 +220,19 @@ export class R5RWeapon {
   }
 
   get(key: string): string | ModsData | CrosshairData | undefined {
+    if (key === '^id') {
+      return this.id
+    }
+    if (key === '^damage_value') {
+      return this.damage_value
+    }
+    if (key.substring(0, 5) === '^mag_') {
+      return this.getExtendedMag(key.substring(5, 7))
+    }
+    if (key === '^crosshair') {
+      return this.crosshair
+    }
+
     if (key in this.dict) {
       return this.dict[key]
     } else {
@@ -219,16 +240,48 @@ export class R5RWeapon {
     }
   }
 
-  getModel(key: string): string {
-    const modelpath = this.get(key)
-    if (typeof modelpath === 'string') {
-      return (modelpath.match(/[a-zA-Z0-9_]+\.rmdl/) + '').replace('.rmdl', '').replace(/ptpov_|w_/, '')
-    } else {
-      throw TypeError
+  set(key: string, value: string): void {
+    if (key === '^id') {
+      this.id = value
+      return
     }
+    if (key === '^damage_value') {
+      this.damage_value = value
+    }
+    if (key.substring(0, 5) === '^mag_') {
+      this.setExtendedMag(key.substring(5, 7), value)
+      return
+    }
+    if (key === '^crosshair') {
+      this.crosshair = value  // vinson
+      return
+    }
+    this.dict[key] = value
   }
 
-  getExtendedMag(level: 'l1' | 'l2' | 'l3'): string | undefined {
+  get id(): string {
+    return this._id
+  }
+
+  set id(value: string) {
+    this._id = value
+  }
+
+  get damage_value(): string {
+    if (this._damage_value === '') {
+      this._damage_value = this.dict.damage_near_value
+    }
+    return this._damage_value
+  }
+
+  set damage_value(value: string) {
+    this._damage_value = value
+    this.dict.damage_near_value = value
+    this.dict.damage_far_value = value
+    this.dict.damage_very_far_value = value
+  }
+
+  getExtendedMag(level: string): string | undefined {
     if (this.dict.ammo_pool_type === 'shotgun') {
       return undefined
     }
@@ -242,12 +295,22 @@ export class R5RWeapon {
     }
   }
 
-  getCrosshair(): string | undefined {
-    if (isCrosshairData(this.dict.RUI_CrosshairData)) {
-      return this.dict.RUI_CrosshairData.Crosshair_1.ui
+  setExtendedMag(level: string, value: string): void {
+    const ammoType = this.ammoPool2ExtendedAmmo(this.dict.ammo_pool_type)
+    if (`${ammoType}_mag_${level}` in this.dict.Mods) {
+      const extendedMag = this.dict.Mods[`${ammoType}_mag_${level}`] as ModsExtendedMag
+      extendedMag.ammo_clip_size = value
     } else {
       return undefined
     }
+  }
+
+  get crosshair(): string {
+    return this.dict.RUI_CrosshairData.Crosshair_1.ui
+  }
+
+  set crosshair(value: string) {
+    this.dict.RUI_CrosshairData.Crosshair_1.ui = value
   }
 
   private ammoPool2ExtendedAmmo(ammo: string): string {

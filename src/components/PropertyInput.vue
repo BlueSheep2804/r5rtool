@@ -23,8 +23,7 @@ export default class PropertyInput extends Vue {
     return this.$store.state.weaponData.get(this.weaponKey)
   }
   private set weaponProperty(value: string) {
-    const args: string[] = [this.weaponKey, value]
-    this.$store.commit('weaponPropertyUpdate', args)
+    this.$store.state.weaponData.set(this.weaponKey, value)
   }
 }
 </script>
