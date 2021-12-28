@@ -104,9 +104,11 @@
               ></property-checkbox>
               <property-input
                 :label="$t('weapon_property.burst_fire_count')"
+                :hint="$t('weapon_property.burst_fire_count_hint')"
+                persistent-hint
                 type="number"
                 weaponKey="burst_fire_count"
-                min="1"
+                min="0"
               ></property-input>
               <property-input
                 :label="$t('weapon_property.burst_fire_delay')"
@@ -365,7 +367,7 @@ export default Vue.extend({
       return this.$store.state.projectileTrailEffect;
     },
     isBurst: function () {
-      if (this.$store.state.weaponData.get('burst_fire_count') != '1') {
+      if (this.$store.state.weaponData.get('burst_fire_count') != '0') {
         return true;
       } else {
         return false;
