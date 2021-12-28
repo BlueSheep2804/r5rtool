@@ -35,43 +35,6 @@ interface CrosshairData {
   Crosshair_1: {ui: string, base_spread: string};
 }
 
-function isCrosshairData(arg: any): arg is CrosshairData {
-  return arg !== null && typeof arg === 'object' && typeof arg.Crosshair_1 === 'object'
-}
-
-interface weaponProperty {
-  [key: string]: string | Record<string, string>
-  id: string;
-  weapon_type: string;
-  printname: string;
-  shortprintname: string;
-  description: string;
-  icon: string;
-  viewmodel: string;
-  playermodel: string;
-  crosshair: string;
-  sound: Record<string, string>;
-  is_semi_auto: string;
-  projectile_launch_speed: string;
-  projectilemodel: string;
-  projectile_trail_effect_0: string;
-  damage_value: string;
-  damage_headshot_scale: string;
-  fire_rate: string;
-  ammo_per_shot: string;
-  regen_ammo_refill_rate: string;
-  burst_fire_count: string;
-  burst_fire_delay: string;
-  ammo_pool_type: string;
-  ammo_clip_size: string;
-  mag_l1: string;
-  mag_l2: string;
-  mag_l3: string;
-  reload_time: string;
-  reloadempty_time: string;
-  viewkick_preset: Record<string, string>;
-}
-
 export class R5RWeapon {
   dict: R5RWeaponDict
   base = ''
