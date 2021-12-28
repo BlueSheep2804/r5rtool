@@ -327,7 +327,6 @@
 </template>
 
 <script lang="ts">
-import { R5RWeapon } from '@/utils/r5rtext';
 import Vue from 'vue';
 import PropertyCheckbox from '../components/PropertyCheckbox.vue';
 import PropertyInput from '../components/PropertyInput.vue';
