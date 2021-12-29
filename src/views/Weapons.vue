@@ -17,7 +17,7 @@
                 <v-col cols="12">
                   <property-input
                     :label="$t('weapon_property.id')"
-                    weaponKey="id"
+                    weaponKey="^id"
                     prefix="mp_weapon_"
                     suffix=".txt"
                     :hint="$t('weapon_property.id_hint')"
@@ -37,7 +37,7 @@
                   <property-select
                     :label="$t('weapon_property.icon')"
                     :items="calledWeaponIcon"
-                    weaponKey="icon"
+                    weaponKey="hud_icon"
                   ></property-select>
                   <property-select
                     :label="$t('weapon_property.viewmodel')"
@@ -52,18 +52,18 @@
                   <property-select
                     :label="$t('weapon_property.crosshair')"
                     :items="crosshair"
-                    weaponKey="crosshair"
+                    weaponKey="^crosshair"
                   ></property-select>
                 </v-col>
               </v-row>
             </v-tab-item>
             <v-tab-item value="tab-fire" class="pa-4">
-              <property-select
+              <!--property-select
                 :label="$t('weapon_property.sound')"
                 :hint="$t('weapon_property.sound_hint')"
                 :items="weaponSound"
                 weaponKey="sound"
-              ></property-select>
+              ></property-select-->
               <property-input
                 :label="$t('weapon_property.projectile_launch_speed')"
                 type="number"
@@ -82,7 +82,7 @@
               <property-input
                 :label="$t('weapon_property.damage_value')"
                 type="number"
-                weaponKey="damage_value"
+                weaponKey="^damage_value"
                 min="1"
               ></property-input>
               <property-input
@@ -104,9 +104,11 @@
               ></property-checkbox>
               <property-input
                 :label="$t('weapon_property.burst_fire_count')"
+                :hint="$t('weapon_property.burst_fire_count_hint')"
+                persistent-hint
                 type="number"
                 weaponKey="burst_fire_count"
-                min="1"
+                min="0"
               ></property-input>
               <property-input
                 :label="$t('weapon_property.burst_fire_delay')"
@@ -139,22 +141,19 @@
                     <v-card-title>{{ $t('weapon_property.extended_mag') }}</v-card-title>
                     <property-input
                       :label="$t('weapon_property.mag_l1')"
-                      type="number"
-                      weaponKey="mag_l1"
+                      weaponKey="^mag_l1"
                       min="1"
                       class="mx-2"
                     ></property-input>
                     <property-input
                       :label="$t('weapon_property.mag_l2')"
-                      type="number"
-                      weaponKey="mag_l2"
+                      weaponKey="^mag_l2"
                       min="1"
                       class="mx-2"
                     ></property-input>
                     <property-input
                       :label="$t('weapon_property.mag_l3')"
-                      type="number"
-                      weaponKey="mag_l3"
+                      weaponKey="^mag_l3"
                       min="1"
                       class="mx-2"
                     ></property-input>
@@ -191,16 +190,16 @@
               ></property-input>
             </v-tab-item>
             <v-tab-item value="tab-other" class="pa-4">
-              <property-select
+              <!--property-select
                 :label="$t('weapon_property.weapon_type')"
                 :items="weaponType"
                 weaponKey="weapon_type"
-              ></property-select>
-              <property-select
+              ></property-select-->
+              <!--property-select
                 :label="$t('weapon_property.viewkick_preset')"
                 :items="viewkickPreset"
                 weaponKey="viewkick_preset"
-              ></property-select>
+              ></property-select-->
             </v-tab-item>
           </v-tabs-items>
         </v-card>
@@ -367,7 +366,7 @@ export default Vue.extend({
       return this.$store.state.projectileTrailEffect;
     },
     isBurst: function () {
-      if (this.$store.state.weapon.burst_fire_count != '1') {
+      if (this.$store.state.weaponData.get('burst_fire_count') != '0') {
         return true;
       } else {
         return false;
@@ -377,10 +376,10 @@ export default Vue.extend({
       return this.$store.state.ammoType;
     },
     hasExtendedMag: function () {
-      return this.$store.state.weapon.ammo_pool_type != 'shotgun';
+      return this.$store.state.weaponData.get('ammo_pool_type') != 'shotgun';
     },
     hasRegenammo: function () {
-      return this.$store.state.weapon.regen_ammo_refill_rate != '0';
+      return this.$store.state.weaponData.get('regen_ammo_refill_rate') != '0';
     },
     viewkickPreset: function () {
       return this.$store.state.viewkickPreset;
@@ -407,7 +406,7 @@ export default Vue.extend({
       });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.download = 'mp_weapon_' + this.$store.state.weapon.id + '.txt';
+      link.download = `mp_weapon_${this.$store.state.weaponData.id}.txt`;
       link.click();
       URL.revokeObjectURL(link.href);
     },
@@ -420,5 +419,10 @@ export default Vue.extend({
       }
     },
   },
+  mounted() {
+    this.$nextTick(function () {
+      this.$store.state.weaponData.loadSample()
+    })
+  }
 });
 </script>

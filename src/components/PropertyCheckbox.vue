@@ -20,19 +20,14 @@ export default class PropertyInput extends Vue {
   @Prop() private weaponKey!: string;
 
   private get weaponProperty(): boolean {
-    if (this.$store.state.weapon[this.weaponKey] == '1') {
+    if (this.$store.state.weaponData.get(this.weaponKey) == '1') {
       return true
     } else {
       return false
     }
   }
   private set weaponProperty(value: boolean) {
-    let convertValue = '0'
-    if (value) {
-      convertValue = '1'
-    }
-    const args: string[] = [this.weaponKey, convertValue]
-    this.$store.commit('weaponPropertyUpdate', args)
+    this.$store.state.weaponData.set(this.weaponKey, value ? '1' : '0')
   }
 }
 </script>

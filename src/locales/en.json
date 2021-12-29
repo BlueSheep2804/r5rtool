@@ -128,6 +128,7 @@
     "fire_rate": "Fire rate",
     "ammo_per_shot": "Ammo per shot",
     "burst_fire_count": "Burst",
+    "burst_fire_count_hint": "Burst fire is disabled at \"0\".",
     "burst_fire_delay": "Burst fire delay",
     "ammo_pool_type": "Ammo type",
     "ammo_clip_size": "Mag capacity",

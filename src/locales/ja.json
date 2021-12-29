@@ -128,6 +128,7 @@
     "fire_rate": "発射レート",
     "ammo_per_shot": "消費する弾薬量",
     "burst_fire_count": "バースト",
+    "burst_fire_count_hint": "バースト射撃は\"0\"で無効化されます",
     "burst_fire_delay": "バースト間隔",
     "ammo_pool_type": "アモタイプ",
     "ammo_clip_size": "マガジンの弾数",
