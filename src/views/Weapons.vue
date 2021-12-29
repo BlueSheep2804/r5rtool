@@ -58,12 +58,12 @@
               </v-row>
             </v-tab-item>
             <v-tab-item value="tab-fire" class="pa-4">
-              <property-select
+              <!--property-select
                 :label="$t('weapon_property.sound')"
                 :hint="$t('weapon_property.sound_hint')"
                 :items="weaponSound"
                 weaponKey="sound"
-              ></property-select>
+              ></property-select-->
               <property-input
                 :label="$t('weapon_property.projectile_launch_speed')"
                 type="number"
@@ -190,16 +190,16 @@
               ></property-input>
             </v-tab-item>
             <v-tab-item value="tab-other" class="pa-4">
-              <property-select
+              <!--property-select
                 :label="$t('weapon_property.weapon_type')"
                 :items="weaponType"
                 weaponKey="weapon_type"
-              ></property-select>
-              <property-select
+              ></property-select-->
+              <!--property-select
                 :label="$t('weapon_property.viewkick_preset')"
                 :items="viewkickPreset"
                 weaponKey="viewkick_preset"
-              ></property-select>
+              ></property-select-->
             </v-tab-item>
           </v-tabs-items>
         </v-card>
