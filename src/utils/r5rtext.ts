@@ -289,13 +289,20 @@ export class R5RWeapon {
     }
   }
 
-  export(depth = 0, dict: any = this.dict): string {
+  export(): string {
+    let baseTxt = ''
+    baseTxt += '\n// Generation by R5RTool\n\n'
+
+    return `${baseTxt}WeaponData\n{\n${this.exportKV(1)}}`
+  }
+
+  exportKV(depth = 0, dict: any = this.dict): string {
     let r5rtxt = ''
     for(const k of Object.keys(dict)) {
       if (typeof dict[k] !== 'string') {
         r5rtxt += (
           '\t'.repeat(depth) + '"' + k + '"\n' + '\t'.repeat(depth) + '{\n'
-          + this.export(depth + 1, dict[k])
+          + this.exportKV(depth + 1, dict[k])
           + '\t'.repeat(depth) + '}\n'
         )
       } else {

@@ -1989,7 +1989,7 @@ export default new Vuex.Store({
   actions: {
     generationText(context) {
       //context.state.weaponData.loadForm(context.state.weapon)
-      context.commit('updateWeaponText', `WeaponData\n{\n${context.state.weaponData.export(1)}}`)
+      context.commit('updateWeaponText', context.state.weaponData.export())
     },
     importText(context, kvfile: string) {
       context.state.weaponData.load(kvfile)
