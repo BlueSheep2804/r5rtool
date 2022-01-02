@@ -190,11 +190,20 @@
               ></property-input>
             </v-tab-item>
             <v-tab-item value="tab-other" class="pa-4">
-              <!--property-select
-                :label="$t('weapon_property.weapon_type')"
-                :items="weaponType"
-                weaponKey="weapon_type"
-              ></property-select-->
+              <v-row>
+                <v-col cols="12" xl="10">
+                  <v-card elevation="2" class="mb-4">
+                    <v-card-title>{{ $t('weapon_property.weapon_base') }}</v-card-title>
+                    <property-select
+                      v-for="i in 5"
+                      v-bind:key="i"
+                      :items="weaponBase"
+                      :weaponKey="`^base${i}`"
+                      class="mx-2"
+                    ></property-select>
+                  </v-card>
+                </v-col>
+              </v-row>
               <!--property-select
                 :label="$t('weapon_property.viewkick_preset')"
                 :items="viewkickPreset"
@@ -344,8 +353,8 @@ export default Vue.extend({
     previewDialog: false,
   }),
   computed: {
-    weaponType: function () {
-      return this.$store.state.weaponType;
+    weaponBase: function () {
+      return this.$store.state.weaponBase;
     },
     calledWeaponIcon: function () {
       return this.$store.state.calledWeaponIcon;

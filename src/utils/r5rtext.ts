@@ -37,7 +37,7 @@ interface CrosshairData {
 
 export class R5RWeapon {
   dict: R5RWeaponDict
-  base = ''
+  base = ['', '', '', '', '']
   _id = ''
   _damage_value = ''
 
@@ -183,6 +183,9 @@ export class R5RWeapon {
   }
 
   get(key: string): string | ModsData | CrosshairData | undefined {
+    if (key.substring(0, 5) === '^base') {
+      return this.base[Number(key.substring(5, 6)) - 1]
+    }
     if (key === '^id') {
       return this.id
     }
@@ -204,6 +207,10 @@ export class R5RWeapon {
   }
 
   set(key: string, value: string): void {
+    if (key.substring(0, 5) === '^base') {
+      this.base[Number(key.substring(5, 6)) - 1] = value
+      return
+    }
     if (key === '^id') {
       this.id = value
       return
@@ -291,6 +298,13 @@ export class R5RWeapon {
 
   export(): string {
     let baseTxt = ''
+
+    for (const base of this.base) {
+      if (base !== '') {
+        baseTxt += `#base "${base}"\n`
+      }
+    }
+
     baseTxt += '\n// Generation by R5RTool\n\n'
 
     return `${baseTxt}WeaponData\n{\n${this.exportKV(1)}}`
