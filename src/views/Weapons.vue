@@ -195,12 +195,32 @@
                   <v-card elevation="2" class="mb-4">
                     <v-card-title>{{ $t('weapon_property.weapon_base') }}</v-card-title>
                     <property-select
-                      v-for="i in 5"
-                      v-bind:key="i"
+                      v-for="i in basefileCount"
+                      :key="i"
                       :items="weaponBase"
                       :weaponKey="`^base${i}`"
                       class="mx-2"
                     ></property-select>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        icon
+                        x-large
+                        color="primary"
+                        @click="increaseBasefile"
+                      >
+                        <v-icon>mdi-plus</v-icon>
+                      </v-btn>
+                      <v-btn
+                        icon
+                        x-large
+                        color="primary"
+                        @click="decreaseBasefile"
+                      >
+                        <v-icon>mdi-minus</v-icon>
+                      </v-btn>
+                      <v-spacer></v-spacer>
+                    </v-card-actions>
                   </v-card>
                 </v-col>
               </v-row>
@@ -351,6 +371,7 @@ export default Vue.extend({
   data: () => ({
     model: '',
     previewDialog: false,
+    basefileCount: 2
   }),
   computed: {
     weaponBase: function () {
@@ -398,6 +419,16 @@ export default Vue.extend({
     },
   },
   methods: {
+    increaseBasefile() {
+      this.basefileCount ++
+      this.$store.state.weaponData.base.push('')
+      console.log(`${this.basefileCount} : [${this.$store.state.weaponData.base}](${this.$store.state.weaponData.base.length})`)
+    },
+    decreaseBasefile() {
+      this.basefileCount --
+      this.$store.state.weaponData.base.splice(-1, 1)
+      console.log(`${this.basefileCount} : [${this.$store.state.weaponData.base}](${this.$store.state.weaponData.base.length})`)
+    },
     openPreviewDialog() {
       this.$store.dispatch('generationText');
       this.previewDialog = true;

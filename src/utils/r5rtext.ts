@@ -37,7 +37,7 @@ interface CrosshairData {
 
 export class R5RWeapon {
   dict: R5RWeaponDict
-  base = ['', '', '', '', '']
+  base = ['', '']
   _id = ''
   _damage_value = ''
 
@@ -184,6 +184,7 @@ export class R5RWeapon {
 
   get(key: string): string | ModsData | CrosshairData | undefined {
     if (key.substring(0, 5) === '^base') {
+      console.log(`[${this.base}](${this.base.length})`)
       return this.base[Number(key.substring(5, 6)) - 1]
     }
     if (key === '^id') {
@@ -209,6 +210,7 @@ export class R5RWeapon {
   set(key: string, value: string): void {
     if (key.substring(0, 5) === '^base') {
       this.base[Number(key.substring(5, 6)) - 1] = value
+      console.log(`[${this.base}](${this.base.length})`)
       return
     }
     if (key === '^id') {
