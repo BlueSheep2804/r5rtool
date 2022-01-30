@@ -60,6 +60,18 @@ export class R5RWeapon {
   }
 
   load(kvfile: string): void {
+    this.base = []
+    const baseFiles = kvfile.matchAll(/#base "(?<file>[\w]+\.txt)"/gu)
+    if (baseFiles != null) {
+      for (const baseFile of baseFiles) {
+        if (typeof baseFile.groups === 'undefined') {
+          continue
+        }
+        this.base.push(baseFile.groups.file)
+        console.log(baseFile.groups.file)
+      }
+    }
+
     const kvjson = kvfile
       .replace(/\r\n/g, '\n')
       .replace(/[\s]*\/\/[\S\t ]*\n/g, '\n')
