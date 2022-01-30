@@ -192,36 +192,13 @@
             <v-tab-item value="tab-other" class="pa-4">
               <v-row>
                 <v-col cols="12" xl="10">
-                  <v-card elevation="2" class="mb-4">
-                    <v-card-title>{{ $t('weapon_property.weapon_base') }}</v-card-title>
-                    <property-select
-                      v-for="i in basefileCount"
-                      :key="i"
-                      :items="weaponBase"
-                      :weaponKey="`^base${i}`"
-                      class="mx-2"
-                    ></property-select>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        icon
-                        x-large
-                        color="primary"
-                        @click="increaseBasefile"
-                      >
-                        <v-icon>mdi-plus</v-icon>
-                      </v-btn>
-                      <v-btn
-                        icon
-                        x-large
-                        color="primary"
-                        @click="decreaseBasefile"
-                      >
-                        <v-icon>mdi-minus</v-icon>
-                      </v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
+                  <property-select
+                    :items="weaponBase"
+                    :weaponKey="`^base`"
+                    :label="$t('weapon_property.weapon_base')"
+                    class="mx-2"
+                    multiple
+                  ></property-select>
                 </v-col>
               </v-row>
               <!--property-select
@@ -370,8 +347,7 @@ export default Vue.extend({
   },
   data: () => ({
     model: '',
-    previewDialog: false,
-    basefileCount: 2
+    previewDialog: false
   }),
   computed: {
     weaponBase: function () {
@@ -420,14 +396,12 @@ export default Vue.extend({
   },
   methods: {
     increaseBasefile() {
-      this.basefileCount ++
       this.$store.state.weaponData.base.push('')
-      console.log(`${this.basefileCount} : [${this.$store.state.weaponData.base}](${this.$store.state.weaponData.base.length})`)
+      console.log(`[${this.$store.state.weaponData.base}](${this.$store.state.weaponData.base.length})`)
     },
     decreaseBasefile() {
-      this.basefileCount --
       this.$store.state.weaponData.base.splice(-1, 1)
-      console.log(`${this.basefileCount} : [${this.$store.state.weaponData.base}](${this.$store.state.weaponData.base.length})`)
+      console.log(`[${this.$store.state.weaponData.base}](${this.$store.state.weaponData.base.length})`)
     },
     openPreviewDialog() {
       this.$store.dispatch('generationText');
