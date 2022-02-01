@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 interface R5RWeaponDict {
   [key: string]: string | ModsData | CrosshairData;
   printname: string;
@@ -40,6 +42,7 @@ export class R5RWeapon {
   base: string[] = []
   _id = ''
   _damage_value = ''
+  _viewkick = ''
 
   constructor() {
     this.dict = {
@@ -208,6 +211,9 @@ export class R5RWeapon {
     if (key.substring(0, 5) === '^mag_') {
       return this.getExtendedMag(key.substring(5, 7))
     }
+    if (key === '^viewkick') {
+      return this.viewkick
+    }
     if (key === '^crosshair') {
       return this.crosshair
     }
@@ -236,6 +242,10 @@ export class R5RWeapon {
     }
     if (key.substring(0, 5) === '^mag_') {
       this.setExtendedMag(key.substring(5, 7), value)
+      return
+    }
+    if (key === '^viewkick') {
+      this.viewkick = value
       return
     }
     if (key === '^crosshair') {
@@ -289,6 +299,30 @@ export class R5RWeapon {
     } else {
       return undefined
     }
+  }
+
+  get viewkick(): string {
+    return this._viewkick
+  }
+
+  set viewkick(value: string) {
+    this._viewkick = value
+    axios.get(`https://raw.githubusercontent.com/Mauler125/scripts_r5/S3_N1094/weapons/mp_weapon_${value}.txt`)
+    .then(response =>  {
+      if (response.status === 200) {
+        const weapon = new R5RWeapon()
+        weapon.load(response.data)
+        const viewkick_values: string[] = []
+        for (const k in weapon.dict) {
+          if (k.match('^viewkick')) {
+            viewkick_values.push(k)
+          }
+        }
+        for (const k of viewkick_values) {
+          this.dict[k] = weapon.dict[k]
+        }
+      }
+    })
   }
 
   get crosshair(): string {

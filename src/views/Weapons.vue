@@ -201,11 +201,11 @@
                   ></property-select>
                 </v-col>
               </v-row>
-              <!--property-select
+              <property-select
                 :label="$t('weapon_property.viewkick_preset')"
                 :items="viewkickPreset"
-                weaponKey="viewkick_preset"
-              ></property-select-->
+                weaponKey="^viewkick"
+              ></property-select>
             </v-tab-item>
           </v-tabs-items>
         </v-card>
