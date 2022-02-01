@@ -50,7 +50,7 @@ export default new Vuex.Store({
       { text: 'weapons.flatline', value: 'rui/weapon_icons/r5/weapon_flatline' },
       { text: 'weapons.g7', value: 'rui/weapon_icons/r5/weapon_g7' },
       { text: 'weapons.havoc', value: 'rui/weapon_icons/r5/weapon_energy_ar' },
-      { text: 'weapons.hemlok', value: 'rui/weapon_icons/r5/weapon_hemlok' },
+      { text: 'weapons.hemlok', value: 'rui/weapon_icons/r5/weapon_hemlock' },
       { text: 'weapons.sniper', value: 'rui/weapon_icons/r5/weapon_sniper' },
       { text: 'weapons.longbow', value: 'rui/weapon_icons/r5/weapon_longbow' },
       { text: 'weapons.lstar', value: 'rui/weapon_icons/r5/weapon_lstar' },
