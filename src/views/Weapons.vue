@@ -192,13 +192,11 @@
             <v-tab-item value="tab-other" class="pa-4">
               <v-row>
                 <v-col cols="12" xl="10">
-                  <property-select
+                  <property-multiselect
                     :items="weaponBase"
                     :weaponKey="`^base`"
                     :label="$t('weapon_property.weapon_base')"
-                    class="mx-2"
-                    multiple
-                  ></property-select>
+                  ></property-multiselect>
                 </v-col>
               </v-row>
               <property-select
@@ -336,6 +334,7 @@
 import Vue from 'vue';
 import PropertyCheckbox from '../components/PropertyCheckbox.vue';
 import PropertyInput from '../components/PropertyInput.vue';
+import PropertyMultiselect from '../components/PropertyMultiselect.vue';
 import PropertySelect from '../components/PropertySelect.vue';
 
 export default Vue.extend({
@@ -343,6 +342,7 @@ export default Vue.extend({
   components: {
     PropertyCheckbox,
     PropertyInput,
+    PropertyMultiselect,
     PropertySelect,
   },
   data: () => ({
