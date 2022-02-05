@@ -1,8 +1,7 @@
 <template>
 <v-row>
   <v-col
-    cols="12"
-    xl="10"
+    cols="10"
   >
     <v-select
       v-model="weaponProperty"
@@ -26,11 +25,13 @@
       </template>
     </v-select>
   </v-col>
+  <remove-property :weaponKey="weaponKey" v-if="showRemove"></remove-property>
 </v-row>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import RemoveProperty from './RemoveProperty.vue';
 
 interface Item {
   [key: string]: string
@@ -38,9 +39,14 @@ interface Item {
   value: string;
 }
 
-@Component
+@Component({
+  components: {
+    RemoveProperty
+  }
+})
 export default class PropertyMultiselect extends Vue {
   @Prop() private weaponKey!: string;
+  @Prop({default: true}) private showRemove!: boolean;
   @Prop() private items!: Array<Item>;
 
   private previousSelection: string[] = []
@@ -50,7 +56,7 @@ export default class PropertyMultiselect extends Vue {
     return this.$store.state.weaponData.get(this.weaponKey)
   }
   private set weaponProperty(value: string[]) {
-    this.$store.state.weaponData.set(this.weaponKey, value)
+    this.$store.dispatch('updateWeaponProperty', [this.weaponKey, value])
   }
 
   created() {

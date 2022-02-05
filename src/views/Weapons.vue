@@ -21,6 +21,7 @@
                     prefix="mp_weapon_"
                     suffix=".txt"
                     :hint="$t('weapon_property.id_hint')"
+                    :showRemove="false"
                   ></property-input>
                   <property-input
                     :label="$t('weapon_property.printname')"
