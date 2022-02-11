@@ -497,9 +497,8 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-    weaponPropertyUpdate(state, value: string[]) {
-      state.weaponData.dict[value[0]] = value[1]
-      console.log(`${value[0]}: ${value[1]}`)
+    updateWeaponProperty(state, value: string[]) {
+      state.weaponData.set(value[0], value[1])
     },
     updateWeaponText(state, text: string) {
       state.weaponText = text
@@ -507,11 +506,14 @@ export default new Vuex.Store({
   },
   actions: {
     generationText(context) {
-      //context.state.weaponData.loadForm(context.state.weapon)
       context.commit('updateWeaponText', context.state.weaponData.export())
     },
     importText(context, kvfile: string) {
       context.state.weaponData.load(kvfile)
+    },
+    updateWeaponProperty(context, value: string[]) {
+      context.commit('updateWeaponProperty', value)
+      console.log(`${value[0]}: ${value[1]}`)
     }
   },
   modules: {
