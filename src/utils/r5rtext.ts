@@ -197,6 +197,36 @@ export class R5RWeapon {
     }
   }
 
+  delete(key: string): boolean {
+    let returnValue = false
+    if (key === '^base') {
+      this.base = []
+      returnValue = true
+    }
+    if (key === '^id') {
+      this.id = ''
+      returnValue = true
+    }
+    if (key === '^damage_value') {
+      this.damage_value = ''
+      returnValue = true
+    }
+    if (key.substring(0, 5) === '^mag_') {  // TODO: 拡張マガジンのバグが治り次第実装する
+      //return this.getExtendedMag(key.substring(5, 7))
+      returnValue = true
+    }
+    if (key === '^viewkick') {
+      this.viewkick = ''
+      returnValue = true
+    }
+    if (key === '^crosshair') {
+      this.crosshair = ''
+      returnValue = true
+    }
+
+    return returnValue
+  }
+
   get(key: string): string | ModsData | CrosshairData | string[] | undefined {
     if (key === '^base') {
       console.log(`[${this.base}](${this.base.length})`)

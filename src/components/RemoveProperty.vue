@@ -27,7 +27,10 @@ export default class RemoveProperty extends Vue {
   @Prop() private weaponKey!: string;
 
   onRemoveProperty(): void {
-    this.$delete(this.$store.state.weaponData.dict, this.weaponKey)
+    const isExceptionValue = this.$store.state.weaponData.delete(this.weaponKey)
+    if (!isExceptionValue) {
+      this.$delete(this.$store.state.weaponData.dict, this.weaponKey)
+    }
   }
 }
 </script>
