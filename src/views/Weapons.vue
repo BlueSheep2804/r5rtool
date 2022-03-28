@@ -132,7 +132,7 @@
                 weaponKey="ammo_clip_size"
                 min="1"
               ></property-input>
-              <v-row>
+              <!--v-row>
                 <v-col cols="12" xl="10">
                   <v-card
                     :disabled="!hasExtendedMag"
@@ -160,7 +160,7 @@
                     ></property-input>
                   </v-card>
                 </v-col>
-              </v-row>
+              </v-row-->
               <property-input
                 :label="$t('weapon_property.ammo_per_shot')"
                 type="number"

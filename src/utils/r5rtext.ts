@@ -12,23 +12,9 @@ interface R5RWeaponDict {
 }
 
 interface ModsData {
-  [key: string]: Record<string, never> | Record<string, unknown> | ModsExtendedMag | undefined
+  [key: string]: Record<string, never> | Record<string, unknown> | undefined
   gold: Record<string, never>;
   survival_finite_ammo?: Record<string, unknown>;
-  bullets_mag_l1?: ModsExtendedMag;
-  bullets_mag_l2?: ModsExtendedMag;
-  bullets_mag_l3?: ModsExtendedMag;
-  highcal_mag_l1?: ModsExtendedMag;
-  highcal_mag_l2?: ModsExtendedMag;
-  highcal_mag_l3?: ModsExtendedMag;
-  energy_mag_l1?: ModsExtendedMag;
-  energy_mag_l2?: ModsExtendedMag;
-  energy_mag_l3?: ModsExtendedMag;
-}
-
-interface ModsExtendedMag {
-  [key: string]: string
-  ammo_clip_size: string;
 }
 
 interface CrosshairData {
@@ -166,15 +152,6 @@ export class R5RWeapon {
           ammo_stockpile_max: '180',
           ammo_no_remove_from_stockpile: '0',
           uses_ammo_pool: '1'
-        },
-        bullets_mag_l1: {
-          ammo_clip_size: '20'
-        },
-        bullets_mag_l2: {
-          ammo_clip_size: '22'
-        },
-        bullets_mag_l3: {
-          ammo_clip_size: '24'
         }
       },
 
@@ -211,10 +188,6 @@ export class R5RWeapon {
       this.damage_value = ''
       returnValue = true
     }
-    if (key.substring(0, 5) === '^mag_') {  // TODO: 拡張マガジンのバグが治り次第実装する
-      //return this.getExtendedMag(key.substring(5, 7))
-      returnValue = true
-    }
     if (key === '^viewkick') {
       this.viewkick = ''
       returnValue = true
@@ -237,9 +210,6 @@ export class R5RWeapon {
     }
     if (key === '^damage_value') {
       return this.damage_value
-    }
-    if (key.substring(0, 5) === '^mag_') {
-      return this.getExtendedMag(key.substring(5, 7))
     }
     if (key === '^viewkick') {
       return this.viewkick
@@ -269,10 +239,6 @@ export class R5RWeapon {
     }
     if (key === '^damage_value') {
       this.damage_value = value
-    }
-    if (key.substring(0, 5) === '^mag_') {
-      this.setExtendedMag(key.substring(5, 7), value)
-      return
     }
     if (key === '^viewkick') {
       this.viewkick = value
@@ -307,30 +273,6 @@ export class R5RWeapon {
     this.dict.damage_very_far_value = value
   }
 
-  getExtendedMag(level: string): string | undefined {
-    if (this.dict.ammo_pool_type === 'shotgun') {
-      return undefined
-    }
-
-    const ammoType = this.ammoPool2ExtendedAmmo(this.dict.ammo_pool_type)
-    if (`${ammoType}_mag_${level}` in this.dict.Mods) {
-      const extendedMag = this.dict.Mods[`${ammoType}_mag_${level}`] as ModsExtendedMag
-      return extendedMag.ammo_clip_size
-    } else {
-      return undefined
-    }
-  }
-
-  setExtendedMag(level: string, value: string): void {
-    const ammoType = this.ammoPool2ExtendedAmmo(this.dict.ammo_pool_type)
-    if (`${ammoType}_mag_${level}` in this.dict.Mods) {
-      const extendedMag = this.dict.Mods[`${ammoType}_mag_${level}`] as ModsExtendedMag
-      extendedMag.ammo_clip_size = value
-    } else {
-      return undefined
-    }
-  }
-
   get viewkick(): string {
     return this._viewkick
   }
@@ -361,19 +303,6 @@ export class R5RWeapon {
 
   set crosshair(value: string) {
     this.dict.RUI_CrosshairData.Crosshair_1.ui = value
-  }
-
-  private ammoPool2ExtendedAmmo(ammo: string): string {
-    switch (ammo) {
-      case 'special':
-        return 'energy'
-      case 'bullet':
-        return 'bullets'
-      case 'highcal':
-        return 'highcal'
-      default:
-        throw TypeError
-    }
   }
 
   export(): string {
