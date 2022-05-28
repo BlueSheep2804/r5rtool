@@ -21,6 +21,7 @@
                     prefix="mp_weapon_"
                     suffix=".txt"
                     :hint="$t('weapon_property.id_hint')"
+                    :showRemove="false"
                   ></property-input>
                   <property-input
                     :label="$t('weapon_property.printname')"
@@ -131,35 +132,6 @@
                 weaponKey="ammo_clip_size"
                 min="1"
               ></property-input>
-              <v-row>
-                <v-col cols="12" xl="10">
-                  <v-card
-                    :disabled="!hasExtendedMag"
-                    elevation="2"
-                    class="mb-4"
-                  >
-                    <v-card-title>{{ $t('weapon_property.extended_mag') }}</v-card-title>
-                    <property-input
-                      :label="$t('weapon_property.mag_l1')"
-                      weaponKey="^mag_l1"
-                      min="1"
-                      class="mx-2"
-                    ></property-input>
-                    <property-input
-                      :label="$t('weapon_property.mag_l2')"
-                      weaponKey="^mag_l2"
-                      min="1"
-                      class="mx-2"
-                    ></property-input>
-                    <property-input
-                      :label="$t('weapon_property.mag_l3')"
-                      weaponKey="^mag_l3"
-                      min="1"
-                      class="mx-2"
-                    ></property-input>
-                  </v-card>
-                </v-col>
-              </v-row>
               <property-input
                 :label="$t('weapon_property.ammo_per_shot')"
                 type="number"
@@ -190,16 +162,20 @@
               ></property-input>
             </v-tab-item>
             <v-tab-item value="tab-other" class="pa-4">
-              <!--property-select
-                :label="$t('weapon_property.weapon_type')"
-                :items="weaponType"
-                weaponKey="weapon_type"
-              ></property-select-->
-              <!--property-select
+              <v-row>
+                <v-col cols="12" xl="10">
+                  <property-multiselect
+                    :items="weaponBase"
+                    :weaponKey="`^base`"
+                    :label="$t('weapon_property.weapon_base')"
+                  ></property-multiselect>
+                </v-col>
+              </v-row>
+              <property-select
                 :label="$t('weapon_property.viewkick_preset')"
                 :items="viewkickPreset"
-                weaponKey="viewkick_preset"
-              ></property-select-->
+                weaponKey="^viewkick"
+              ></property-select>
             </v-tab-item>
           </v-tabs-items>
         </v-card>
@@ -330,6 +306,7 @@
 import Vue from 'vue';
 import PropertyCheckbox from '../components/PropertyCheckbox.vue';
 import PropertyInput from '../components/PropertyInput.vue';
+import PropertyMultiselect from '../components/PropertyMultiselect.vue';
 import PropertySelect from '../components/PropertySelect.vue';
 
 export default Vue.extend({
@@ -337,15 +314,16 @@ export default Vue.extend({
   components: {
     PropertyCheckbox,
     PropertyInput,
+    PropertyMultiselect,
     PropertySelect,
   },
   data: () => ({
     model: '',
-    previewDialog: false,
+    previewDialog: false
   }),
   computed: {
-    weaponType: function () {
-      return this.$store.state.weaponType;
+    weaponBase: function () {
+      return this.$store.state.weaponBase;
     },
     calledWeaponIcon: function () {
       return this.$store.state.calledWeaponIcon;
@@ -389,6 +367,14 @@ export default Vue.extend({
     },
   },
   methods: {
+    increaseBasefile() {
+      this.$store.state.weaponData.base.push('')
+      console.log(`[${this.$store.state.weaponData.base}](${this.$store.state.weaponData.base.length})`)
+    },
+    decreaseBasefile() {
+      this.$store.state.weaponData.base.splice(-1, 1)
+      console.log(`[${this.$store.state.weaponData.base}](${this.$store.state.weaponData.base.length})`)
+    },
     openPreviewDialog() {
       this.$store.dispatch('generationText');
       this.previewDialog = true;

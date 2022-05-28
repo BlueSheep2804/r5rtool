@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 interface R5RWeaponDict {
   [key: string]: string | ModsData | CrosshairData;
   printname: string;
@@ -10,23 +12,9 @@ interface R5RWeaponDict {
 }
 
 interface ModsData {
-  [key: string]: Record<string, never> | Record<string, unknown> | ModsExtendedMag | undefined
+  [key: string]: Record<string, never> | Record<string, unknown> | undefined
   gold: Record<string, never>;
   survival_finite_ammo?: Record<string, unknown>;
-  bullets_mag_l1?: ModsExtendedMag;
-  bullets_mag_l2?: ModsExtendedMag;
-  bullets_mag_l3?: ModsExtendedMag;
-  highcal_mag_l1?: ModsExtendedMag;
-  highcal_mag_l2?: ModsExtendedMag;
-  highcal_mag_l3?: ModsExtendedMag;
-  energy_mag_l1?: ModsExtendedMag;
-  energy_mag_l2?: ModsExtendedMag;
-  energy_mag_l3?: ModsExtendedMag;
-}
-
-interface ModsExtendedMag {
-  [key: string]: string
-  ammo_clip_size: string;
 }
 
 interface CrosshairData {
@@ -37,9 +25,10 @@ interface CrosshairData {
 
 export class R5RWeapon {
   dict: R5RWeaponDict
-  base = ''
+  base: string[] = []
   _id = ''
   _damage_value = ''
+  _viewkick = ''
 
   constructor() {
     this.dict = {
@@ -60,6 +49,18 @@ export class R5RWeapon {
   }
 
   load(kvfile: string): void {
+    this.base = []
+    const baseFiles = kvfile.matchAll(/#base "(?<file>[\w]+\.txt)"/gu)
+    if (baseFiles != null) {
+      for (const baseFile of baseFiles) {
+        if (typeof baseFile.groups === 'undefined') {
+          continue
+        }
+        this.base.push(baseFile.groups.file)
+        console.log(baseFile.groups.file)
+      }
+    }
+
     const kvjson = kvfile
       .replace(/\r\n/g, '\n')
       .replace(/[\s]*\/\/[\S\t ]*\n/g, '\n')
@@ -151,15 +152,6 @@ export class R5RWeapon {
           ammo_stockpile_max: '180',
           ammo_no_remove_from_stockpile: '0',
           uses_ammo_pool: '1'
-        },
-        bullets_mag_l1: {
-          ammo_clip_size: '20'
-        },
-        bullets_mag_l2: {
-          ammo_clip_size: '22'
-        },
-        bullets_mag_l3: {
-          ammo_clip_size: '24'
         }
       },
 
@@ -182,15 +174,45 @@ export class R5RWeapon {
     }
   }
 
-  get(key: string): string | ModsData | CrosshairData | undefined {
+  delete(key: string): boolean {
+    let returnValue = false
+    if (key === '^base') {
+      this.base = []
+      returnValue = true
+    }
+    if (key === '^id') {
+      this.id = ''
+      returnValue = true
+    }
+    if (key === '^damage_value') {
+      this.damage_value = ''
+      returnValue = true
+    }
+    if (key === '^viewkick') {
+      this.viewkick = ''
+      returnValue = true
+    }
+    if (key === '^crosshair') {
+      this.crosshair = ''
+      returnValue = true
+    }
+
+    return returnValue
+  }
+
+  get(key: string): string | ModsData | CrosshairData | string[] | undefined {
+    if (key === '^base') {
+      console.log(`[${this.base}](${this.base.length})`)
+      return this.base
+    }
     if (key === '^id') {
       return this.id
     }
     if (key === '^damage_value') {
       return this.damage_value
     }
-    if (key.substring(0, 5) === '^mag_') {
-      return this.getExtendedMag(key.substring(5, 7))
+    if (key === '^viewkick') {
+      return this.viewkick
     }
     if (key === '^crosshair') {
       return this.crosshair
@@ -203,7 +225,14 @@ export class R5RWeapon {
     }
   }
 
-  set(key: string, value: string): void {
+  set(key: string, value: string | string[]): void {
+    if (Array.isArray(value)) {
+      if (key === '^base') {
+        this.base = value
+        console.log(`[${this.base}](${this.base.length})`)
+      }
+      return
+    }
     if (key === '^id') {
       this.id = value
       return
@@ -211,8 +240,8 @@ export class R5RWeapon {
     if (key === '^damage_value') {
       this.damage_value = value
     }
-    if (key.substring(0, 5) === '^mag_') {
-      this.setExtendedMag(key.substring(5, 7), value)
+    if (key === '^viewkick') {
+      this.viewkick = value
       return
     }
     if (key === '^crosshair') {
@@ -244,28 +273,28 @@ export class R5RWeapon {
     this.dict.damage_very_far_value = value
   }
 
-  getExtendedMag(level: string): string | undefined {
-    if (this.dict.ammo_pool_type === 'shotgun') {
-      return undefined
-    }
-
-    const ammoType = this.ammoPool2ExtendedAmmo(this.dict.ammo_pool_type)
-    if (`${ammoType}_mag_${level}` in this.dict.Mods) {
-      const extendedMag = this.dict.Mods[`${ammoType}_mag_${level}`] as ModsExtendedMag
-      return extendedMag.ammo_clip_size
-    } else {
-      return undefined
-    }
+  get viewkick(): string {
+    return this._viewkick
   }
 
-  setExtendedMag(level: string, value: string): void {
-    const ammoType = this.ammoPool2ExtendedAmmo(this.dict.ammo_pool_type)
-    if (`${ammoType}_mag_${level}` in this.dict.Mods) {
-      const extendedMag = this.dict.Mods[`${ammoType}_mag_${level}`] as ModsExtendedMag
-      extendedMag.ammo_clip_size = value
-    } else {
-      return undefined
-    }
+  set viewkick(value: string) {
+    this._viewkick = value
+    axios.get(`https://raw.githubusercontent.com/Mauler125/scripts_r5/S3_N1094/weapons/mp_weapon_${value}.txt`)
+    .then(response =>  {
+      if (response.status === 200) {
+        const weapon = new R5RWeapon()
+        weapon.load(response.data)
+        const viewkick_values: string[] = []
+        for (const k in weapon.dict) {
+          if (k.match('^viewkick')) {
+            viewkick_values.push(k)
+          }
+        }
+        for (const k of viewkick_values) {
+          this.dict[k] = weapon.dict[k]
+        }
+      }
+    })
   }
 
   get crosshair(): string {
@@ -276,26 +305,27 @@ export class R5RWeapon {
     this.dict.RUI_CrosshairData.Crosshair_1.ui = value
   }
 
-  private ammoPool2ExtendedAmmo(ammo: string): string {
-    switch (ammo) {
-      case 'special':
-        return 'energy'
-      case 'bullet':
-        return 'bullets'
-      case 'highcal':
-        return 'highcal'
-      default:
-        throw TypeError
+  export(): string {
+    let baseTxt = ''
+
+    for (const base of this.base) {
+      if (base !== '') {
+        baseTxt += `#base "${base}"\n`
+      }
     }
+
+    baseTxt += '\n// Generation by R5RTool\n\n'
+
+    return `${baseTxt}WeaponData\n{\n${this.exportKV(1)}}`
   }
 
-  export(depth = 0, dict: any = this.dict): string {
+  exportKV(depth = 0, dict: any = this.dict): string {
     let r5rtxt = ''
     for(const k of Object.keys(dict)) {
       if (typeof dict[k] !== 'string') {
         r5rtxt += (
           '\t'.repeat(depth) + '"' + k + '"\n' + '\t'.repeat(depth) + '{\n'
-          + this.export(depth + 1, dict[k])
+          + this.exportKV(depth + 1, dict[k])
           + '\t'.repeat(depth) + '}\n'
         )
       } else {
