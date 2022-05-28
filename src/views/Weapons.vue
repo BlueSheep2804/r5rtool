@@ -132,35 +132,6 @@
                 weaponKey="ammo_clip_size"
                 min="1"
               ></property-input>
-              <!--v-row>
-                <v-col cols="12" xl="10">
-                  <v-card
-                    :disabled="!hasExtendedMag"
-                    elevation="2"
-                    class="mb-4"
-                  >
-                    <v-card-title>{{ $t('weapon_property.extended_mag') }}</v-card-title>
-                    <property-input
-                      :label="$t('weapon_property.mag_l1')"
-                      weaponKey="^mag_l1"
-                      min="1"
-                      class="mx-2"
-                    ></property-input>
-                    <property-input
-                      :label="$t('weapon_property.mag_l2')"
-                      weaponKey="^mag_l2"
-                      min="1"
-                      class="mx-2"
-                    ></property-input>
-                    <property-input
-                      :label="$t('weapon_property.mag_l3')"
-                      weaponKey="^mag_l3"
-                      min="1"
-                      class="mx-2"
-                    ></property-input>
-                  </v-card>
-                </v-col>
-              </v-row-->
               <property-input
                 :label="$t('weapon_property.ammo_per_shot')"
                 type="number"
