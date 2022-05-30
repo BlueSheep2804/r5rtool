@@ -272,6 +272,42 @@
         <span>{{ $t('pages.weapons.preview') }}</span>
       </v-tooltip>
     </v-speed-dial>
+    <v-snackbar
+      v-model="import_success"
+    >
+      {{ $t('pages.weapons.snackbar.msg.success') }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="import_success = false"
+        >
+          {{ $t('pages.weapons.snackbar.close') }}
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <v-snackbar
+      v-model="import_error"
+      timeout="-1"
+    >
+      {{ $t('pages.weapons.snackbar.msg.error') }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="import_error = false"
+        >
+          {{ $t('pages.weapons.snackbar.more') }}
+        </v-btn>
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="import_error = false"
+        >
+          {{ $t('pages.weapons.snackbar.close') }}
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-dialog v-model="previewDialog" scrollable>
       <v-card>
         <v-card-title>{{ $t('pages.weapons.preview') }}</v-card-title>
@@ -319,7 +355,9 @@ export default Vue.extend({
   },
   data: () => ({
     model: '',
-    previewDialog: false
+    previewDialog: false,
+    import_error: false,
+    import_success: false
   }),
   computed: {
     weaponBase: function () {
@@ -401,7 +439,14 @@ export default Vue.extend({
       const reader = new FileReader()
       reader.readAsText(files[0])
       reader.onload = () => {
-        this.$store.dispatch('importText', reader.result);
+        try {
+          this.$store.dispatch('importText', reader.result);
+          this.import_success = true
+        } catch (error) {
+          if (error instanceof SyntaxError) {
+            this.import_error = true
+          }
+        }
       }
     },
   },

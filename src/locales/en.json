@@ -25,6 +25,14 @@
         "damage": "Damage",
         "ammo": "Ammo",
         "other": "Other"
+      },
+      "snackbar": {
+        "close": "Close",
+        "more": "More info",
+        "msg": {
+          "error": "An error occurred during import.",
+          "success": "Successfully imported."
+        }
       }
     }
   },
