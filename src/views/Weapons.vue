@@ -295,7 +295,7 @@
         <v-btn
           text
           v-bind="attrs"
-          @click="import_error = false"
+          @click="errorDialog = true ; import_error = false"
         >
           {{ $t('pages.weapons.snackbar.more') }}
         </v-btn>
@@ -335,6 +335,33 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="errorDialog" scrollable max-width="80vw">
+      <v-card>
+        <v-card-title>{{ $t('pages.weapons.error') }}</v-card-title>
+        <v-card-text style="height: 70vh;">
+          {{ $t('pages.weapons.error_desc') }}
+          <v-textarea
+            solo
+            readonly
+            auto-grow
+            :value="error"
+            class="mx-4 mt-2"
+          ></v-textarea>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text v-on:click="copyError">
+            <v-icon dark left> mdi-content-copy </v-icon>
+            {{ $t('pages.weapons.copy') }}
+          </v-btn>
+          <v-btn color="primary" text v-on:click="downloadError">
+            <v-icon dark left> mdi-download </v-icon>
+            {{ $t('pages.weapons.download') }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -356,8 +383,10 @@ export default Vue.extend({
   data: () => ({
     model: '',
     previewDialog: false,
+    errorDialog: false,
     import_error: false,
-    import_success: false
+    import_success: false,
+    error: ''
   }),
   computed: {
     weaponBase: function () {
@@ -444,11 +473,28 @@ export default Vue.extend({
           this.import_success = true
         } catch (error) {
           if (error instanceof SyntaxError) {
+            this.error = `${error.message}\n\n===== kvfile =====\n\n${reader.result}\n`
             this.import_error = true
           }
         }
       }
     },
+    copyError() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(this.error)
+        this.import_error = false
+      }
+    },
+    downloadError() {
+      const blob = new Blob([this.error], {
+        type: 'text/plain',
+      });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `R5RTool_Error.txt`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
   },
   mounted() {
     this.$nextTick(function () {

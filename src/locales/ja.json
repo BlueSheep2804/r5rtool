@@ -19,6 +19,8 @@
       "preview": "プレビュー",
       "import": "インポート(開発中)",
       "menu": "メニュー",
+      "error": "エラー情報",
+      "error_desc": "GithubのIssueにエラー内容をお送りください",
       "tab": {
         "appearance": "見た目",
         "fire": "射撃",
