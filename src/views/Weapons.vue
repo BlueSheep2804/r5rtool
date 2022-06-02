@@ -273,21 +273,21 @@
       </v-tooltip>
     </v-speed-dial>
     <v-snackbar
-      v-model="import_success"
+      v-model="snackbarImportSuccess"
     >
       {{ $t('pages.weapons.snackbar.msg.success') }}
       <template v-slot:action="{ attrs }">
         <v-btn
           text
           v-bind="attrs"
-          @click="import_success = false"
+          @click="snackbarImportSuccess = false"
         >
           {{ $t('pages.weapons.snackbar.close') }}
         </v-btn>
       </template>
     </v-snackbar>
     <v-snackbar
-      v-model="import_error"
+      v-model="snackbarImportError"
       timeout="-1"
     >
       {{ $t('pages.weapons.snackbar.msg.error') }}
@@ -295,14 +295,14 @@
         <v-btn
           text
           v-bind="attrs"
-          @click="errorDialog = true ; import_error = false"
+          @click="errorDialog = true ; snackbarImportError = false"
         >
           {{ $t('pages.weapons.snackbar.more') }}
         </v-btn>
         <v-btn
           text
           v-bind="attrs"
-          @click="import_error = false"
+          @click="snackbarImportError = false"
         >
           {{ $t('pages.weapons.snackbar.close') }}
         </v-btn>
@@ -382,10 +382,11 @@ export default Vue.extend({
   },
   data: () => ({
     model: '',
+    fab: false,
     previewDialog: false,
     errorDialog: false,
-    import_error: false,
-    import_success: false,
+    snackbarImportError: false,
+    snackbarImportSuccess: false,
     error: ''
   }),
   computed: {
@@ -470,11 +471,11 @@ export default Vue.extend({
       reader.onload = () => {
         try {
           this.$store.dispatch('importText', reader.result);
-          this.import_success = true
+          this.snackbarImportSuccess = true
         } catch (error) {
           if (error instanceof SyntaxError) {
             this.error = `${error.message}\n\n===== kvfile =====\n\n${reader.result}\n`
-            this.import_error = true
+            this.snackbarImportError = true
           }
         }
       }
@@ -482,7 +483,7 @@ export default Vue.extend({
     copyError() {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(this.error)
-        this.import_error = false
+        this.snackbarImportError = false
       }
     },
     downloadError() {
