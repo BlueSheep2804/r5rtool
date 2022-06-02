@@ -19,12 +19,22 @@
       "preview": "Preview",
       "import": "Import(WIP)",
       "menu": "Menu",
+      "error": "Error Details",
+      "error_desc": "Please send the error to Issue on Github",
       "tab": {
         "appearance": "Appearance",
         "fire": "Fire",
         "damage": "Damage",
         "ammo": "Ammo",
         "other": "Other"
+      },
+      "snackbar": {
+        "close": "Close",
+        "more": "More info",
+        "msg": {
+          "error": "An error occurred during import.",
+          "success": "Successfully imported."
+        }
       }
     }
   },
