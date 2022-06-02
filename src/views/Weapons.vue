@@ -308,16 +308,15 @@
         </v-btn>
       </template>
     </v-snackbar>
-    <v-dialog v-model="previewDialog" scrollable>
+    <v-dialog v-model="previewDialog" scrollable max-width="80vw">
       <v-card>
         <v-card-title>{{ $t('pages.weapons.preview') }}</v-card-title>
-        <v-card-text>
+        <v-card-text style="height: 70vh;">
           <v-textarea
             solo
             readonly
             auto-grow
             :value="weaponText"
-            rows="20"
             class="mx-4 mt-2"
           ></v-textarea>
         </v-card-text>
